@@ -1,0 +1,93 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Whisper&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.peekMenu {
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+}
+
+.peekMenu .sneakPeekTitle h1 {
+    font-family: 'Quicksand', cursive;
+    font-weight: 400;
+    color: rgb(20, 36, 138);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.peekMenu .sneakPeekMenu {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    justify-content: space-between;
+}
+
+.peekMenu .sneakPeekMenu div>img {
+    height: 220px;
+    width: 220px;
+    border-radius: 50%;
+}
+
+.peekMenu .sneakPeekMenu>.peekMenuDish {
+    height: fit-content;
+    padding: 10px;
+    height: 100%;
+    /* display: flex;
+    flex-direction: column; */
+    text-align: center;
+    gap: 15px;
+    border-radius: 30px;
+    background-color: rgb(20, 36, 138);
+    box-shadow: 10px 10px 10px gray;
+}
+
+.peekMenu .peekMenuDish h3 {
+    color: rgb(237, 206, 206);
+}
+
+.peekMenu .peekMenuDish p {
+    color: lightgray;
+}
+
+.peekMenuDish span {
+    border: 2px solid rgb(38, 64, 255);
+    background: transparent;
+    height: 50px;
+    padding: 10px;
+    border-radius: 25px;
+    margin-right: 40px;
+    color: white;
+}
+
+.peekMenuDish .peekButton {
+    height: 50px;
+    padding: 10px;
+    border-radius: 60px;
+    border: 2px solid rgb(38, 64, 255);
+    background: rgb(38, 64, 190);
+    transition: 0.9s;
+    cursor: pointer;
+    color: white;
+}
+
+@media (max-width: 412px) {
+    .peekMenu{
+        width: 100%;
+        height: auto;
+    }
+
+    .peekMenu .sneakPeekMenu {
+        overflow-x: scroll;
+    }
+}

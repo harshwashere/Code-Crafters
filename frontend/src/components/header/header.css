@@ -1,0 +1,82 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Quicksand", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  padding: 10px 20px;
+}
+
+.div1header {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 25px;
+}
+
+.div1header .hungrydiv {
+  color: rgb(20, 36, 138);
+  padding: 20px 20px;
+  width: fit-content;
+  border-radius: 50px;
+  border: 1.9px solid rgb(20, 36, 138);
+}
+
+.div1header .tagline {
+  color: rgb(20, 36, 138);
+}
+
+.div1header p {
+  color: rgb(20, 36, 138);
+}
+
+.div1header .orderNowBtn {
+  color: white;
+  margin-right: 10px;
+  background-color: rgb(20, 36, 138);
+  padding: 10px 20px;
+}
+
+.div1header button {
+  color: rgb(20, 36, 138);
+  font-weight: 400;
+  padding: 10px 20px;
+  border-radius: 50px;
+  border: 1.9px solid rgb(20, 36, 138);
+  background: transparent;
+  cursor: pointer;
+}
+
+.headerImg {
+  height: 100%;
+  width: 390px;
+  background: rgb(20, 36, 138);
+  border: 10px solid rgb(20, 36, 138);
+  border-radius: 50%;
+}
+
+.headerImg img {
+  border-radius: 50%;
+  height: 40%;
+  width: 100%;
+  position: relative;
+  top: 2.5px;
+}
+
+@media (max-width: 412px) {
+  .div1header .orderNowGroup>button {
+    margin-bottom: 10px;
+  }
+}

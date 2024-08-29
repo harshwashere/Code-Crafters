@@ -1,0 +1,48 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.chefSection {
+    text-align: center;
+}
+
+.chefSection .chefTitle {
+    padding: 80px;
+}
+
+.chefSection .chefImg {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 800px;
+    width: 100%;
+    gap: 20px;
+}
+
+.chefSection .chefImg>img {
+    height: 80%;
+    border-radius: 20px;
+}
+
+.chefImg .img1, .chefImg .img3 {
+    margin-top: -200px;
+}
+
+@media (max-width: 412px) {
+    .chefSection .chefImg {
+        width: 100%;
+        height: 800px;
+        overflow-x: scroll;
+    }
+
+    .chefSection .chefImg>img {
+        height: 80%;
+        border-radius: 20px;
+    }
+    
+    .chefImg .img1, .chefImg .img3 {
+        margin-top: -200px;
+    }
+}

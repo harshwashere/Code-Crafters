@@ -1,0 +1,75 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.homeAbout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+}
+
+.homeAbout .homeAboutHead {
+  text-align: center;
+  padding: 20px;
+}
+
+.homeAbout .homeAboutHead > h1 {
+  font-size: 70px;
+  margin-bottom: 20px;
+}
+
+.homeAbout .homeAboutContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  align-content: flex-start;
+  gap: 40px;
+  flex-wrap: nowrap;
+}
+
+.homeAbout .homeAboutContent > .homeAboutContent1 {
+  text-align: center;
+  height: auto;
+  width: 100%;
+  padding: 19.8px;
+  border-radius: 30px;
+  box-shadow: 5px 5px 5px gray;
+  background: rgb(154, 72, 208);
+}
+
+.homeAboutContent1 > i,
+.homeAboutContent1 > h1,
+.homeAboutContent1 > p {
+  margin-bottom: 10px;
+}
+
+.homeAboutContent1 i {
+  font-size: 100px;
+}
+
+@media (max-width: 412px) {
+  .homeAbout {
+    width: 100%;
+  }
+  .homeAbout .homeAboutHead > h1 {
+    font-size: 50px;
+    margin-bottom: 20px;
+  }
+
+  .homeAbout .homeAboutContent {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    overflow-x: scroll;
+  }
+
+  .homeAboutContent .homeAboutContent1 {
+    width: 100%;
+    height: 100px;
+  }
+}

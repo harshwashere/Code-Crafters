@@ -1,0 +1,26 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.mainFooter {
+    padding: 50px;
+    width: 100%;
+    display: flex;
+    align-items: first baseline;
+    justify-content: space-around;
+    border-top: 1.5px solid black;
+}
+
+.mainFooter h2 {
+    margin-bottom: 20px;
+}
+
+.mainFooter ul {
+    list-style: none;
+}
+
+.mainFooter ul>li {
+    margin-bottom: 20px;
+}
