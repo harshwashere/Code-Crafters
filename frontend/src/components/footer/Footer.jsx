@@ -12,7 +12,7 @@ export const Footer = () => {
                     <li>Sneakpeak to our menu</li>
                     <li>Why choose us?</li>
                     <li>Most order food</li>
-                    <li>Our Special Chef's</li>
+                    <li>Our Special Chef&apos;s</li>
                 </ul>
             </div>
             <div>

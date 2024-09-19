@@ -1,26 +1,23 @@
 import mongoose from "mongoose";
+import jwt from 'jsonwebtoken'
 
 const userModel = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
-  },
-  username: {
-    type: String,
-    required: true,
+    default: ''
   },
   email: {
     type: String,
-    required: true,
+    default: ''
   },
   phone: {
     type: Number,
-    required: true,
+    default: ''
   },
-  password: {
-    type: String,
-    required: true,
-  },
+  // password: {
+  //   type: String,
+  //   default: ''
+  // },
 });
 
 userModel.methods.generateToken = async function () {

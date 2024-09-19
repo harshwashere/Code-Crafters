@@ -47,7 +47,7 @@ export const Swipers = () => {
           className="mySwiper"
           scrollbar={{ draggable: true, hide: true }}
           onSlideChange={() => console.log("slide change")}
-          onSwiper={(swiper) => console.log(swiper)}
+          onSwiper={() => console.log('Changed')}
         >
           <div className="menuCard">
             {data.map((data, key) => {

@@ -1,4 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+CU:wght@100..400&family=Quicksand:wght@300..700&display=swap");
+
+:root {
+  --orange-border: #fd9400;
+  --orange-bg: #ffad3b;
+  --light-orange-bg: #ffd293;
+  --new-color: #ef7e6c;
+}
 
 * {
   margin: 0;
@@ -14,10 +21,48 @@
   padding: 20px 10px;
 }
 
-.nameTitle {
-  width: 170px;
+.mainBtn {
+  text-align: center;
+  display: flex;
+  gap: 10px;
+}
+
+.mainBtn button {
+  height: 50px;
+  padding: 0 30px;
+  border-radius: 50px;
+  border: 3px solid var(--new-color);
+  background-color: var(--new-color);
+  cursor: pointer;
+  font-family: "Playfair Display", serif;
+  font-size: 15px;
   font-weight: 500;
-  font-family: "Quicksand", sans-serif;
+  letter-spacing: 2px;
+  color: white;
+  transition-duration: 0.5s;
+}
+
+.mainBtn button:hover {
+  background-color: transparent;
+  color: var(--new-color);
+}
+
+.nameTitle {
+  width: 300px;
+}
+
+.nameTitle h1 {
+  width: 100%;
+  font-family: "Playwrite CU", cursive;
+  font-weight: 500;
+  color: var(--new-color);
+}
+
+.navBtnGroup {
+  gap: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .navigator ul {
@@ -31,14 +76,14 @@
 }
 
 .navigator ul > li {
-  font-family: "Quicksand", sans-serif;
+  font-family: "Playfair Display", serif;
   font-weight: 600;
   cursor: pointer;
 }
 
-.navigator .active {
+.navigator .actiev {
   padding-bottom: 2px;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid var(--new-color);
   cursor: pointer;
 }
 
@@ -55,7 +100,7 @@ a {
   position: absolute;
   min-width: 10px;
   min-height: 10px;
-  background-color: tomato;
+  background-color: var(--new-color);
   border-radius: 5px;
   top: -8px;
   right: -8px;
@@ -65,6 +110,8 @@ a {
   display: flex;
   align-items: center;
   gap: 17px;
+  margin-bottom: 10px;
+  margin-left: 10px;
 }
 
 .btnGroup p {
@@ -77,30 +124,36 @@ a {
   height: 50px;
   border-radius: 50px;
   cursor: pointer;
-  color: rgb(20, 36, 138);
+  color: black;
   background: transparent;
-  border: 2.5px solid rgb(20, 36, 138);
+  border: 2.5px solid var(--new-color);
 }
 
 .btnGroup button:hover {
-  background-color: rgb(20, 36, 138);
+  background-color: var(--new-color);
   color: white;
   transition: 0.9s;
 }
 
-.navbar .sidebar {
-  position: absolute;
+.navbar .sideBar {
+  /* position: absolute; */
   right: 1cm;
   display: none;
 }
 
-.navbar .sidebar > svg {
-  display: none;
+.navbar .sideBar > svg {
+  cursor: pointer;
   font-size: 35px;
   font-weight: bold;
 }
 
-@media (max-width: 1050px) {
+hr {
+  border: 1px solid var(--new-color);
+}
+@media (max-width: 1080px) {
+  .navbar .sideBar {
+    display: block;
+  }
   .navbar {
     width: 100%;
   }
@@ -109,19 +162,36 @@ a {
     display: none;
   }
 
-  .navbar .sidebar {
+  .navbar .sideBar {
     display: block;
-    position: absolute;
+    cursor: pointer;
+  }
+  @keyframes slide-animate {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
   }
 
-  .sidebar .otherNavigator {
-    display: none;
+  .otherNavigator {
+    display: flex;
+    width: 100%;
+    z-index: 1;
+    position: absolute;
+    gap: 10px;
+    padding: 20px 0;
     align-content: center;
     justify-content: center;
+    background-color: rgba(255, 255, 255, 0.525);
+    animation: slide-animate 0.5s ease-in-out;
   }
 
-  .sidebar .closeNavigator {
+  .otherNavigator .closeNavigator {
     text-align: center;
+    margin-bottom: 10px;
+    cursor: pointer;
     list-style: none;
   }
 
@@ -129,5 +199,48 @@ a {
     list-style: none;
     text-align: center;
     margin-bottom: 10px;
+  }
+
+  .otherNavigator li {
+    margin-bottom: 18px;
+  }
+  .mainBtn {
+    display: none;
+  }
+
+  .nameTitle h1 {
+    width: 100%;
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 714px) {
+  .mainBtn {
+    display: none;
+  }
+  .mainBtn1 {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+    padding: 0 20px 0 20px;
+  }
+  .mainBtn1 button {
+    height: 50px;
+    padding: 0 30px;
+    border-radius: 50px;
+    border: 3px solid var(--new-color);
+    background-color: var(--new-color);
+    cursor: pointer;
+    font-family: "Playfair Display", serif;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: white;
+    transition-duration: 0.5s;
+  }
+  .mainBtn1 button:hover {
+    background-color: transparent;
+    color: var(--new-color);
   }
 }

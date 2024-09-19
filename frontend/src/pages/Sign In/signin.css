@@ -1,20 +1,111 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+:root {
+  --new-color: #ef7e6c;
 }
 
 .mainSignInDiv {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 90px 0;
+  display: flex;
+  align-items: center;
+  height: 88.5vh;
+  width: 100%;
+  border: 1px solid black;
+  /* flex-wrap: wrap; */
 }
 
-@media (max-width: 412px) {
+.mainSignInDiv .loginImage {
+  /* width: max(10cm, 50%); */
+  width: 50%;
+  height: 100%;
+  border: 1px solid black;
+}
+
+.mainSignInDiv .loginImage img {
+  width: 100%;
+  height: 100%;
+}
+
+.mainSignInDiv .loginSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  /* width: max(10cm, 50%); */
+  width: 50%;
+  height: 100%;
+  border: 1px solid black;
+}
+
+.mainSignInDiv .loginSection h1 {
+  margin-left: 50px;
+}
+
+.mainSignInDiv .emailSection {
+  width: 100%;
+}
+
+.mainSignInDiv .emailSection form {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 20px;
+  /* margin-left: 50px; */
+  margin-top: 40px;
+  width: 100%;
+}
+
+.mainSignInDiv .emailSection form > label {
+  font-family: "Abhaya Libre", cursive;
+  font-size: 26px;
+}
+
+.mainSignInDiv .emailSection form > input {
+  width: 50%;
+  padding-left: 10px;
+  height: 1cm;
+  border: 2px solid var(--new-color);
+  border-radius: 10px;
+}
+
+.mainSignInDiv .emailSection form > button {
+  width: max(2.5cm, 20%);
+  padding: 10px;
+  border-radius: 50px;
+  border: none;
+  background: var(--new-color);
+  color: aliceblue;
+  cursor: pointer;
+}
+
+.mainSignInDiv .otpSection {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 20px;
+}
+
+.opt-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 2px;
+}
+
+@media (max-width: 600px) {
     .mainSignInDiv {
+        justify-content: center;
+        align-items: center;
+        height: auto;
+        flex-direction: column;
         width: 100%;
-        padding: 120px 0;
+    }
+    .loginImage {
+        width: 100%;
+    }
+    .loginSection {
+        width: 100%;
     }
 }
+
+/* @media (max-width: 412px) {
+  .mainSignInDiv {
+    width: 100%;
+  }
+} */

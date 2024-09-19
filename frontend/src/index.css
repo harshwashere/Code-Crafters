@@ -5,11 +5,20 @@
 }
 
 #root {
-    padding: 0 80px;
+    /* background: linear-gradient(to right, #46494C, #C5C3C6); */
+    background: #F7F3E3;
+}
+::-webkit-scrollbar {
+    display: none;
 }
 
-@media (max-width: 412px) {
-    #root {
-        padding: 0 5px;
+@media (max-width: 1440px) {
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
+    ::-webkit-scrollbar {
+        display: none;
+    }    
 }

@@ -7,10 +7,9 @@ export const Homeabout = () => {
     <>
       <div className="homeAbout">
         <div className="homeAboutHead">
-          <h1>WHY CHOOSE US?</h1>
+          <h1>How <span>Scheduling </span>works</h1>
           <p>
-            You will choose us becuase you get the best quality food <br /> from
-            us and deliver fast.
+            We made our website very easy to navigate while ordering.
           </p>
         </div>
         <div className='homeAboutContent'>
@@ -18,32 +17,30 @@ export const Homeabout = () => {
             <i className='aboutIcon'>
               <PiBowlFood />
             </i>
-            <h1>Serve Healthy Food</h1>
+            <h1>Choose your preferences</h1>
             <p>
-              We serve all healthy food here. You <br />
-              can choose any food you like.
+              You can easily choose the your preferences for tiffin. <br />
+              You have to define the frequency for your tiffin. 
             </p>
           </div>
           <div className='homeAboutContent1'>
             <i>
               <TbFolderHeart />
             </i>
-            <h1>Best Quality</h1>
+            <h1>Choose your plan</h1>
             <p>
-              Our food quality excellent. You will
-              <br />
-              get exactly what you want.
+              You can choose from plans that we crafted specialy keeping in mind of your taste.
+              Payment is very easy in this stage.
             </p>
           </div>
           <div className='homeAboutContent1'>
             <i>
               <TbTruckDelivery />
             </i>
-            <h1>Fast Delivery</h1>
+            <h1>Your tiffin is scheduled</h1>
             <p>
-              You can say the main goal of our delivery man is to deliver orders
-              quickly.
-              You will recieve it shortly after ordering.
+              Your tiffin is scheduled and now we will deliver it at the given frequency. <br />
+              Happy eating and Healthy eating.
             </p>
           </div>
         </div>
