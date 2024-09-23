@@ -8,15 +8,25 @@ import { useContext, useState } from "react";
 import { StoreContext } from "../../context/StoreContext";
 import { RxCross1 } from "react-icons/rx";
 import { IoMdSearch } from "react-icons/io";
+import { CgProfile } from 'react-icons/cg'
+import { TbLogout } from 'react-icons/tb'
+import useAuth from "../../store/useAuth";
 
 const Navbar = () => {
+  const { isLoggedIn } = useAuth()
+
   const [navigator, setNavigator] = useState('home');
 
   const [visible, setVisible] = useState(true);
 
   const [visible2, setVisible2] = useState(true)
 
+  const [visible3, setVisible3] = useState(true)
+
   const { getTotalCartAmount } = useContext(StoreContext)
+
+  console.log(isLoggedIn);
+  
 
   const visibility = () => {
     setVisible(!visible);
@@ -24,6 +34,10 @@ const Navbar = () => {
 
   const visibility2 = () => {
     setVisible2(!visible2)
+  }
+
+  const visibility3 = () => {
+    setVisible3(!visible3)
   }
 
   return (
@@ -65,18 +79,29 @@ const Navbar = () => {
               </NavLink>
             </ul>
           </div>
-          <div className="btnGroup">
+
+          <div className="btnGroup btnG">
             <NavLink onClick={visibility2}>
               <FaSearch />
             </NavLink>
-            <p className="cartIcon">
+            {isLoggedIn ? <><p className="cartIcon">
               <NavLink to='/cart'>
                 <FaShoppingCart />
               </NavLink>
               <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
             </p>
-            <NavLink to='/signin'><button type="button">Sign In</button></NavLink>
+              <div className="profile-section">
+                <CgProfile onClick={visibility3} className="profile-icon" />
+                <div className="profile-list" style={{ display: visible3 ? "none" : "flex" }}>
+                  <div className="list"><NavLink>Profile</NavLink></div>
+                  <hr className="list-line" />
+                  <div className="list"><NavLink>Your Orders</NavLink></div>
+                  <hr className="list-line" />
+                  <div className="list"><NavLink to="/logout">Log Out <TbLogout /></NavLink></div>
+                </div>
+              </div></> : <><NavLink to='/signin'><button type="button">Sign In</button></NavLink></>}
           </div>
+          
         </div>
         <div className="sideBar" onClick={visibility}>
           <FiMenu />
@@ -103,7 +128,7 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-      <hr />
+      <hr className="navbarline" />
       <div
         className="otherNavigator"
         style={{ display: visible ? "none" : "block" }}

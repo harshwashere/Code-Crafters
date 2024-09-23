@@ -13,7 +13,7 @@ export const authMiddleware = async (req, res, next) => {
   const jwtToken = token.replace("Bearer", "").trim();
 
   try {
-    const isVerfied = jwt.verify(jwtToken, process.env.KEY);
+    const isVerfied = jwt.verify(jwtToken, process.env.JWT_KEY);
 
     const userData = await User.findOne({ email: isVerfied.email }).select({
       password: 0,

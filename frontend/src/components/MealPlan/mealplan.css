@@ -93,7 +93,7 @@
     padding: 20px;
     transition: all 2s ease;
     width: 9cm;
-    /* border: 1px solid black; */
+    
 }
 
 .mealCard .ourMealContent {
@@ -103,6 +103,20 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 10px;
+}
+
+.ourMealCard .ourMealContent .ourMealHead .ourMealTitle h2 {
+    color: #999;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.ourMealContent .ourMealHead .ourMealPrice span {
+    color: #FFA31E;
+    font-size: 18px;
+    font-weight: 600;
+    width: 20px;
 }
 
 .mealCard .ourMealContent .ourMealPara {

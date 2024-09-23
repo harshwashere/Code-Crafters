@@ -8,6 +8,7 @@ export const contact = async (req, res) => {
     const transport = await nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 587,
+      secure: true,
       auth: {
         user: process.env.MAIL_USER,
         pass: process.env.MAIL_PASS

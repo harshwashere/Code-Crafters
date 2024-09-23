@@ -1,0 +1,22 @@
+[
+  {
+    "image": "https://webstrot.com/html/lunchbox/lunchbox/images/img18.png",
+    "name": "Rajasthani Thali",
+    "price": 300
+  },
+  {
+    "image": "https://webstrot.com/html/lunchbox/lunchbox/images/img19.png",
+    "name": "Gujrati Thali",
+    "price": 450
+  },
+  {
+    "image": "https://webstrot.com/html/lunchbox/lunchbox/images/img20.png",
+    "name": "Bengali Thali",
+    "price": 350
+  },
+  {
+    "image": "https://webstrot.com/html/lunchbox/lunchbox/images/img21.png",
+    "name": "Marathi Thali",
+    "price": 250
+  }
+]

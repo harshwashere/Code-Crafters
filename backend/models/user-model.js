@@ -1,7 +1,7 @@
-import mongoose from "mongoose";
+import {Schema, model} from "mongoose";
 import jwt from 'jsonwebtoken'
 
-const userModel = new mongoose.Schema({
+const userModel = new Schema({
   name: {
     type: String,
     default: ''
@@ -38,4 +38,4 @@ userModel.methods.generateToken = async function () {
 };
 
 
-export const User = new mongoose.model("User", userModel);
+export const User = new model("User", userModel);

@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Home } from "./pages/Home/Home";
 import { Signin } from "./pages/Sign In/Signin";
+import Logout from './pages/Sign In/Logout'
 import { Cart } from "./pages/Cart/Cart";
 import { Menu } from "./pages/Menu/Menu";
 import Search from "./components/SearchBar/Search";
@@ -17,6 +18,7 @@ function App() {
           <Route path="/menu" element={<Menu />} />
           <Route path="/search" element={<Search />} />
           <Route path="/othermenu" element={<OtherMenu />} />
+          <Route path="/logout" element={<Logout />} />
         </Routes>
       </BrowserRouter>
     </>

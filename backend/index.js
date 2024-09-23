@@ -8,6 +8,10 @@ import { router } from "./routers/admin-router.js";
 import passport from "passport";
 import "./config/passport-setup.js";
 import cors from 'cors'
+import homeDishRoute from "./routers/home-dish-router.js";
+import { googleLogin } from "./controllers/auth-controller.js";
+import menuRoute from "./routers/menu-router.js";
+import { paymentRoute } from "./routers/payment-router.js";
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
@@ -31,7 +35,13 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/api", route);
 
+app.use('/homeapi', homeDishRoute)
+
+app.use('/menu', menuRoute)
+
 app.use("/admin", router);
+
+app.use('/payment', paymentRoute)
 
 const isLoggedIn = (req, res, next) => {
   req.user ? next() : res.sendStatus(401);
@@ -55,6 +65,8 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+//app.use('/google', route)
+
 app.get(
   "/auth/google",
   passport.authenticate("google", { scope: ["profile", "email"] })
@@ -63,13 +75,7 @@ app.get(
 app.get(
   "/auth/google/callback",
   passport.authenticate("google", { failureRedirect: "/" }),
-  function (req, res) {
-    let fullname = req.user.displayName;
-    // console.log(firstname + ' ' + lastname);
-
-    // Successful authentication, redirect home.
-    return res.send(`<h1>Welcome ${fullname}</h1>`);
-  }
+  googleLogin
 );
 
 app.listen(PORT, () => {

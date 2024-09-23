@@ -1,24 +1,26 @@
+/* eslint-disable no-unused-vars */
 import "./signin.css";
-import Navbar from "../../components/navbar/Navbar";
 import OtpInput from "otp-input-react";
 import { useState } from "react";
-import { CgSpinner } from "react-icons/cg";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import useAuth from '../../store/useAuth'
 import { toast } from 'react-toastify'
 import { URL } from '../helper/helper'
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 export const Signin = () => {
   const [otp, setOtp] = useState("");
   const [emails, setEmails] = useState("");
   const [loading, setLoading] = useState(false);
   const [showOTP, setShowOTP] = useState(false);
+
+  console.log(showOTP);
+  
+  // eslint-disable-next-line no-unused-vars
   const [user, setUser] = useState({
     email: "",
     otps: "",
   });
-
-  // console.log(user);
 
   const navigate = useNavigate();
 
@@ -38,9 +40,9 @@ export const Signin = () => {
 
       if (response.status === 200) {
 
-        const responseData = await response.json()
+        await response.json()
 
-        console.log(responseData);
+        console.log(response.json());        
 
         setUser({ email: emails });
 
@@ -76,7 +78,6 @@ export const Signin = () => {
 
       if (verifyData.ok) {
         const otpVerify = await verifyData.json()
-        console.log(otpVerify);
 
         storeTokenInLS(otpVerify.token)
         setUser({ otps: otp })
@@ -98,10 +99,10 @@ export const Signin = () => {
 
   return (
     <>
-      <Navbar />
       <div className="mainSignInDiv">
         <div className="loginImage">
-          <img src="https://www.foodiesfeed.com/wp-content/uploads/2023/06/burger-with-melted-cheese.jpg" alt="" />
+          <NavLink to="/"><IoMdArrowRoundBack className="loginBackBtn" /></NavLink>
+          <img src="https://www.foodiesfeed.com/wp-content/uploads/2023/06/burger-with-melted-cheese.jpg" alt="" width='100%' height="100%" />
         </div>
         <div className="loginSection">
           <h1>Login</h1>
@@ -119,7 +120,7 @@ export const Signin = () => {
                   className="opt-container"
                 />
                 <button type="submit">
-                  <CgSpinner size={20} />
+                  {loading && <div className="loadingPie"></div>}
                   <span>Verify OTP</span>
                 </button>
               </form>
@@ -138,9 +139,11 @@ export const Signin = () => {
                   required
                 />
                 <button type="submit">
-                  {loading && <CgSpinner size={20} />}
+                  {loading && <div className="loadingPie"></div>}
                   <span>Get OTP</span>
                 </button>
+                <p>Or </p>
+                <div className="googleLogin"><NavLink to={`${URL}/auth/google`} className="googleLink"><img src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png" alt="" /> <p>Log In with Google</p></NavLink></div>
               </form>
             </div>
           )}

@@ -1,5 +1,6 @@
 import { User } from "../models/user-model.js";
 import bcrypt from "bcryptjs";
+import nodemailer from "nodemailer";
 
 // Registration controller
 export const register = async (req, res) => {
@@ -51,7 +52,21 @@ export const sendOTP = async (req, res) => {
       for (let i = 0; i < 6; i++) {
         OTP += Math.floor(Math.random() * 10);
       }
-      console.log("Generated OTP:", OTP);
+      const transport = await nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 587,
+        auth: {
+          user: process.env.MAIL_USER,
+          pass: process.env.MAIL_PASS,
+        },
+      });
+      const mail = await transport.sendMail({
+        from: process.env.MAIL_USER,
+        to: email,
+        subject: "OTP to login in Aai Cha Dabba",
+        text: `Your OTP to login in Aai Cha Dabba is ${OTP}`,
+      });
+
       res.status(200).json({ msg: OTP });
       return newOTP.unshift(OTP);
     }
@@ -66,11 +81,11 @@ export const sendOTP = async (req, res) => {
         for (let i = 0; i < 6; i++) {
           OTP += Math.floor(Math.random() * 10);
         }
-        console.log("Generated OTP:", OTP);
+
         res.status(200).json({ msg: OTP });
         return newOTP.unshift(OTP);
       } else {
-        return res.status(401).json({msg: 'User Not Created'})
+        return res.status(401).json({ msg: "User Not Created" });
       }
     }
   } catch (error) {
@@ -83,43 +98,54 @@ export const login = async (req, res) => {
   try {
     const { otp } = req.body;
 
-      if (otp === newOTP[0]) {
-        return res.status(200).json({
-          msg: "Login Successful",
+    if (otp === newOTP[0]) {
+      return res.status(200).json({
+        msg: "Login Successful",
+        // token: await otp.generateToken()
         });
-      } else {
-        return res.status(401).json({ msg: "Invalid OTP" });
-      }
+    } else {
+      return res.status(401).json({ msg: "Invalid OTP" });
+    }
   } catch (error) {
     console.log("Error in login controller:", error);
     res.status(500).json({ message: "Server error" });
   }
 };
 
-// export const googleLogin = async () => {
-//   try {
-//     const user = await User.find();
+export const googleLogin = async (req, res) => {
+  try {
+    //const user = await User.find();
 
-//     passport.authenticate("google", { failureRedirect: "/" }),
-//       async function (req, res) {
-//         let fullName = req.user.displayName;
-//         let userEmail = req.user.emails.value;
+    //passport.authenticate("google", { failureRedirect: "/" }),
+    // async function (req, res) {
+    let fullName = req.user.displayName;
+    let userEmail = req.user.emails.value;
 
-//         // const newUser = await User.create({
-//         //   name: fullName,
-//         //   email: userEmail,
-//         //   phone: null,
-//         //   password: null,
-//         // });
-//         res.redirect()
-//         // return res.status(200).json({
-//         //   msg: "Login Successful with Google",
-//         //   token: await user.generateToken(),
-//         //   userId: newUser._id.toString()
-//         // });
-//         return res.send(`<h1>Welcome ${fullName}</h1>`);
-//       };
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+    // const newUser = await User.create({
+    //   name: fullName,
+    //   email: userEmail,
+    //   phone: null,
+    //   password: null,
+    // });
+    res.redirect("http://localhost:5173");
+    // return res.status(200).json({
+    //   msg: "Login Successful with Google",
+    //   token: await user.generateToken(),
+    //   userId: newUser._id.toString()
+    // });
+    // return res.send(`<h1>Welcome ${fullName}</h1>`);
+    // };
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const user = (req, res) => {
+  try {
+    const userData = req.user;
+    
+    res.status(200).json({ userData });
+  } catch (error) {
+    console.log(error);
+  }
+};
