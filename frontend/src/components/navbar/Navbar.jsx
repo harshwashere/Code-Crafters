@@ -25,7 +25,7 @@ const Navbar = () => {
 
   const { getTotalCartAmount } = useContext(StoreContext)
 
-  console.log(isLoggedIn);
+  // console.log(isLoggedIn);
   
 
   const visibility = () => {
@@ -48,7 +48,7 @@ const Navbar = () => {
         </div>
         <div className="mainBtn">
           <button>Order Now</button>
-          <button>Schedule a tiffin</button>
+          <button><NavLink to="/schedule">Schedule a tiffin</NavLink></button>
         </div>
         <div className="navBtnGroup">
           <div className="navigator">

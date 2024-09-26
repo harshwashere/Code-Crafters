@@ -6,6 +6,8 @@ import { Cart } from "./pages/Cart/Cart";
 import { Menu } from "./pages/Menu/Menu";
 import Search from "./components/SearchBar/Search";
 import OtherMenu from "./pages/Menu Other/OtherMenu";
+import SchedulePage  from "./components/SchedulePage/SchedulePage";
+import {ScheduleSummary} from "./components/ScheduleSummary/ScheduleSummary";
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
           <Route path="/search" element={<Search />} />
           <Route path="/othermenu" element={<OtherMenu />} />
           <Route path="/logout" element={<Logout />} />
+          <Route path="/schedule" element={ <SchedulePage />} />
+          <Route path="/scheduleSummary" element={ <ScheduleSummary />} />
         </Routes>
       </BrowserRouter>
     </>

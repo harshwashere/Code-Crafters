@@ -12,6 +12,7 @@ import homeDishRoute from "./routers/home-dish-router.js";
 import { googleLogin } from "./controllers/auth-controller.js";
 import menuRoute from "./routers/menu-router.js";
 import { paymentRoute } from "./routers/payment-router.js";
+import scheduleRoute from "./routers/schedule-router.js";
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
@@ -42,6 +43,10 @@ app.use('/menu', menuRoute)
 app.use("/admin", router);
 
 app.use('/payment', paymentRoute)
+
+app.use("/api", scheduleRoute)
+
+
 
 const isLoggedIn = (req, res, next) => {
   req.user ? next() : res.sendStatus(401);
