@@ -8,7 +8,7 @@ const Search = () => {
             <div className="searchBox active">
                 <div className="searchBoxCard">
                     <NavLink to="" className="searchBoxClose">
-                        <i className="fa-solid fa-xmark"><RxCross1 /></i>
+                        <RxCross1 />
                     </NavLink>
                     <div className="searchBoxInner">
                         <div className="searchBoxLogo">

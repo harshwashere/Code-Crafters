@@ -96,8 +96,17 @@
     
 }
 
+.mealCard .ourMealImg img {
+    width: 8cm;
+    height: 7cm;
+}
+
 .mealCard .ourMealContent {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 10px;
 }
 .mealCard .ourMealContent .ourMealHead {
     display: flex;
@@ -106,7 +115,7 @@
     gap: 10px;
 }
 
-.ourMealCard .ourMealContent .ourMealHead .ourMealTitle h2 {
+.ourMealCard .ourMealContent .ourMealHead .ourMealTitle h3 {
     color: #999;
     font-size: 20px;
     font-weight: 600;
@@ -123,6 +132,7 @@
     color: #111111;
     font-size: 16px;
     font-weight: 400;
+    height: 4cm;
 }
 
 .mealCard .ourMealContent .ourMealBtn {

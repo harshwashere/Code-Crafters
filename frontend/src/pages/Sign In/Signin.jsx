@@ -7,15 +7,13 @@ import useAuth from '../../store/useAuth'
 import { toast } from 'react-toastify'
 import { URL } from '../helper/helper'
 import { IoMdArrowRoundBack } from "react-icons/io";
+import axios from "axios";
 
 export const Signin = () => {
   const [otp, setOtp] = useState("");
   const [emails, setEmails] = useState("");
   const [loading, setLoading] = useState(false);
   const [showOTP, setShowOTP] = useState(false);
-
-  console.log(showOTP);
-  
   // eslint-disable-next-line no-unused-vars
   const [user, setUser] = useState({
     email: "",
@@ -42,8 +40,6 @@ export const Signin = () => {
 
         await response.json()
 
-        console.log(response.json());        
-
         setUser({ email: emails });
 
         toast.success("OTP Sent via Email");
@@ -53,7 +49,6 @@ export const Signin = () => {
       } else if (response.status === 400) {
         toast.warn("User Doesn't Exist");
       }
-      console.log(response);
       setShowOTP(true);
     } catch (error) {
       console.error('Error fetching OTP:', error);
@@ -96,7 +91,6 @@ export const Signin = () => {
       setLoading(false)
     }
   }
-
   return (
     <>
       <div className="mainSignInDiv">

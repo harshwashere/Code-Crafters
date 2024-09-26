@@ -1,23 +1,25 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { StoreContext } from "../../context/StoreContext"
 import Navbar from "../../components/navbar/Navbar";
 import './cart.css'
 import { Footer } from "../../components/footer/Footer";
 import { FaTrashCan } from "react-icons/fa6";
-import axios from "axios";
+// import axios from "axios";
 
 export const Cart = () => {
-
+    const [visible1, setVisible1] = useState("grid")
+    const [visible2, setVisible2] = useState("none")
     // const [responseId, setResponseId] = useState("");
     // const [responseState, setResponseState] = useState([]);
     const { cartItems, Store, removeFromCart, getTotalCartAmount } = useContext(StoreContext)
     function Car() {
         if (cartItems.length == 0 || undefined) {
-            const Card = "No Item Found"
-            return Card
+            return <><p>No items in Cart</p></>
         }
     }
     const Card = Car
+
+    console.log(Array(Store))
 
     // const createRazorpayOrder = (amount) => {
     //     let data = JSON.stringify({
@@ -86,23 +88,35 @@ export const Cart = () => {
     //         })
     //       }
 
+    const visibility1 = () => {
+        setVisible1("flex")
+        setVisible2("none")
+    }
+
+    const visibility2 = () => {
+        setVisible2("flex")
+        setVisible1("none")
+    }
 
     return (<>
         <Navbar />
         <div className="cart">
-            <div className="cart-items">
+            <div className="tab">
+                <div onClick={visibility1}><p>Your cart</p></div>
+                <div onClick={visibility2}><p>Enter your address</p></div>
+            </div>
+            <div className="cart-items" style={{display: visible1}}>
                 <div className="cart-items-title">
-                    <p>Items</p>
-                    <p>Title</p>
+                    <p>Image</p>
+                    <p>Name</p>
                     <p>Price</p>
                     <p>Quantity</p>
                     <p>Total</p>
                     <p>Remove</p>
                 </div>
-                <br />
                 <hr />
 
-                {Store.message?.length > 0 ? (Store.message?.map((item, index) => {
+                {Store.length > 0 ? (Store.map((item, index) => {
                     const quantity = cartItems[item._id] || 0;
                     if (quantity > 0) {
                         return (<>
@@ -119,23 +133,41 @@ export const Cart = () => {
 
                                 }} className="cross"><FaTrashCan /></p>
                             </div>
-                            <hr />
                         </>)
                     }
                 })) : (
                     <p>{Card}</p>
                 )}
             </div>
+            <div className="address-section" style={{display: visible2}}>
+
+                <form action="" className="address-form">
+                    <div>
+                        <label htmlFor="">Enter your name</label>
+                        <input type="text" placeholder="Enter your name" id="" />
+                    </div>
+                    <div><label htmlFor="">Enter Your email</label>
+                        <input type="email" placeholder="example@example.com" id="" />
+                    </div>
+                    <div><label htmlFor="">Enter mobile number</label>
+                        <input type="tel" placeholder="Enter your number" id="" />
+                    </div>
+                    <div><label htmlFor="">Enter your address</label>
+                        <input type="text" placeholder="123, New Street, London" id="" />
+                    </div>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
             <div className="cart-summary">
                 <div className="cart-bottom">
                     <div className="cart-total">
                         <h2>Cart Summary</h2>
                         <div className="cart-summary-dish">
-                            {Store.message?.length > 0 ? (Store.message?.map((item, index) => {
+                            {Store.length > 0 ? (Store.map((item, index) => {
                                 const quantity = cartItems[item._id] || 0;
                                 if (quantity > 0) {
                                     return (<>
-                                        <div key={index}>
+                                        <div className="dish-count" key={index}>
                                             <p>{cartItems[item._id]}x</p>
                                             <p>{item.name}</p>
                                             <p>₹{item.price}</p>

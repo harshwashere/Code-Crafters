@@ -6,14 +6,10 @@ export const StoreContext = createContext(null);
 
 const StoreContextProvider = (props) => {
     const [cartItems, setCartItems] = useState({});
-    const { Menu } = useAuth();
-    console.log(Menu);
+    const { Store } = useAuth();
     
     // Check if Store and Store.message exist
-    const food_list = Menu && Menu.menuData ? Menu.menuData : [];
-
-    console.log(food_list);
-    
+    const food_list = Store && Store.menuData ? Store.menuData : [];
 
     const addToCart = (itemId) => {
         if (!cartItems[itemId]) {
@@ -32,7 +28,6 @@ const StoreContextProvider = (props) => {
     const getTotalCartAmount = () => {
         let totalAmount = 0;
         for (const item in cartItems) {
-            console.log(cartItems);
             
             if (cartItems[item] > 0) {
                 // Make sure food_list is not empty and find the item
@@ -52,7 +47,7 @@ const StoreContextProvider = (props) => {
     };
 
     const contextValue = {
-        Menu,
+        Store,
         addToCart,
         removeFromCart,
         setCartItems,
