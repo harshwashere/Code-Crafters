@@ -37,7 +37,16 @@ const Peekmenu = () => {
                     <h1>Special <span>Tiffin</span></h1>
                     <p>The state-of-the art facility has automated machinery, is installed<br />with rust-free pipelines and faucets and uses only<br />RO treated water.</p>
                 </div>
-                <div className="sneakPeekMenu">{Store ? <>{Store.map(tiffinMap)}</> : <><div className="loader"></div></>}</div>
+                <div className="sneakPeekMenu">
+                    {Store ?
+                        <>
+                            {Store.map(tiffinMap)}
+                        </> : <>
+                            <div className="mainLoader">
+                                <div className="loader"></div>
+                            </div>
+                        </>}
+                </div>
             </div>
         </>
     );

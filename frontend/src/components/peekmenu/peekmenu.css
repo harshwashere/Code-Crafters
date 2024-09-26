@@ -123,6 +123,14 @@ body {
   font-size: 18px;
 }
 
+.mainLoader {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .loader {
   width: 1cm;
   height: 1cm;

@@ -42,8 +42,17 @@ export const register = async (req, res) => {
 let newOTP = [];
 // OTP generation function
 export const sendOTP = async (req, res) => {
+  const transport = await nodemailer.createTransport({
+    host: process.env.MAILHOST,
+    port: process.env.MAILPORT,
+    auth: {
+      user: process.env.MAIL_USER,
+      pass: process.env.MAIL_PASS,
+    },
+  });
   try {
     const { email } = req.body;
+    console.log(email)
 
     const user = await User.findOne({ email });
 
@@ -52,15 +61,7 @@ export const sendOTP = async (req, res) => {
       for (let i = 0; i < 6; i++) {
         OTP += Math.floor(Math.random() * 10);
       }
-      const transport = await nodemailer.createTransport({
-        host: "smtp.gmail.com",
-        port: 587,
-        auth: {
-          user: process.env.MAIL_USER,
-          pass: process.env.MAIL_PASS,
-        },
-      });
-      const mail = await transport.sendMail({
+      await transport.sendMail({
         from: process.env.MAIL_USER,
         to: email,
         subject: "OTP to login in Aai Cha Dabba",
@@ -68,73 +69,77 @@ export const sendOTP = async (req, res) => {
       });
 
       res.status(200).json({ msg: OTP });
-      return newOTP.unshift(OTP);
+      return newOTP.unshift(OTP), email;
     }
     if (!user) {
-      const newUser = await User.create({ email: email });
-      res.status(200).json({
-        msg: "Login Successful",
-        token: await newUser.generateToken(),
-      });
-      if (newUser) {
-        let OTP = "";
-        for (let i = 0; i < 6; i++) {
-          OTP += Math.floor(Math.random() * 10);
-        }
-
-        res.status(200).json({ msg: OTP });
-        return newOTP.unshift(OTP);
-      } else {
-        return res.status(401).json({ msg: "User Not Created" });
+      let OTP = "";
+      for (let i = 0; i < 6; i++) {
+        OTP += Math.floor(Math.random() * 10);
       }
+      await transport.sendMail({
+        from: process.env.MAIL_USER,
+        to: email,
+        subject: "OTP to login in Aai Cha Dabba",
+        text: `Your OTP to login in Aai Cha Dabba is ${OTP}`,
+      });
+      res.status(200).json({
+        msg: "OTP Sent",
+        sentOTP: OTP,
+      });
+      return newOTP.unshift(OTP), email;
+    } else {
+      return res.status(401).json({ msg: "User Not Created" });
     }
   } catch (error) {
     console.log(error);
   }
 };
 
+const email = await sendOTP()
+
 // Login controller
 export const login = async (req, res) => {
   try {
     const { otp } = req.body;
+    console.log(email);
 
     if (otp === newOTP[0]) {
+      const newUser = await User.create({
+        name: "",
+        email: email,
+        phone: null,
+      });
+
       return res.status(200).json({
         msg: "Login Successful",
-        // token: await otp.generateToken()
-        });
+        token: await newUser.generateToken(),
+        userId: newUser._id.toString(),
+      });
     } else {
       return res.status(401).json({ msg: "Invalid OTP" });
     }
   } catch (error) {
     console.log("Error in login controller:", error);
-    res.status(500).json({ message: "Server error" });
+    return res.status(500).json({ message: "Server error" });
   }
 };
 
 export const googleLogin = async (req, res) => {
   try {
-    //const user = await User.find();
-
-    //passport.authenticate("google", { failureRedirect: "/" }),
-    // async function (req, res) {
     let fullName = req.user.displayName;
     let userEmail = req.user.emails.value;
 
-    // const newUser = await User.create({
-    //   name: fullName,
-    //   email: userEmail,
-    //   phone: null,
-    //   password: null,
-    // });
+    const newUser = await User.create({
+      name: fullName,
+      email: userEmail,
+      phone: null,
+    });
     res.redirect("http://localhost:5173");
-    // return res.status(200).json({
-    //   msg: "Login Successful with Google",
-    //   token: await user.generateToken(),
-    //   userId: newUser._id.toString()
-    // });
-    // return res.send(`<h1>Welcome ${fullName}</h1>`);
-    // };
+    return res.status(200).json({
+      msg: "Login Successful with Google",
+      token: await newUser.generateToken(),
+      userId: newUser._id.toString(),
+    });
   } catch (error) {
     console.log(error);
   }
@@ -143,7 +148,7 @@ export const googleLogin = async (req, res) => {
 export const user = (req, res) => {
   try {
     const userData = req.user;
-    
+
     res.status(200).json({ userData });
   } catch (error) {
     console.log(error);

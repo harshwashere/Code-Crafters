@@ -23,13 +23,17 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-  done(null, user);
+  process.nextTick(function () {
+    return done(null, {
+      id: user.id,
+      username: user.username,
+      picture: user.picture
+    })
+  })
 });
 
 passport.deserializeUser((user, done) => {
-  try {
-    return done(null, user);
-  } catch (error) {
-    return done(error);
-  }
+  process.nextTick(function () {
+    returndon(null, user)
+  })
 });

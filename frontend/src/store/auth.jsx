@@ -9,7 +9,8 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [Store, setStore] = useState("");
-  const [Menu, setMenu] = useState("")
+  const [Category, setCategory] = useState("")
+  const [Menu, setMenu] = useState([])
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState("");
   const authorizationToken = `Bearer ${token}`;
@@ -19,8 +20,6 @@ export const AuthProvider = ({ children }) => {
   };
 
   const isLoggedIn = !!token;
-  console.log(isLoggedIn);
-  
 
   const LogoutUser = () => {
     setToken("");
@@ -34,8 +33,6 @@ export const AuthProvider = ({ children }) => {
           Authorization: authorizationToken,
         },
       });
-      console.log(response);
-      
       if (response.ok) {
         const data = await response.json();
         setUser(data.userData);
@@ -65,26 +62,41 @@ export const AuthProvider = ({ children }) => {
     getSpecialTiffinData();
   }, []);
 
-  const getMenu = async () => {
+  const getMenuCategory = async () => {
     try {
       const menu = await axios.get(`${URL}/menu/getmenucategory`)
-      
+
       if (menu.status === 200) {
-        setMenu(menu.data.menuData)
-        console.log(Menu); 
+        setCategory(menu.data.menuData)
       }
     } catch (error) {
       console.log(error);
     }
   }
   useEffect(() => {
+    getMenuCategory()
+  }, [])
+
+  const getMenu = async () => {
+    try {
+      const menuData = await axios.get(`${URL}/menu/getmenu`)
+
+      if (menuData.status === 200) {
+        setMenu(menuData.data)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
     getMenu()
   }, [])
-  
 
-  const payment = async(req, res) => {
+
+  const payment = async (req, res) => {
     try {
-      const {amount} = req.body
+      const { amount } = req.body
 
       const paymentResponse = await axios.post(`${URL}/payment/create-order`, {
         body: JSON.stringify({
@@ -101,7 +113,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn, storeTokenInLS, Store, Menu, authorizationToken, LogoutUser, user }}
+      value={{ isLoggedIn, storeTokenInLS, Store, Menu, Category, authorizationToken, LogoutUser, user }}
     >
       {children}
     </AuthContext.Provider>

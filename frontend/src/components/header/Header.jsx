@@ -1,5 +1,6 @@
 import { FaArrowRight } from "react-icons/fa";
 import "./header.css";
+import { NavLink } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -21,7 +22,7 @@ const Header = () => {
             Now To Satisfy Your Hunger Pangs
           </p>
           <div className="orderNowGroup">
-            <button className="orderNowBtn">Order Now</button>
+            <NavLink><button className="orderNowBtn">Order Now</button></NavLink>
             <button>
               Schedule a tiffin{" "}
               <i>

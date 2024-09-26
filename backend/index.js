@@ -7,7 +7,7 @@ import { route } from "./routers/auth-router.js";
 import { router } from "./routers/admin-router.js";
 import passport from "passport";
 import "./config/passport-setup.js";
-import cors from 'cors'
+import cors from "cors";
 import homeDishRoute from "./routers/home-dish-router.js";
 import { googleLogin } from "./controllers/auth-controller.js";
 import menuRoute from "./routers/menu-router.js";
@@ -23,7 +23,7 @@ const corsOptions = {
   credential: true,
 };
 
-app.use(cors(corsOptions))
+app.use(cors(corsOptions));
 
 app.set("view engine", "ejs");
 
@@ -35,13 +35,13 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/api", route);
 
-app.use('/homeapi', homeDishRoute)
+app.use("/homeapi", homeDishRoute);
 
-app.use('/menu', menuRoute)
+app.use("/menu", menuRoute);
 
 app.use("/admin", router);
 
-app.use('/payment', paymentRoute)
+app.use("/payment", paymentRoute);
 
 const isLoggedIn = (req, res, next) => {
   req.user ? next() : res.sendStatus(401);
@@ -63,7 +63,14 @@ app.use(
 );
 
 app.use(passport.initialize());
-app.use(passport.session());
+app.use(
+  passport.session({
+    secret: process.env.SESSIONKEY,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { success: true },
+  })
+);
 
 //app.use('/google', route)
 

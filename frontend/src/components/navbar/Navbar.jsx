@@ -25,9 +25,6 @@ const Navbar = () => {
 
   const { getTotalCartAmount } = useContext(StoreContext)
 
-  console.log(isLoggedIn);
-  
-
   const visibility = () => {
     setVisible(!visible);
   };
@@ -93,10 +90,10 @@ const Navbar = () => {
               <div className="profile-section">
                 <CgProfile onClick={visibility3} className="profile-icon" />
                 <div className="profile-list" style={{ display: visible3 ? "none" : "flex" }}>
-                  <div className="list"><NavLink>Profile</NavLink></div>
+                  {/* <div className="list"><NavLink>Profile</NavLink></div>
                   <hr className="list-line" />
                   <div className="list"><NavLink>Your Orders</NavLink></div>
-                  <hr className="list-line" />
+                  <hr className="list-line" /> */}
                   <div className="list"><NavLink to="/logout">Log Out <TbLogout /></NavLink></div>
                 </div>
               </div></> : <><NavLink to='/signin'><button type="button">Sign In</button></NavLink></>}

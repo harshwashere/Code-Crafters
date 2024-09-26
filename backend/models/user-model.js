@@ -14,10 +14,6 @@ const userModel = new Schema({
     type: Number,
     default: ''
   },
-  // password: {
-  //   type: String,
-  //   default: ''
-  // },
 });
 
 userModel.methods.generateToken = async function () {

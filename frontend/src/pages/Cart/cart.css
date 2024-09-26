@@ -1,20 +1,24 @@
 .cart {
   /* margin-top: 100px; */
   width: 100%;
-  height: 90vh;
+  height: auto;
   display: flex;
+  position: relative;
 }
 
 .cart-items {
+  margin-top: 89px;
   width: 50%;
-  border: 1px solid black;
-  height: 90vh;
+  height: 5auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .cart-summary {
   width: 50%;
-  border: 1px solid black;
-  height: 90vh;
+  height: 93vh;
+  border-left: 2px solid var(--new-color);
 }
 
 .cart-items-title {
@@ -22,12 +26,13 @@
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   align-items: center;
   justify-content: center;
-  color: gray;
+  height: 1cm;
+  color: black;
+  margin-bottom: 20px;
   font-size: max(1vw, 12px);
   text-align: center;
   width: 100%;
 }
-
 
 .cart-items-item {
   margin: 10px 0px;
@@ -35,11 +40,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 1cm;
 }
 
-.cart-items-item div, .cart-items-item p{
+.cart-items-item div,
+.cart-items-item p {
   width: 100%;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 
 .cart-items-item img {
@@ -74,10 +81,6 @@
   /* border: 1px solid black; */
 }
 
-.cart-total .cart-summary-dish {
-  
-}
-
 .cart-total .cart-total-summary {
   display: flex;
   flex-direction: column;
@@ -87,8 +90,20 @@
 .cart-total-details {
   display: flex;
   justify-content: space-between;
-  color: #555;
+  color: black;
   gap: 10px;
+}
+
+.cart .cart-summary-dish {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cart .cart-summary-dish .dish-count {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-evenly;
 }
 
 .cart-total hr {
@@ -96,53 +111,103 @@
 }
 
 .cart-total button {
-    border: none;
-    color: white;
-    background-color: tomato;
-    width: max(15vw, 200px);
-    padding: 12px 0px;
-    border-radius: 5px;
-    cursor: pointer;
+  border: none;
+  color: white;
+  background-color: tomato;
+  width: max(15vw, 200px);
+  padding: 12px 0px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.cart .address-section {
+  width: 50%;
+  height: 80vh;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 85px;
+}
+.cart .address-section .address-form {
+  width: 90%;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: end;
+  gap: 20px;
 }
 
-.cart-promocode {
-    flex: 1;
+.cart .address-section .address-form div {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 100%;
+  height: 100px;
+  gap: 10px;
+  font-size: 18px;
 }
 
-.cart-promocode p {
-    color: #555;
+.cart .address-section .address-form div > input {
+  height: 50px;
+  border-radius: 40px;
+  border: 1px solid var(--new-color);
+  padding-left: 20px;
+  width: 100%;
 }
 
-.cart-promocode-input {
-    margin-top: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #eaeaea;
-    border-radius: 5px;
+.cart .address-section .address-form button {
+  border: 1px solid var(--new-color);
+  width: 40%;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: var(--new-color);
+  cursor: pointer;
+}
+.cart .tab {
+  position: absolute;
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: 100px;
+  width: 50%;
+  justify-content: center;
+  height: 10vh;
+  border-bottom: 2px solid var(--new-color);
 }
 
-.cart-promocode-input input {
-    background: transparent;
-    border: none;
-    outline: none;
-    padding-left: 10px;
+.cart .tab p {
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
 }
-
-.cart-promocode-input button {
-    width: max(10vw, 150px);
-    padding: 12px 5px;
-    background-color: black;
-    border: none;
-    color: white;
-    border-radius: 5px;
-}
-
 @media (max-width: 750px) {
-    .cart-bottom {
-        flex-direction: column-reverse;
-    }
-    .cart-promocode {
-        justify-content: start;
-    }
+  .cart {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+  }
+  .cart .tab {
+    width: 100%;
+  }
+  .cart .cart-items {
+    width: 100%;
+  }
+  .cart .address-section {
+    width: 100%;
+    border-bottom: 2px solid var(--new-color);
+  }
+  .cart .cart-summary {
+    width: 100%;
+    padding: 20px 20px;
+    height: auto;
+    border: none;
+  }
+  .cart-bottom {
+    flex-direction: column-reverse;
+  }
+  .cart-promocode {
+    justify-content: start;
+  }
 }
