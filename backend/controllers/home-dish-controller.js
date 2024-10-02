@@ -3,7 +3,7 @@ import TiffinData from '../models/specialTiffin-model.js'
 
 export const getTiffinData = async (req, res) => {
   try {
-    const tiffinaData = await TiffinData.find();
+    const tiffinaData = await Menu.find({"category": "special tiffin"});
 
     if (!tiffinaData || tiffinaData.length === 0) {
       return res.status(404).json({ message: "No Tiffin Data Found" });
@@ -16,7 +16,7 @@ export const getTiffinData = async (req, res) => {
 
 export const getMenuCategory = async (req, res) => {
   try {
-    const menuData = await Menu.distinct("category");
+    const menuData = await Menu.find({"category": {$ne: "special tiffin"}}).distinct("category");
 
     if (!menuData || menuData.length === 0) {
       return res.status(404).json({ message: "No items in menu" });

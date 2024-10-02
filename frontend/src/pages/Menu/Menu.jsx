@@ -1,34 +1,41 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import { Footer } from '../../components/footer/Footer'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import Navbar from '../../components/navbar/Navbar'
 import useAuth from '../../store/useAuth'
 import './menu.css'
 import { MdKeyboardDoubleArrowLeft, MdKeyboardDoubleArrowRight } from "react-icons/md";
+import { useDispatch } from 'react-redux'
+import { StoreContext } from '../../context/StoreContext'
 
 export const Menu = () => {
 
-    const { Category, Menu } = useAuth()
+    const { Category, Menu, Deals } = useAuth()
 
     const [Categories, setCategories] = useState('Bread')
+
+    const dispatch = useDispatch()
+
+    const { addToCart } = useContext(StoreContext)
 
     const sliderRef = useRef(null)
     const isAutoScrolling = useRef(true)
 
     const [selectedCategory, setSelectedCategory] = useState(null)
 
-    const scrollLeft = () => {
+    const scrollLeft = useCallback(() => {
         if (sliderRef.current) {
             sliderRef.current.scrollLeft -= 200
         }
-    }
+    })
 
-    const scrollRight = () => {
+    const scrollRight = useCallback(() => {
         if (sliderRef.current) {
             sliderRef.current.scrollLeft += 200
             handleInfiniteScroll()
         }
-    }
+    })
 
     const handleInfiniteScroll = () => {
         const maxScrollLeft = sliderRef.current.scrollWidth - sliderRef.current.clientWidth
@@ -48,7 +55,7 @@ export const Menu = () => {
         }, 1500)
 
         return () => clearInterval(interval)
-    }, [])
+    }, [scrollRight])
 
     const handleCategorySelect = (category) => {
         setSelectedCategory(category);
@@ -57,8 +64,8 @@ export const Menu = () => {
 
     const menuMap = (data, index) => {
         return (<>
-            <div key={index} className="category-box" 
-            onClick={() => setCategories(data)}>
+            <div key={index} className="category-box"
+                onClick={() => setCategories(data)}>
                 <h3>{data}</h3>
             </div>
         </>)
@@ -91,28 +98,38 @@ export const Menu = () => {
 
                     <div className="food-card-tags">
                         <p className="food-item-price">₹{data.price}</p>
-                        <button className="add-btn">ADD +</button>
+                        <button onClick={() => {
+                            dispatch(addToCart(data._id))
+                        }} type='button' className="add-btn">ADD +</button>
                     </div>
                 </div>
             </div>
         </>)
     }
+
+    const DealMap = (data, index) => {
+        return <>
+            <article key={index} className='deals'>
+                <img src={data.image} alt="" />
+            </article>
+        </>
+    }
     return (<>
         <Navbar />
         <div className='menu'>
             <div className="deal-slider">
-                <h2>Our current deals</h2>
                 <div className="slider-container">
                     <button className="scroll-btn left" onClick={scrollLeft}><MdKeyboardDoubleArrowLeft /></button>
                     <div className='main-slider' ref={sliderRef}>
-                        <div className='deals'></div>
-                        <div className='deals'></div>
-                        <div className='deals'></div>
-                        <div className='deals'></div>
-                        <div className='deals'></div>
-                        <div className='deals'></div>
-                        <div className='deals'></div>
-                        <div className='deals'></div>
+                        {Deals ?
+                            <>
+                                {Deals.deal.map(DealMap)}
+                            </> :
+                            <>
+                                <div className="mainLoader">
+                                    <div className="loader"></div>
+                                </div>
+                            </>}
                     </div>
                     <button className="scroll-btn right" onClick={scrollRight}><MdKeyboardDoubleArrowRight /></button>
                 </div>

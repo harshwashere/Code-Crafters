@@ -2,25 +2,27 @@
   display: flex;
   flex-direction: column;
   height: auto;
-  padding: 20px;
+  width: 100%;
+  background: #2a6892;
 }
 .slider-container {
   position: relative;
   display: flex;
   align-items: center;
+  padding: 50px;
 }
 
 .scroll-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: var(--orange-bg);
+  background-color: white;
   border-radius: 50%;
   border: none;
   padding: 10px;
   cursor: pointer;
   font-size: 24px;
-  color: white;
+  color: black;
   z-index: 10;
 }
 
@@ -38,20 +40,36 @@
   padding: 10px;
   gap: 10px;
   overflow-x: scroll;
-  border: 1px solid black;
   height: auto;
   width: 100%;
   scroll-behavior: smooth; /* For smooth scrolling */
 }
 
 .menu .deal-slider .slider-container .main-slider .deals {
-  width: 7cm;
-  padding: 20px;
+  display: flex;
+  width: 100%;
   text-align: center;
   gap: 15px;
-  border: 1px solid black;
-  height: 190px;
-  flex-shrink: 0; /* Prevent shrinking */
+  transform: scale(1);
+  opacity: 1;
+  transition: all 0.3s ease-in-out;
+}
+
+.menu .deal-slider .slider-container .main-slider .deals img {
+  height: 10cm;
+  width: 15cm;
+  border-radius: 20px;
+}
+.main-menu {
+  height: auto;
+}
+
+.menu .main-menu .menu-title {
+  padding-left: 30px;
+  padding-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px ;
 }
 
 .menu .main-menu .menu-category {
@@ -230,5 +248,12 @@
     padding: 0;
     height: 2cm;
     width: 100px;
+  }
+  .menu .deal-slider .slider-container .main-slider .deals {
+    width: auto;
+  }
+  .menu .deal-slider .slider-container .main-slider .deals img {
+    height: auto;
+    width: 500px;
   }
 }

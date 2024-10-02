@@ -25,8 +25,8 @@ const Navbar = () => {
 
   const { getTotalCartAmount } = useContext(StoreContext)
 
- 
-  
+
+
 
   const visibility = () => {
     setVisible(!visible);
@@ -47,8 +47,8 @@ const Navbar = () => {
           <h1>Aai cha Dabba</h1>
         </div>
         <div className="mainBtn">
-          <button>Order Now</button>
-          <button><NavLink to="/schedule">Schedule a tiffin</NavLink></button>
+          <NavLink to="/menu"><button>Order Now</button></NavLink>
+          <NavLink to="/schedule"><button>Schedule a tiffin</button></NavLink>
         </div>
         <div className="navBtnGroup">
           <div className="navigator">
@@ -69,7 +69,7 @@ const Navbar = () => {
                   Menu
                 </li>
               </NavLink>
-              <NavLink to="">
+              <NavLink to="/contact">
                 <li
                   onClick={() => setNavigator("contact")}
                   className={navigator === "contact" ? "actiev" : ""}
@@ -101,7 +101,7 @@ const Navbar = () => {
                 </div>
               </div></> : <><NavLink to='/signin'><button type="button">Sign In</button></NavLink></>}
           </div>
-          
+
         </div>
         <div className="sideBar" onClick={visibility}>
           <FiMenu />
@@ -147,7 +147,7 @@ const Navbar = () => {
               Menu
             </li>
           </NavLink>
-          <NavLink onClick={visibility} to="/">
+          <NavLink onClick={visibility} to="/contact">
             <li>
               Contact
             </li>

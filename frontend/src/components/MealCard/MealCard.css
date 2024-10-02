@@ -1,0 +1,37 @@
+.meal-card {
+    text-align: left;
+    background-color: #fff;
+    padding: 1.5rem;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 20px, rgba(0, 0, 0, 0.1) 0px 5px 5px;
+    margin-bottom: 1.5rem;
+  }
+  
+  .meal-card h3 {
+    display: flex;
+    margin-bottom: 0.2rem;
+    justify-content: space-between;
+    font-size: 1.2rem;
+  }
+  
+  .badge {
+    background-color: #ffecb3;
+    padding: 0.2rem 0.5rem;
+    border-radius: 5px;
+    font-size: 0.8rem;
+  }
+  
+  .high-protein {
+    background-color: #d4edda;
+    padding: 0.3rem;
+    font-size: 0.9rem;
+    display: inline-block;
+    border-radius: 5px;
+    margin-bottom: 0.5rem;
+  }
+  
+  .delivery-time {
+    text-align: right;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+  }
+  

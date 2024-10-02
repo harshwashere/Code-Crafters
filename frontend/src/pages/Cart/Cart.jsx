@@ -11,16 +11,13 @@ export const Cart = () => {
     const [visible2, setVisible2] = useState("none")
     // const [responseId, setResponseId] = useState("");
     // const [responseState, setResponseState] = useState([]);
-    const { cartItems, Store, removeFromCart, getTotalCartAmount } = useContext(StoreContext)
+    const { cartItems, Menu, removeFromCart, getTotalCartAmount } = useContext(StoreContext)
     function Car() {
         if (cartItems.length == 0 || undefined) {
             return <><p>No items in Cart</p></>
         }
     }
     const Card = Car
-
-    console.log(Array(Store))
-
     // const createRazorpayOrder = (amount) => {
     //     let data = JSON.stringify({
     //         amount: amount * 100,
@@ -107,7 +104,7 @@ export const Cart = () => {
             </div>
             <div className="cart-items" style={{display: visible1}}>
                 <div className="cart-items-title">
-                    <p>Image</p>
+                    {/* <p>Image</p> */}
                     <p>Name</p>
                     <p>Price</p>
                     <p>Quantity</p>
@@ -116,12 +113,12 @@ export const Cart = () => {
                 </div>
                 <hr />
 
-                {Store.length > 0 ? (Store.map((item, index) => {
+                {Menu.length > 0 ? (Menu.map((item, index) => {
                     const quantity = cartItems[item._id] || 0;
                     if (quantity > 0) {
                         return (<>
                             <div className="cart-items-title cart-items-item" key={index}>
-                                <div><img src={item.image} alt={item.name} /></div>
+                                {/* <div><img src={item.image} alt={item.name} /></div> */}
                                 <p>{item.name}</p>
                                 <p>₹{item.price}</p>
                                 <p>{cartItems[item._id]}</p>
@@ -163,7 +160,7 @@ export const Cart = () => {
                     <div className="cart-total">
                         <h2>Cart Summary</h2>
                         <div className="cart-summary-dish">
-                            {Store.length > 0 ? (Store.map((item, index) => {
+                            {Menu.length > 0 ? (Menu.map((item, index) => {
                                 const quantity = cartItems[item._id] || 0;
                                 if (quantity > 0) {
                                     return (<>

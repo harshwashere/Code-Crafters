@@ -1,18 +1,37 @@
-import {Schema, model} from "mongoose";
-import jwt from 'jsonwebtoken'
+import { Schema, model } from "mongoose";
+import jwt from "jsonwebtoken";
 
 const userModel = new Schema({
   name: {
     type: String,
-    default: ''
+    default: "",
   },
   email: {
     type: String,
-    default: ''
+    required: true,
+    default: "",
   },
   phone: {
-    type: Number,
+    type: String,
+    default: "",
+  },
+  photo: {
+    type: String,
     default: ''
+  },
+  otp: {
+    type: String,
+    unique: true,
+  },
+  otpExpires: {
+    type: Date,
+  },
+  verified: {
+    type: Boolean,
+    default: false,
+  },
+  verifiedAt: {
+    type: Date,
   },
 });
 
@@ -25,13 +44,12 @@ userModel.methods.generateToken = async function () {
       },
       process.env.JWT_KEY,
       {
-        expiresIn: "1h",
+        expiresIn: "7d",
       }
     );
   } catch (error) {
     console.error(error);
   }
 };
-
 
 export const User = new model("User", userModel);

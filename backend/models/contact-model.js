@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
 const contactModel = new mongoose.Schema({
+  option: {
+    type: String,
+    required: true,
+  },
   name: {
     type: String,
     required: true,
@@ -10,12 +14,9 @@ const contactModel = new mongoose.Schema({
     required: true,
   },
   phone: {
-    type: Number,
-    required: true,
-  },
-  subject: {
     type: String,
     required: true,
+    default: ''
   },
   message: {
     type: String,

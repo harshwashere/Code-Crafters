@@ -1,11 +1,12 @@
 import express from "express";
-import { login, sendOTP, user } from "../controllers/auth-controller.js";
+import { deals, sendOTP, user, verifyOTP } from "../controllers/auth-controller.js";
 import { contact } from "../controllers/contact-controller.js";
 import { authMiddleware } from "../middleware/authMiddleware.js";
 export const route = express.Router();
 
+route.get('/deals', deals)
 route.post("/otp", sendOTP);
-route.post("/login", login);
+route.post("/login", verifyOTP);
 route.post("/contact", contact);
 route.get('/user', authMiddleware, user)
 route.get("/login", (req, res) => {

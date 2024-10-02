@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -14,5 +14,74 @@
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+      async function payNow() {
+        const amount = document.getElementById("amount").value;
+
+        // Create order by calling the server endpoint
+        const response = await fetch("/create-order", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            amount,
+            currency: "INR",
+            receipt: "receipt#1",
+            notes: {},
+          }),
+        });
+
+        const order = await response.json();
+
+        // Open Razorpay Checkout
+        const options = {
+          key: "rzp_test_QxUAziEH2MTWHM", // Replace with your Razorpay key_id
+          amount: "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+          currency: "INR",
+          name: "Happy Inc.",
+          description: "Test Transaction",
+          order_id: order.id, // This is the order_id created in the backend
+          callback_url: "/payment-success", // Your success URL
+          prefill: {
+            name: "Harsh Chauhan",
+            email: "hc118130@gmail.com",
+            contact: "7498350484",
+          },
+          theme: {
+            color: "#F37254",
+          },
+        };
+
+        handler: function verify(response) {
+          fetch("/verify-payment", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              razorpay_order_id: razorpay.razorpay_order_id,
+              razorpay_payment_id: razorpay.razorpay_payment_id,
+              razorpay_signature: razorpay.razorpay_signature,
+            }),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.status === "ok") {
+                window.location.href = "/payment-success";
+              } else {
+                alert("Payment Verification Failed");
+              }
+            })
+            .catch((error) => {
+              console.error("Error: ", error);
+              alert("Error Verifying Payment");
+            });
+        }
+
+        const rzp = new Razorpay(options);
+        rzp.open();
+      }
+    </script>
   </body>
 </html>

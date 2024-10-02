@@ -11,6 +11,7 @@ export const AuthProvider = ({ children }) => {
   const [Store, setStore] = useState("");
   const [Category, setCategory] = useState("")
   const [Menu, setMenu] = useState([])
+  const [Deals, setDeals] = useState()
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState("");
   const authorizationToken = `Bearer ${token}`;
@@ -93,6 +94,21 @@ export const AuthProvider = ({ children }) => {
     getMenu()
   }, [])
 
+  const deals = async () => {
+    try {
+      const deal = await axios.get(`${URL}/api/deals`)
+
+      if (deal.status === 200) {
+        setDeals(deal.data)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    deals()
+  }, [])
 
   const payment = async (req, res) => {
     try {
@@ -113,7 +129,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn, storeTokenInLS, Store, Menu, Category, authorizationToken, LogoutUser, user }}
+      value={{ isLoggedIn, storeTokenInLS, Store, Deals, Menu, Category, authorizationToken, LogoutUser, user }}
     >
       {children}
     </AuthContext.Provider>

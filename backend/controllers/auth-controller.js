@@ -1,145 +1,129 @@
 import { User } from "../models/user-model.js";
-import bcrypt from "bcryptjs";
 import nodemailer from "nodemailer";
+import Deals from "../models/deals-model.js";
+import { configDotenv } from "dotenv";
+configDotenv()
 
-// Registration controller
-export const register = async (req, res) => {
-  try {
-    const { name, username, email, phone, password } = req.body;
+const transporter = nodemailer.createTransport({
+  host: process.env.MAILHOST,
+  port: process.env.MAILPORT,
+  secure: false,
+  auth: {
+    user: process.env.MAIL_USER,
+    pass: process.env.MAIL_PASS,
+  },
+});
 
-    const emailExist = await User.findOne({ email });
-    const usernameExist = await User.findOne({ username });
-    const numberExist = await User.findOne({ phone });
-
-    if (emailExist) {
-      return res.status(400).json({ message: "User already exists" });
-    } else if (usernameExist) {
-      return res.status(403).json({ message: "Username is already taken" });
-    } else if (numberExist) {
-      return res.status(404).json({ message: "Mobile number already exists" });
-    } else {
-      const salt = await bcrypt.genSalt(10);
-      const hash = await bcrypt.hash(password, salt);
-
-      const newUser = await User.create({
-        name,
-        username,
-        email,
-        phone,
-        password: hash,
-      });
-
-      return res.status(201).json({
-        message: "User registered successfully",
-        token: await newUser.generateToken(),
-      });
-    }
-  } catch (error) {
-    console.log("Error in register controller:", error);
-    res.status(500).json({ message: "Server error" });
-  }
+// Generate random 4-digit OTP
+const generateOTP = () => {
+  return Math.floor(1000 + Math.random() * 9000).toString(); // Generates a 4-digit OTP
 };
-let newOTP = [];
-// OTP generation function
+
 export const sendOTP = async (req, res) => {
-  const transport = await nodemailer.createTransport({
-    host: process.env.MAILHOST,
-    port: process.env.MAILPORT,
-    auth: {
-      user: process.env.MAIL_USER,
-      pass: process.env.MAIL_PASS,
-    },
-  });
+  const { email } = req.body;
+
   try {
-    const { email } = req.body;
-    console.log(email)
+    let user = await User.findOne({ email });
 
-    const user = await User.findOne({ email });
-
-    if (user) {
-      let OTP = "";
-      for (let i = 0; i < 6; i++) {
-        OTP += Math.floor(Math.random() * 10);
-      }
-      await transport.sendMail({
-        from: process.env.MAIL_USER,
-        to: email,
-        subject: "OTP to login in Aai Cha Dabba",
-        text: `Your OTP to login in Aai Cha Dabba is ${OTP}`,
-      });
-
-      res.status(200).json({ msg: OTP });
-      return newOTP.unshift(OTP), email;
-    }
+    // If user doesn't exist, create a new user
     if (!user) {
-      let OTP = "";
-      for (let i = 0; i < 6; i++) {
-        OTP += Math.floor(Math.random() * 10);
-      }
-      await transport.sendMail({
-        from: process.env.MAIL_USER,
-        to: email,
-        subject: "OTP to login in Aai Cha Dabba",
-        text: `Your OTP to login in Aai Cha Dabba is ${OTP}`,
-      });
-      res.status(200).json({
-        msg: "OTP Sent",
-        sentOTP: OTP,
-      });
-      return newOTP.unshift(OTP), email;
-    } else {
-      return res.status(401).json({ msg: "User Not Created" });
+      user = new User({ email });
     }
+
+    const otp = generateOTP();
+    user.otp = otp;
+    user.otpExpires = Date.now() + 10 * 60 * 1000; // OTP expires in 10 minutes
+    await user.save();
+
+    // Send OTP via email
+    const mailOptions = {
+      from: process.env.MAIL_USER,
+      to: email,
+      subject: "Your OTP Code",
+      text: `Your OTP is ${otp}`,
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        return res.status(404).json({ message: "Error sending OTP", error });
+      }
+      return res.status(200).json({ message: "OTP sent successfully!", info });
+    });
   } catch (error) {
-    console.log(error);
+    return res.status(500).json({ message: "Error generating OTP" });
   }
 };
 
-const email = await sendOTP()
+export const verifyOTP = async (req, res) => {
+  const { otp } = req.body; // Only the OTP is passed
 
-// Login controller
-export const login = async (req, res) => {
   try {
-    const { otp } = req.body;
-    console.log(email);
+    const user = await User.findOne({ otp });
 
-    if (otp === newOTP[0]) {
-      const newUser = await User.create({
-        name: "",
-        email: email,
-        phone: null,
-      });
-
-      return res.status(200).json({
-        msg: "Login Successful",
-        token: await newUser.generateToken(),
-        userId: newUser._id.toString(),
-      });
-    } else {
-      return res.status(401).json({ msg: "Invalid OTP" });
+    if (!user) {
+      return res.status(400).json({ message: "Invalid OTP" });
     }
+
+    // Check if OTP is expired
+    if (user.otpExpires < Date.now()) {
+      return res.status(400).json({ message: "OTP has expired" });
+    }
+
+    // Mark user as verified
+    user.verified = true;
+    user.otp = undefined; // Clear OTP after successful verification
+    user.otpExpires = undefined;
+
+    // Save the user as verified
+    await user.save();
+
+    // Step 3: Generate JWT Token
+    const token = await user.generateToken();
+
+    // Step 4: Send the token back to the client
+    return res.status(200).json({
+      message: "User verified successfully!",
+      token: token, // Send the token in the response
+    });
   } catch (error) {
-    console.log("Error in login controller:", error);
-    return res.status(500).json({ message: "Server error" });
+    return res.status(500).json({ message: "Error verifying OTP" });
   }
 };
 
 export const googleLogin = async (req, res) => {
   try {
     let fullName = req.user.displayName;
-    let userEmail = req.user.emails.value;
+    let userEmail = req.user.emails[0].value;
+    let userphoto = req.user.photos[0].value;
+
+    let existingUser = await User.findOne({ email: userEmail });
+
+    if (existingUser) {
+      // If the user exists, log them in and generate a token
+      // return res.status(200).json({
+      //   msg: "Login Successful with Google",
+      //   token: await existingUser.generateToken(),
+      //   userId: existingUser._id.toString(),
+      // });
+      res.redirect("http://localhost:5173");
+    }
 
     const newUser = await User.create({
       name: fullName,
       email: userEmail,
+      photo: userphoto,
       phone: null,
+      otp: null,
+      verified: req.user.emails[0].verified,
     });
+
+    // res.status(200).send({
+    //   msg: "Login Successful with Google",
+    //   token: await newUser.generateToken(),
+    //   userId: newUser._id.toString(),
+    // });
+
     res.redirect("http://localhost:5173");
-    return res.status(200).json({
-      msg: "Login Successful with Google",
-      token: await newUser.generateToken(),
-      userId: newUser._id.toString(),
-    });
   } catch (error) {
     console.log(error);
   }
@@ -152,5 +136,18 @@ export const user = (req, res) => {
     res.status(200).json({ userData });
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const deals = async (req, res) => {
+  try {
+    const deal = await Deals.find();
+
+    if (!deal || deals.length === 0)
+      return res.status(404).json({ msg: "No deals found" });
+
+    return res.status(200).json({ deal });
+  } catch (error) {
+    return res.status(500).json({ msg: "Internal server error" });
   }
 };

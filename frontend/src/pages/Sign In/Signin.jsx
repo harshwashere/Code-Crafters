@@ -42,13 +42,14 @@ export const Signin = () => {
 
         setUser({ email: emails });
 
-        toast.success("OTP Sent via Email");
+        toast.success("OTP sent via Email");
 
-      } else if (response.status === 401) {
-        toast.error("Invalid Credentials");
+      } else if (response.status === 404) {
+        toast.error("Error sending OTP");
       } else if (response.status === 400) {
         toast.warn("User Doesn't Exist");
       }
+
       setShowOTP(true);
     } catch (error) {
       console.error('Error fetching OTP:', error);
@@ -107,7 +108,7 @@ export const Signin = () => {
                 <OtpInput
                   value={otp}
                   onChange={setOtp}
-                  OTPLength={6}
+                  OTPLength={4}
                   otpType="number"
                   disabled={false}
                   autoFocus

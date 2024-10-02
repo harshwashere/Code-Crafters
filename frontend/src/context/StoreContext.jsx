@@ -6,10 +6,10 @@ export const StoreContext = createContext(null);
 
 const StoreContextProvider = (props) => {
     const [cartItems, setCartItems] = useState({});
-    const { Store } = useAuth();
-    
-    // Check if Store and Store.message exist
-    const food_list = Store && Store.menuData ? Store.menuData : [];
+    const { Menu } = useAuth();
+
+    // Check if Menu and Menu.message exist
+    const food_list = Menu && Menu ? Menu : [];
 
     const addToCart = (itemId) => {
         if (!cartItems[itemId]) {
@@ -20,23 +20,18 @@ const StoreContextProvider = (props) => {
     };
 
     const removeFromCart = (itemId) => {
-        console.log(itemId);
-        
         setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
     };
 
     const getTotalCartAmount = () => {
         let totalAmount = 0;
         for (const item in cartItems) {
-            
+
             if (cartItems[item] > 0) {
                 // Make sure food_list is not empty and find the item
                 let itemInfo = food_list.find((product) => product._id === item);
-                console.log(itemInfo)
-
                 // Handle case where itemInfo is undefined
                 if (itemInfo) {
-                    console.log(itemInfo);
                     totalAmount += itemInfo.price * cartItems[item];
                 } else {
                     console.error(`Item with _id ${item} not found in food_list`);
@@ -47,7 +42,7 @@ const StoreContextProvider = (props) => {
     };
 
     const contextValue = {
-        Store,
+        Menu,
         addToCart,
         removeFromCart,
         setCartItems,
@@ -56,7 +51,14 @@ const StoreContextProvider = (props) => {
     };
 
     return (
-        <StoreContext.Provider value={contextValue}>
+        <StoreContext.Provider value={{
+            Menu,
+            addToCart,
+            removeFromCart,
+            setCartItems,
+            cartItems,
+            getTotalCartAmount,
+        }}>
             {props.children}
         </StoreContext.Provider>
     );

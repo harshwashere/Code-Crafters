@@ -13,6 +13,7 @@ import { googleLogin } from "./controllers/auth-controller.js";
 import menuRoute from "./routers/menu-router.js";
 import { paymentRoute } from "./routers/payment-router.js";
 import scheduleRoute from "./routers/schedule-router.js";
+import contactRoute from "./routers/contact-router.js";
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
@@ -36,6 +37,8 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/api", route);
 
+app.use("/contact", contactRoute);
+
 app.use("/homeapi", homeDishRoute);
 
 app.use("/menu", menuRoute);
@@ -44,9 +47,7 @@ app.use("/admin", router);
 
 app.use("/payment", paymentRoute);
 
-app.use("/api", scheduleRoute)
-
-
+app.use("/scheduleapi", scheduleRoute);
 
 const isLoggedIn = (req, res, next) => {
   req.user ? next() : res.sendStatus(401);
@@ -62,6 +63,7 @@ app.use(
   session({
     secret: "harshu",
     resave: false,
+    session: true,
     saveUninitialized: true,
     cookie: { success: true },
   })

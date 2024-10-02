@@ -2,7 +2,6 @@ import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import dotenv from "dotenv";
 dotenv.config();
-const PORT = process.env.PORT;
 
 passport.use(
   new GoogleStrategy(
@@ -34,6 +33,6 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser((user, done) => {
   process.nextTick(function () {
-    returndon(null, user)
+    return done(null, user)
   })
 });

@@ -1,9 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./mealplan.css";
 import useAuth from "../../store/useAuth";
+import { useDispatch } from "react-redux";
+import { StoreContext } from "../../context/StoreContext";
 
 const Mealplan = () => {
   const { Menu } = useAuth()
+
+  const dispatch = useDispatch(StoreContext)
+
+  const { addToCart } = useContext(StoreContext)
 
   const [Categories, setCategories] = useState('Veg Dishes')
 
@@ -40,7 +46,9 @@ const Mealplan = () => {
             </p>
           </div>
           <div className="ourMealBtn">
-            <button to="check-out.html" className="btn btnPrimary">
+            <button onClick={() => {
+              dispatch(addToCart(data._id))
+            }} className="btn btnPrimary">
               Add To Cart
             </button>
           </div>
