@@ -28,15 +28,14 @@ export const AuthProvider = ({ children }) => {
 
   const userAuthentication = async () => {
     try {
-      const response = await axios.get(`${URL}/api/user`, {
+      const response = await axios(`${URL}/api/user`, {
+        method: 'GET',
         headers: {
           Authorization: authorizationToken,
         },
       });
-      if (response.ok) {
-        const data = await response.json();
-        console.log(data.userData)
-        setUser(data.userData);
+      if (response.status === 200) {
+        setUser(response.data.userData);
       }
     } catch (error) {
       console.error("Error fetching user data", error);
@@ -129,7 +128,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn, storeTokenInLS, Store, Deals, Menu, Category, authorizationToken, LogoutUser, user }}
+      value={{ isLoggedIn, storeTokenInLS, Store, Deals, Menu, Category, authorizationToken, LogoutUser, token, user }}
     >
       {children}
     </AuthContext.Provider>

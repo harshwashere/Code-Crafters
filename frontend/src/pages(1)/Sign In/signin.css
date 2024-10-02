@@ -1,3 +1,6 @@
+
+
+
 :root {
   --new-color: #ef7e6c;
 }
@@ -16,7 +19,7 @@
 
 .mainSignInDiv .loginImage .loginBackBtn {
   position: absolute;
-  color: black;
+  color: white;
   margin: 20px 0 0 20px;
   font-size: xx-large;
 }

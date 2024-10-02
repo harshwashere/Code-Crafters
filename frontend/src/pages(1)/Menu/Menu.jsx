@@ -31,37 +31,37 @@ export const Menu = () => {
     })
 
     const scrollRight = useCallback(() => {
-    if (sliderRef.current) {
+        if (sliderRef.current) {
+            const maxScrollLeft = sliderRef.current.scrollWidth - sliderRef.current.clientWidth;
+            if (sliderRef.current.scrollLeft >= maxScrollLeft) {
+                sliderRef.current.scrollLeft = 0; // Reset to start when it reaches the end
+            } else {
+                sliderRef.current.scrollLeft += 200; // Scroll right by 200px
+                handleInfiniteScroll()
+            }
+        }
+    }, []);
+    
+    const handleInfiniteScroll = () => {
         const maxScrollLeft = sliderRef.current.scrollWidth - sliderRef.current.clientWidth;
         if (sliderRef.current.scrollLeft >= maxScrollLeft) {
-            sliderRef.current.scrollLeft = 0; // Reset to start when it reaches the end
-            handleInfiniteScroll()
-        } else {
-            sliderRef.current.scrollLeft += 200; // Scroll right by 200px
+            sliderRef.current.scroll({
+                left: 0,
+                behavior: "smooth", // Correct spelling of behavior
+            });
         }
-    }
-}, []);
-
-const handleInfiniteScroll = () => {
-    const maxScrollLeft = sliderRef.current.scrollWidth - sliderRef.current.clientWidth;
-    if (sliderRef.current.scrollLeft >= maxScrollLeft) {
-        sliderRef.current.scroll({
-            left: 0,
-            behavior: "smooth", // Correct spelling of behavior
-        });
-    }
-};
-
-useEffect(() => {
-    const interval = setInterval(() => {
-        if (isAutoScrolling.current) {
-            scrollRight();
-        }
-    }, 1500);
-
-    return () => clearInterval(interval);
-}, [scrollRight]);
-
+    };
+    
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (isAutoScrolling.current) {
+                scrollRight();
+            }
+        }, 1500);
+    
+        return () => clearInterval(interval);
+    }, [scrollRight]);
+    
 
     const handleCategorySelect = (category) => {
         setSelectedCategory(category);

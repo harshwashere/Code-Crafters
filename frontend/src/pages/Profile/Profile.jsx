@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import useAuth from '../../store/useAuth';
 import './Profile.css';
-import { URL } from '../helper/helper';
+import { URL } from '../../pages(1)/helper/helper';
 import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const Profile = () => {
-    const { authorizationToken  } = useAuth()
+    const { authorizationToken, user } = useAuth()
+    // const [userData, setUserData] = useState(true)
     const [User, setUser] = useState({
         firstname: "",
         lastname: "",
@@ -16,14 +18,28 @@ const Profile = () => {
     })
 
     const handleChange = (e) => {
-        const name= e.target.name
-        const value = e.target.value
-        setUser({ ...User, [name]: value })
+        const { name, value } = e.target;
+        // if(userData && user) {
+        //     setUser({
+        //         firstname: user.firstname,
+        //         lastname: user.lastname,
+        //         email: user.email,
+        //         phone: user.phone,
+        //         city: user.city,
+        //         country: user.country
+        //     })
+        // }
+        // setUserData(false);
+        setUser((prevState) => ({
+            ...prevState,
+            [name]: value
+        }));
     }
 
     const updatedetails = async () => {
         try {
-            const response = await fetch(`${URL}/api/updateuserdetails`, {
+            console.log(`${URL}/api/updateuserdetails`)
+            const response = await axios(`${URL}/api/updateuserdetails`, user, User, {
                 method: 'PATCH',
                 headers: {
                     "Authorization": authorizationToken,
@@ -32,8 +48,8 @@ const Profile = () => {
                 body: JSON.stringify(User)
             })
 
-            if (response.ok) {
-                await response.json()
+            if (response.status === 200) {
+                // await response.json()
                 console.log(response)
                 toast.success('Details Updated')
             } else {
@@ -68,32 +84,32 @@ const Profile = () => {
                     <form onSubmit={handleSubmit} className="form-contents">
                         <div className="form-group">
                             <label>First Name</label>
-                            <input onChange={handleChange} value={User.firstname} type="text" placeholder='John' />
+                            <input onChange={handleChange} value={user.firstname} type="text" placeholder='John' />
                         </div>
 
                         <div className="form-group">
                             <label>Last Name</label>
-                            <input onChange={handleChange} value={User.lastname} type="text" placeholder='Doe' />
+                            <input onChange={handleChange} value={user.lastname} type="text" placeholder='Doe' />
                         </div>
 
                         <div className="form-group email-row">
                             <label>Email address</label>
-                            <input onChange={handleChange} value={User.email} type="email" placeholder='johndoe@example.com' />
+                            <input onChange={handleChange} value={user.email} type="email" placeholder='johndoe@example.com' />
                         </div>
 
                         <div className="form-group">
                             <label>Email address</label>
-                            <input onChange={handleChange} value={User.phone} type="tel" placeholder='7498XXXX83' />
+                            <input onChange={handleChange} value={user.phone} type="tel" placeholder='7498XXXX83' />
                         </div>
 
                         <div className="form-group">
                             <label>Country</label>
-                            <input onChange={handleChange} value={User.city} type="text" placeholder='London' />
+                            <input onChange={handleChange} value={user.city} type="text" placeholder='London' />
                         </div>
 
                         <div className="form-group">
                             <label>City</label>
-                            <input onChange={handleChange} value={User.country} type="text" placeholder='United Kingdom' />
+                            <input onChange={handleChange} value={user.country} type="text" placeholder='United Kingdom' />
                         </div>
 
                         <button className="btn-save">Save</button>
