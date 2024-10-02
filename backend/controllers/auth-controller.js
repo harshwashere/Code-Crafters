@@ -2,7 +2,7 @@ import { User } from "../models/user-model.js";
 import nodemailer from "nodemailer";
 import Deals from "../models/deals-model.js";
 import { configDotenv } from "dotenv";
-configDotenv()
+configDotenv();
 
 const transporter = nodemailer.createTransport({
   host: process.env.MAILHOST,
@@ -136,6 +136,33 @@ export const user = (req, res) => {
     res.status(200).json({ userData });
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const updateUserDetails = async (req, res) => {
+  try {
+    const { firstname, lastname, email, phone, city, country } = req.body;
+    const ID = req.userID
+    const userDetail = await User.updateOne(
+      { _id: req.userID },
+      {
+        $set: {
+          firstname: firstname,
+          lastname: lastname,
+          email: email,
+          phone: phone,
+          city: city,
+          country: country,
+        },
+      }
+    );
+
+    if (!userDetail)
+      return res.status(400).json({ message: "Couldn't Update Details" });
+
+    return res.status(200).json({ userDetail, ID });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal Server Error" });
   }
 };
 

@@ -2,7 +2,11 @@ import { Schema, model } from "mongoose";
 import jwt from "jsonwebtoken";
 
 const userModel = new Schema({
-  name: {
+  firstname: {
+    type: String,
+    default: "",
+  },
+  lastname: {
     type: String,
     default: "",
   },
@@ -17,7 +21,15 @@ const userModel = new Schema({
   },
   photo: {
     type: String,
-    default: ''
+    default: "",
+  },
+  city: {
+    type: String,
+    default: "",
+  },
+  country: {
+    type: String,
+    default: "",
   },
   otp: {
     type: String,
@@ -41,6 +53,12 @@ userModel.methods.generateToken = async function () {
       {
         userid: this._id.toString(),
         email: this.email,
+        firstname: this.firstname,
+        lastname: this.lastname,
+        phone: this.phone,
+        photo: this.photo,
+        city: this.city,
+        country: this.country,
       },
       process.env.JWT_KEY,
       {

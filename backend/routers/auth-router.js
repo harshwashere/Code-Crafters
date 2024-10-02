@@ -1,9 +1,10 @@
 import express from "express";
-import { deals, sendOTP, user, verifyOTP } from "../controllers/auth-controller.js";
+import { deals, sendOTP, updateUserDetails, user, verifyOTP } from "../controllers/auth-controller.js";
 import { contact } from "../controllers/contact-controller.js";
-import { authMiddleware } from "../middleware/authMiddleware.js";
+import authMiddleware from "../middleware/authMiddleware.js";
 export const route = express.Router();
 
+route.patch('/updateuserdetails', authMiddleware, updateUserDetails)
 route.get('/deals', deals)
 route.post("/otp", sendOTP);
 route.post("/login", verifyOTP);

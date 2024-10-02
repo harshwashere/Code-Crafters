@@ -1,7 +1,7 @@
 import express from "express"
 
 import { getSchedule, getScheduleData } from "../controllers/schedule-controller.js"
-import { authMiddleware } from "../middleware/authMiddleware.js"
+import authMiddleware from "../middleware/authMiddleware.js"
 
 const scheduleRoute = express.Router()
 

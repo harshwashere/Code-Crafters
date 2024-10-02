@@ -21,7 +21,6 @@ export const AuthProvider = ({ children }) => {
   };
 
   const isLoggedIn = !!token;
-
   const LogoutUser = () => {
     setToken("");
     return localStorage.removeItem("token");
@@ -36,6 +35,7 @@ export const AuthProvider = ({ children }) => {
       });
       if (response.ok) {
         const data = await response.json();
+        console.log(data.userData)
         setUser(data.userData);
       }
     } catch (error) {

@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { FaSearch, FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import { LuUtensilsCrossed } from "react-icons/lu";
 import "./navbar.css";
@@ -81,9 +81,9 @@ const Navbar = () => {
           </div>
 
           <div className="btnGroup btnG">
-            <NavLink onClick={visibility2}>
+            {/* <NavLink onClick={visibility2}>
               <FaSearch />
-            </NavLink>
+            </NavLink> */}
             {isLoggedIn ? <><p className="cartIcon">
               <NavLink to='/cart'>
                 <FaShoppingCart />
@@ -93,9 +93,9 @@ const Navbar = () => {
               <div className="profile-section">
                 <CgProfile onClick={visibility3} className="profile-icon" />
                 <div className="profile-list" style={{ display: visible3 ? "none" : "flex" }}>
-                  {/* <div className="list"><NavLink>Profile</NavLink></div>
+                  <div className="list"><NavLink to="/profile">My Profile</NavLink></div>
                   <hr className="list-line" />
-                  <div className="list"><NavLink>Your Orders</NavLink></div>
+                  {/* <div className="list"><NavLink>Your Orders</NavLink></div>
                   <hr className="list-line" /> */}
                   <div className="list"><NavLink to="/logout">Log Out <TbLogout /></NavLink></div>
                 </div>

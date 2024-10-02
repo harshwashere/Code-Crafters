@@ -1,0 +1,115 @@
+.profile-container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Sidebar Styles */
+.profile-container .profile-sidebar {
+  background-color: #f7f7f7;
+  width: 250px;
+  padding: 20px;
+  height: 100vh;
+}
+
+.profile-container .profile-sidebar .logo {
+  font-size: 30px;
+  margin-bottom: 30px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.profile-container .profile-sidebar .menu-list {
+  list-style: none;
+  font-size: 25px;
+  text-align: center;
+}
+
+.profile-container .profile-sidebar .menu-list li {
+  padding: 15px 0;
+  cursor: pointer;
+  color: #7f7f7f;
+}
+
+.profile-container .profile-sidebar .menu-list li.active {
+  color: #3f51b5;
+  font-weight: bold;
+}
+
+/* Main Content Styles */
+.profile-container .main-content {
+  flex-grow: 1;
+  padding: 60px;
+  background-color: white;
+  display: flex; /* Flexbox layout */
+  align-items: flex-start; /* Align content at the top */
+  justify-content: center; /* Center the form horizontally */
+  height: 100vh;
+}
+
+/* Profile Form */
+.profile-container .main-content .profile-form {
+  background-color: #f9f9f9;
+  padding: 30px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 850px;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 3px 3px rgb(251, 244, 244);
+}
+.profile-container .main-content .profile-form h3 {
+  margin-bottom: 20px;
+}
+
+/* Adjust .form-content and .form-contents to stretch */
+
+.profile-container .main-content .profile-form .form-contents {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  flex-grow: 1;
+}
+
+.profile-container .main-content .profile-form .form-contents .form-group {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.profile-container .main-content .profile-form .form-contents .form-group label {
+  margin-top: 35px;
+  color: #555;
+}
+
+/* Input Fields */
+.profile-container .main-content .profile-form .form-contents .form-group input {
+  padding: 10px;
+  font-size: 20px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid rgb(64, 60, 60);
+  outline: none;
+  color: #000;
+}
+
+.profile-container .main-content .profile-form .form-contents .form-group input::placeholder {
+  color: #999;
+}
+
+/* Save Button */
+.profile-container .main-content .profile-form .form-contents .btn-save {
+  grid-column: span 2;
+  padding: 2px 5px;
+  background-color: #0e277fd8;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  font-size: 16px;
+}
+.profile-container .main-content .profile-form .form-contents .btn-save:hover {
+  background-color: rgb(40, 40, 109);
+}
