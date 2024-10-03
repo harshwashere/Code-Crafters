@@ -59,7 +59,7 @@ export const verifyOTP = async (req, res) => {
 
   try {
     const user = await User.findOne({ otp });
-
+    console.log(user);
     if (!user) {
       return res.status(400).json({ message: "Invalid OTP" });
     }
@@ -70,21 +70,23 @@ export const verifyOTP = async (req, res) => {
     }
 
     // Mark user as verified
-    user.verified = true;
-    user.otp = undefined; // Clear OTP after successful verification
-    user.otpExpires = undefined;
+    if (otp === user.otp) {
+      user.verified = true;
+      user.otp = undefined; // Clear OTP after successful verification
+      user.otpExpires = undefined;
 
-    // Save the user as verified
-    await user.save();
+      // Save the user as verified
+      await user.save();
 
-    // Step 3: Generate JWT Token
-    const token = await user.generateToken();
+      // Step 3: Generate JWT Token
+      const token = await user.generateToken();
 
-    // Step 4: Send the token back to the client
-    return res.status(200).json({
-      message: "User verified successfully!",
-      token: token, // Send the token in the response
-    });
+      // Step 4: Send the token back to the client
+      return res.status(200).json({
+        message: "User verified successfully!",
+        token: token, // Send the token in the response
+      });
+    }
   } catch (error) {
     return res.status(500).json({ message: "Error verifying OTP" });
   }
@@ -142,7 +144,7 @@ export const user = (req, res) => {
 export const updateUserDetails = async (req, res) => {
   try {
     const { firstname, lastname, email, phone, city, country } = req.body;
-    const ID = req.userID
+    const ID = req.userID;
     const userDetail = await User.updateOne(
       { _id: req.userID },
       {

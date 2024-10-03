@@ -3,11 +3,10 @@ import "./SchedulePage.css";
 import Navbar from "../navbar/Navbar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import {ScheduleSummary} from "../ScheduleSummary/ScheduleSummary";
+import { ScheduleSummary } from "../ScheduleSummary/ScheduleSummary";
 // import axios from "axios";
 
 const SchedulePage = () => {
-
   const navigate = useNavigate(); // Initialize useNavigate
   const [summaryDetails, setSummaryDetails] = useState("");
   const [selectedMeal, setSelectedMeal] = useState("");
@@ -22,8 +21,8 @@ const SchedulePage = () => {
   });
   const [selectedMealsPerWeek, setSelectedMealsPerWeek] = useState("");
   const [selectedQuantity, setSelectedQuantity] = useState(1);
-  const [chapatiCount, setChapatiCount] = useState(1);
-  const [riceType, setRiceType] = useState("normal");
+  // const [chapatiCount, setChapatiCount] = useState(1);
+  // const [riceType, setRiceType] = useState("normal");
   const [startDate, setStartDate] = useState("");
   const [formError, setFormError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
@@ -65,13 +64,13 @@ const SchedulePage = () => {
     setSelectedQuantity(parseInt(event.target.value));
   };
 
-  const handleChapatiCountChange = (event) => {
-    setChapatiCount(parseInt(event.target.value));
-  };
+  // const handleChapatiCountChange = (event) => {
+  //   setChapatiCount(parseInt(event.target.value));
+  // };
 
-  const handleRiceTypeChange = (type) => {
-    setRiceType(type);
-  };
+  // const handleRiceTypeChange = (type) => {
+  //   setRiceType(type);
+  // };
 
   const handleStartDateChange = (event) => {
     setStartDate(event.target.value);
@@ -151,16 +150,16 @@ const SchedulePage = () => {
     }
 
     // Validate if chapati count is selected
-    if (!chapatiCount) {
-      setFormError("Please select how many chapatis you want!");
-      validationError = true;
-    }
+    // if (!chapatiCount) {
+    //   setFormError("Please select how many chapatis you want!");
+    //   validationError = true;
+    // }
 
     // Validate if a rice type is selected
-    if (!riceType) {
-      setFormError("Please select a rice type!");
-      validationError = true;
-    }
+    // if (!riceType) {
+    //   setFormError("Please select a rice type!");
+    //   validationError = true;
+    // }
 
     // Check if a quantity is selected
     if (!selectedQuantity) {
@@ -173,28 +172,26 @@ const SchedulePage = () => {
       return;
     }
 
+    const formData = {
+      mealFor: selectedMeal,
+      mealType: selectedMealType,
+      mealPlans: selectedMealPlan,
+      duration: selectedDuration,
+      mealsPerWeek: selectedMealsPerWeek,
+      quantity: selectedQuantity,
+      // chapatiCount: chapatiCount,
+      // riceType: riceType,
+      startDate: startDate,
+      totalPrice: calculatePrice(),
+    };
 
+    console.log("Form Data:", formData);
+    setSummaryDetails(formData);
 
-  const formData = {
-    mealFor: selectedMeal,
-    mealType: selectedMealType,
-    mealPlans: selectedMealPlan,
-    duration: selectedDuration,
-    mealsPerWeek: selectedMealsPerWeek,
-    quantity: selectedQuantity,
-    chapatiCount: chapatiCount,
-    riceType: riceType,
-    startDate: startDate,
-    totalPrice: calculatePrice(),
-  };  
+    // Log the updated summaryDetails state after setting it
+    console.log("Updated Summary Details:", summaryDetails);
 
-  console.log("Form Data:", formData);
-  setSummaryDetails(formData);
-
-  // Log the updated summaryDetails state after setting it
-  console.log("Updated Summary Details:", summaryDetails);
-
-  navigate("/scheduleSummary");
+    navigate("/scheduleSummary");
     const resetForm = () => {
       setSelectedMeal("");
       setSelectedMealType("");
@@ -202,27 +199,28 @@ const SchedulePage = () => {
       setSelectedDuration({ lunch: "", dinner: "" });
       setSelectedMealsPerWeek("");
       setSelectedQuantity(1);
-      setChapatiCount(1);
-      setRiceType("normal");
+      // setChapatiCount(1);
+      // setRiceType("normal");
       setStartDate("");
       setFormError("");
       setSuccessMessage("");
     };
 
-    
-
     try {
-      const response = await axios.post('http://localhost:7000/api/schedule', formData);
+      const response = await axios.post(
+        "http://localhost:7000/api/schedule",
+        formData
+      );
       console.log(response);
       if (response.status === 200) {
-        setSuccessMessage('Your meal plan has been scheduled successfully!');
+        setSuccessMessage("Your meal plan has been scheduled successfully!");
         setFormError(""); // Clear any form errors
         resetForm(); // Call function to reset the form
         setSummaryDetails(formData);
       }
     } catch (error) {
-      console.error('Error during form submission:', error);
-      setFormError('Something went wrong. Please try again later.');
+      console.error("Error during form submission:", error);
+      setFormError("Something went wrong. Please try again later.");
     }
   };
 
@@ -275,22 +273,22 @@ const SchedulePage = () => {
               <div className="meal-type-selection">
                 <h2>Select Meal Type</h2>
                 <hr />
-                <button
-                  onClick={() => handleMealType("healthy")}
-                  className="healthy"
-                >
+                <button onClick={() => handleMealType("Veg")} className="Veg">
                   <img
                     src="https://www.happygrub.in/img/healthy-meal.png"
                     alt=""
                   />{" "}
-                  <span>Healthy Meal </span>
+                  <span>Veg </span>
                 </button>
-                <button onClick={() => handleMealType("jain")} className="jain">
+                <button
+                  onClick={() => handleMealType("Non-Veg")}
+                  className="Non-veg"
+                >
                   <img
                     src="https://www.happygrub.in/img/healthy-jain-meal.png"
                     alt=""
                   />{" "}
-                  <span>Healthy Jain meal</span>
+                  <span>Non-Veg</span>
                 </button>
                 <button
                   onClick={() => handleMealType("diabetic")}
@@ -544,7 +542,7 @@ const SchedulePage = () => {
                   />
                 </div>
 
-                <div className="chapati-selection">
+                {/* <div className="chapati-selection">
                   <h2>Select Chapati Count</h2>
                   <input
                     type="number"
@@ -553,10 +551,10 @@ const SchedulePage = () => {
                     min="1"
                     max="10"
                   />
-                </div>
+                </div> */}
 
                 {/* Rice Options */}
-                <div className="rice-selection">
+                {/* <div className="rice-selection">
                   <h2>Select Rice Type</h2>
                   <button onClick={() => handleRiceTypeChange("normal")}>
                     Normal Rice
@@ -564,7 +562,7 @@ const SchedulePage = () => {
                   <button onClick={() => handleRiceTypeChange("brown")}>
                     Brown Rice
                   </button>
-                </div>
+                </div> */}
               </>
             )}
 
@@ -587,13 +585,17 @@ const SchedulePage = () => {
             )}
 
             {/* Submit Button */}
-            <button type="submit" className="form-submit">Submit</button>
+            <button type="submit" className="form-submit">
+              Submit
+            </button>
           </form>
           <div className="total-price">
             <h2>Total Price: ₹{calculatePrice()}</h2>
           </div>
 
-          { summaryDetails && <ScheduleSummary summaryDetails={summaryDetails} />}
+          {summaryDetails && (
+            <ScheduleSummary summaryDetails={summaryDetails} />
+          )}
         </div>
       </div>
     </>
