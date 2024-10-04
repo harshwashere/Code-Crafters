@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import useAuth from '../../store/useAuth';
-import './Profile.css';
+import './profile.css';
 import { URL } from '../../pages(1)/helper/helper';
 import { toast } from 'react-toastify';
 import axios from 'axios';
