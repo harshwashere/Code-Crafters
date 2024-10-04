@@ -1,393 +1,391 @@
-.schedule-container{
-    border: 1px solid black;
-    width: 100%;
-    height: auto; 
+.schedule-container {
+  border: 1px solid black;
+  width: 100%;
+  height: auto;
 }
 
-.schedule-page{
-    max-width: 132rem;
-    background-color: #fff;
-    width: 80%;
-    margin: auto;
-    height: auto;
-    padding: 20px 25px;
+.schedule-page {
+  max-width: 132rem;
+  background-color: #fff;
+  width: 80%;
+  margin: auto;
+  height: auto;
+  padding: 20px 25px;
 }
 
-
-.tiffin-header h1{
-    font-weight: 400;
-    margin-bottom: 5px;
+.tiffin-header h1 {
+  font-weight: 400;
+  margin-bottom: 5px;
 }
 
 .meal-selection {
-    /* border: 1px solid black; */
-    text-align: center;
-    margin: 20px 0;
-  }
-  
-  .meal-selection h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  
-  .meal-selection hr {
-    width: 80%;
-    margin: 0 auto 30px;
-    border: none;
-    border-top: 2px solid #ddd;
-  }
-  
-  .meal-selection button {
-    background-color: white;
-    color: #333;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 20px;
-    margin: 10px;
-    font-size: 18px;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.3s ease;
-    width: 200px;
-    text-align: center;
-    position: relative;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .meal-selection button img {
-    width: 40px;
-    height: 40px;
-    margin-bottom: 10px;
-  }
-  
-  .meal-selection button span {
-    display: block;
-    font-weight: bold;
-  }
-  
-  .meal-selection button:hover {
-    transform: scale(1.05); /* Slight zoom on hover */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  }
-  
-  .meal-selection button:active {
-    transform: translateY(0);
-  }
+  /* border: 1px solid black; */
+  text-align: center;
+  margin: 20px 0;
+}
 
-  .meal-selection button.lunch {
-    background-color: #e9f7ef; /* Light green background for Healthy */
-    border-color: #28a745;
-  }
-  
-  .meal-selection button.dinner {
-    background-color: #fff3cd; /* Light yellow background for Jain */
-    border-color: #ffc107;
-  }
-  
-  .meal-selection button.both {
-    background-color: #d1ecf1; /* Light blue background for Diabetic */
-    border-color: #17a2b8;
-  }
+.meal-selection h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
 
+.meal-selection hr {
+  width: 80%;
+  margin: 0 auto 30px;
+  border: none;
+  border-top: 2px solid #ddd;
+}
+
+.meal-selection button {
+  background-color: white;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  width: 200px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.meal-selection button img {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 10px;
+}
+
+.meal-selection button span {
+  display: block;
+  font-weight: bold;
+}
+
+.meal-selection button:hover {
+  transform: scale(1.05); /* Slight zoom on hover */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.meal-selection button:active {
+  transform: translateY(0);
+}
+
+.meal-selection button.lunch {
+  background-color: #e9f7ef; /* Light green background for Healthy */
+  border-color: #28a745;
+}
+
+.meal-selection button.dinner {
+  background-color: #fff3cd; /* Light yellow background for Jain */
+  border-color: #ffc107;
+}
+
+.meal-selection button.both {
+  background-color: #d1ecf1; /* Light blue background for Diabetic */
+  border-color: #17a2b8;
+}
+
+.meal-type-selection {
+  /* display: flex; */
+  /* justify-content: space-evenly; Space buttons evenly across the page */
+  /* flex-wrap: wrap; Wrap the buttons on smaller screens */
+  /* margin: 40px auto; */
+  /* max-width: 900px; Set a max width for the section */
+  /* border: 1px solid black; */
+  text-align: center;
+  margin: 20px 0;
+}
+
+.meal-type-selection h2 {
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+.meal-type-selection hr {
+  width: 80%;
+  margin: 0 auto 30px;
+  border: none;
+  border-top: 2px solid #ddd;
+}
+
+.meal-type-selection button {
+  background-color: white;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  width: 200px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Card-like shadow effect */
+}
+
+.meal-type-selection button:hover {
+  transform: scale(1.05); /* Slight zoom on hover */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+}
+
+.meal-type-selection button img {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 10px;
+}
+
+.meal-type-selection button span {
+  display: block;
+  font-weight: bold;
+  /* font-size: 20px; */
+  color: #444;
+}
+
+.meal-type-selection button.Veg {
+  background-color: #9aefbf; /* Light green background for Healthy */
+  border-color: #28a745;
+}
+
+.meal-type-selection button.Non-veg {
+  background-color: #f6e2a1; /* Light yellow background for Jain */
+  border-color: #ffc107;
+}
+
+.meal-type-selection button.diabetic {
+  background-color: #689eeb; /* Light blue background for Diabetic */
+  border-color: #003a61;
+}
+
+@media screen and (max-width: 768px) {
   .meal-type-selection {
-    /* display: flex; */
-    /* justify-content: space-evenly; Space buttons evenly across the page */
-    /* flex-wrap: wrap; Wrap the buttons on smaller screens */
-    /* margin: 40px auto; */
-    /* max-width: 900px; Set a max width for the section */
-    /* border: 1px solid black; */
-    text-align: center;
-    margin: 20px 0;
+    flex-direction: column; /* Stack buttons vertically on mobile */
+    align-items: center;
   }
-  
-  .meal-type-selection h2 {
-    text-align: center;
-    font-size: 20px;
-    margin-bottom: 10px;
-    color: #444;
-  }
-  
-  .meal-type-selection hr {
-    width: 80%;
-    margin: 0 auto 30px;
-    border: none;
-    border-top: 2px solid #ddd;
-  }
-  
+
   .meal-type-selection button {
-    background-color: white;
-    color: #333;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 20px;
-    margin: 10px;
-    font-size: 18px;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.3s ease;
-    width: 200px;
-    text-align: center;
-    position: relative;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Card-like shadow effect */
+    width: 80%; /* Make buttons take up more space on mobile */
   }
-  
-  .meal-type-selection button:hover {
-    transform: scale(1.05); /* Slight zoom on hover */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
-  }
-  
-  .meal-type-selection button img {
-    width: 40px;
-    height: 40px;
-    margin-bottom: 10px;
-  }
-  
-  .meal-type-selection button span {
-    display: block;
-    font-weight: bold;
-    /* font-size: 20px; */
-    color: #444;
-  }
-  
-  .meal-type-selection button.healthy {
-    background-color: #9aefbf; /* Light green background for Healthy */
-    border-color: #28a745;
-  }
-  
-  .meal-type-selection button.jain {
-    background-color: #f6e2a1; /* Light yellow background for Jain */
-    border-color: #ffc107;
-  }
-  
-  .meal-type-selection button.diabetic {
-    background-color: #689eeb; /* Light blue background for Diabetic */
-    border-color: #003a61;
-  }
-  
-  @media screen and (max-width: 768px) {
-    .meal-type-selection {
-      flex-direction: column; /* Stack buttons vertically on mobile */
-      align-items: center;
-    }
-  
-    .meal-type-selection button {
-      width: 80%; /* Make buttons take up more space on mobile */
-    }
-  }
-  
-  
-  .meal-plan-selection {
-    text-align: center;
-    margin: 20px;
-    /* border: 1px solid black;/ */
-    border-radius: 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  }
-  
-  .meal-plan-selection h2,
-  .meal-plan-selection h3 {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
+}
 
-  .meal-plan-selection h2{
-    padding-top: 20px;
-  }
-  
-  .meal-plan-selection hr {
-    border: none;
-    height: 1px;
-    background-color: #ccc;
-    margin: 10px 0;
-  }
-  
-  .meal-plan-selection button {
-    display: inline-block;
-    width: 150px;
-    padding: 10px;
-    margin: 10px;
-    /* border: none; */
-    border: 1px solid #ddd;
-    /* background-color: #007BFF; */
-    background-color: white;
-    color: #333;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    /* color: white; */
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    text-align: center;
-    transition: transform 0.2s ease, box-shadow 0.3s ease;
-    position: relative;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s;
-  }
-  
-  .meal-plan-selection button img {
-    width: 30px;
-    height: 30px;
-    display: block;
-    margin: 0 auto 5px;
-    /* background-color: white; */
-    padding: 5px;
-    /* border-radius: 50%; */
-  }
-  
-  .meal-plan-selection button span {
-    display: block;
-    margin-top: 5px;
-  }
-  
-  .meal-plan-selection button:hover {
-    transform: scale(1.05); /* Slight zoom on hover */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
-  }
+.meal-plan-selection {
+  text-align: center;
+  margin: 20px;
+  /* border: 1px solid black;/ */
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
 
-  .meal-plan-selection button.eco {
-    background-color: #9aefbf; /* Light green background for Healthy */
-    border-color: #28a745;
-  }
-  
-  .meal-plan-selection button.mini {
-    background-color: #f6e2a1; /* Light yellow background for Jain */
-    border-color: #ffc107;
-  }
-  
-  .meal-plan-selection button.executive {
-    background-color: #629ced; /* Light blue background for Diabetic */
-    border-color: #003a61;
-  }
+.meal-plan-selection h2,
+.meal-plan-selection h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
 
-  .meal-plan-selection p {
-    margin-top: 5px;
-    font-size: 18px;
-    color: #333;
-  }
-  
+.meal-plan-selection h2 {
+  padding-top: 20px;
+}
+
+.meal-plan-selection hr {
+  border: none;
+  height: 1px;
+  background-color: #ccc;
+  margin: 10px 0;
+}
+
+.meal-plan-selection button {
+  display: inline-block;
+  width: 150px;
+  padding: 10px;
+  margin: 10px;
+  /* border: none; */
+  border: 1px solid #ddd;
+  /* background-color: #007BFF; */
+  background-color: white;
+  color: #333;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  /* color: white; */
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  position: relative;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+}
+
+.meal-plan-selection button img {
+  width: 30px;
+  height: 30px;
+  display: block;
+  margin: 0 auto 5px;
+  /* background-color: white; */
+  padding: 5px;
+  /* border-radius: 50%; */
+}
+
+.meal-plan-selection button span {
+  display: block;
+  margin-top: 5px;
+}
+
+.meal-plan-selection button:hover {
+  transform: scale(1.05); /* Slight zoom on hover */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+}
+
+.meal-plan-selection button.eco {
+  background-color: #9aefbf; /* Light green background for Healthy */
+  border-color: #28a745;
+}
+
+.meal-plan-selection button.mini {
+  background-color: #f6e2a1; /* Light yellow background for Jain */
+  border-color: #ffc107;
+}
+
+.meal-plan-selection button.executive {
+  background-color: #629ced; /* Light blue background for Diabetic */
+  border-color: #003a61;
+}
+
+.meal-plan-selection p {
+  margin-top: 5px;
+  font-size: 18px;
+  color: #333;
+}
+
+.Both-side {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.lunch-side,
+.dinner-side {
+  /* border: 1px solid black; */
+  margin-bottom: 10px;
+  flex: 1;
+}
+
+.lunch-side h3,
+.dinner-side h3 {
+  font-size: 20px;
+}
+
+.lunch-side button,
+.dinner-side button {
+  width: 50%;
+}
+
+.lunch-side p,
+.dinner-side p {
+  font-size: 16px;
+  color: #444;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
   .Both-side {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    margin-top: 20px;
-  }
-  
-  .lunch-side, 
-  .dinner-side {
-    /* border: 1px solid black; */
-    margin-bottom: 10px;
-    flex: 1;
-  }
-  
-  .lunch-side h3,
-  .dinner-side h3 {
-    font-size: 20px;
-  }
-  
-  .lunch-side button,
-  .dinner-side button {
-    width: 50%;
-  }
-  
-  .lunch-side p,
-  .dinner-side p {
-    font-size: 16px;
-    color: #444;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .Both-side {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .lunch-side, 
-    .dinner-side {
-      width: 100%;
-    }
-  
-    .meal-plan-selection button {
-      width: 80%;
-      margin-bottom: 15px;
-    }
-  }
-
-  .duration-plan-selection {
-    background-color: #fff;
-    padding: 20px;
-    margin: 20px;
-    border-radius: 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    text-align: center;
-  }
-  
-  .duration-plan-selection h2 {
-    font-size: 1.5rem;
-    color: #333;
-    margin-bottom: 15px;
-  }
-  
-  /* Flexbox for row alignment of buttons */
-  .duration-btn {
-    display: flex;
-    justify-content: center;
-    gap: 20px; /* Space between each button set */
-  }
-  
-  /* Wrapper to align each button and its discount text */
-  .button-wrapper {
-    display: flex;
     flex-direction: column;
     align-items: center;
   }
-  
-  /* Button styling */
-  .duration-plan-selection button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    transition: tra;
-    padding: 10px 20px;
-    transition: transform 0.2s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-    font-size: 1rem;
-    /* transition: background-color 0.3s ease; */
-  }
-  
-  .duration-plan-selection button:hover {
-    transform: scale(1.05); /* Slight zoom on hover */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    background-color: #0056b3;
-  }
-  
-  .duration-plan-selection button:focus {
-    outline: none;
-    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
-  }
-  
-  /* Discount text below buttons */
-  .button-wrapper p {
-    margin-top: 5px;
-    font-size: 0.9rem;
-    color: #666;
-    text-align: center;
-    min-height: 1.2em; /* Ensures even space if no text */
-  }
-  
-  /* Responsive Design: Stack buttons vertically on small screens */
-  @media (max-width: 768px) {
-    .duration-btn {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .button-wrapper {
-      margin-bottom: 10px;
-    }
-  }
-  
-  /* Duration Plan  */
 
-  .duration-plan-selection {
+  .lunch-side,
+  .dinner-side {
+    width: 100%;
+  }
+
+  .meal-plan-selection button {
+    width: 80%;
+    margin-bottom: 15px;
+  }
+}
+
+.duration-plan-selection {
+  background-color: #fff;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.duration-plan-selection h2 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* Flexbox for row alignment of buttons */
+.duration-btn {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Space between each button set */
+}
+
+/* Wrapper to align each button and its discount text */
+.button-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Button styling */
+.duration-plan-selection button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: tra;
+  padding: 10px 20px;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  font-size: 1rem;
+  /* transition: background-color 0.3s ease; */
+}
+
+.duration-plan-selection button:hover {
+  transform: scale(1.05); /* Slight zoom on hover */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  background-color: #0056b3;
+}
+
+.duration-plan-selection button:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}
+
+/* Discount text below buttons */
+.button-wrapper p {
+  margin-top: 5px;
+  font-size: 0.9rem;
+  color: #666;
+  text-align: center;
+  min-height: 1.2em; /* Ensures even space if no text */
+}
+
+/* Responsive Design: Stack buttons vertically on small screens */
+@media (max-width: 768px) {
+  .duration-btn {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .button-wrapper {
+    margin-bottom: 10px;
+  }
+}
+
+/* Duration Plan  */
+
+.duration-plan-selection {
   background-color: #f8f9fa;
   border-radius: 8px;
   padding: 20px;
@@ -455,156 +453,161 @@
   }
 }
 .meals-per-week-selection {
-    display: flex;
-    flex-direction: column;
-    background-color: #f8f9fa;
-    align-items: center;
-    border-radius: 8px;
-    margin: 20px;
-    padding: 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  background-color: #f8f9fa;
+  align-items: center;
+  border-radius: 8px;
+  margin: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.meals-per-week-selection h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.meals-btn-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px; /* Adjusts spacing between the two meal buttons */
+}
+
+.meals-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.meals-btn button {
+  background-color: #4caf50; /* Green background for buttons */
+  color: white; /* White text */
+  border: none; /* Removes default border */
+  padding: 10px 20px; /* Adjusts the padding for better button size */
+  font-size: 16px; /* Ensures readable font size */
+  cursor: pointer; /* Adds a pointer cursor on hover */
+  border-radius: 5px; /* Slightly rounds the button corners */
+  /* transition: background-color 0.3s ease; Smooth hover transition */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.meals-btn button:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  background-color: #45a049; /* Darker green on hover */
+}
+
+.meals-btn p {
+  margin-top: 8px; /* Adds space between the button and the text */
+  font-size: 14px; /* Slightly smaller font for the text */
+  color: #555; /* Subtle color for the text */
+}
+
+/* Global Form Styles */
+.quantity-selection,
+.chapati-selection,
+.rice-selection {
+  margin-bottom: 20px; /* Adds space between sections */
+  text-align: center; /* Centers content */
+}
+
+.quantity-selection h2,
+.chapati-selection h2,
+.rice-selection h2 {
+  font-size: 20px; /* Standard size for section headings */
+  margin-bottom: 10px; /* Adds space between heading and input/buttons */
+}
+
+/* Input Styles */
+input[type="number"] {
+  width: 60px; /* Fixed width for inputs */
+  padding: 8px; /* Adds padding for input field */
+  font-size: 16px; /* Ensures readability of input */
+  text-align: center; /* Aligns input value in the center */
+  border-radius: 5px; /* Slight rounding of input field edges */
+  border: 1px solid #ccc; /* Light border for input field */
+}
+
+/* Rice Selection Buttons */
+.rice-selection button {
+  background-color: #4caf50; /* Green background for rice type buttons */
+  color: white; /* White text */
+  border: none; /* Removes default border */
+  padding: 10px 20px; /* Padding for better button size */
+  margin: 0 10px; /* Adds spacing between buttons */
+  font-size: 16px; /* Ensures readability */
+  cursor: pointer; /* Pointer cursor for interactivity */
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s ease; /* Smooth hover transition */
+}
+
+.rice-selection button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  .quantity-selection,
+  .chapati-selection,
+  .rice-selection {
+    text-align: center; /* Ensure centered alignment on smaller screens */
   }
-  
-  .meals-per-week-selection h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  .meals-btn-container {
-    display: flex;
-    justify-content: center;
-    gap: 30px; /* Adjusts spacing between the two meal buttons */
-  }
-  
-  .meals-btn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .meals-btn button {
-    background-color: #4CAF50; /* Green background for buttons */
-    color: white; /* White text */
-    border: none; /* Removes default border */
-    padding: 10px 20px; /* Adjusts the padding for better button size */
-    font-size: 16px; /* Ensures readable font size */
-    cursor: pointer; /* Adds a pointer cursor on hover */
-    border-radius: 5px; /* Slightly rounds the button corners */
-    /* transition: background-color 0.3s ease; Smooth hover transition */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .meals-btn button:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    background-color: #45a049; /* Darker green on hover */
-  }
-  
-  .meals-btn p {
-    margin-top: 8px; /* Adds space between the button and the text */
-    font-size: 14px; /* Slightly smaller font for the text */
-    color: #555; /* Subtle color for the text */
-  }
-  
-  /* Global Form Styles */
-.quantity-selection, .chapati-selection, .rice-selection {
-    margin-bottom: 20px; /* Adds space between sections */
-    text-align: center; /* Centers content */
-  }
-  
-  .quantity-selection h2, .chapati-selection h2, .rice-selection h2 {
-    font-size: 20px; /* Standard size for section headings */
-    margin-bottom: 10px; /* Adds space between heading and input/buttons */
-  }
-  
-  /* Input Styles */
-  input[type="number"] {
-    width: 60px; /* Fixed width for inputs */
-    padding: 8px; /* Adds padding for input field */
-    font-size: 16px; /* Ensures readability of input */
-    text-align: center; /* Aligns input value in the center */
-    border-radius: 5px; /* Slight rounding of input field edges */
-    border: 1px solid #ccc; /* Light border for input field */
-  }
-  
-  /* Rice Selection Buttons */
+
   .rice-selection button {
-    background-color: #4CAF50; /* Green background for rice type buttons */
-    color: white; /* White text */
-    border: none; /* Removes default border */
-    padding: 10px 20px; /* Padding for better button size */
-    margin: 0 10px; /* Adds spacing between buttons */
-    font-size: 16px; /* Ensures readability */
-    cursor: pointer; /* Pointer cursor for interactivity */
-    border-radius: 5px; /* Rounded corners */
-    transition: background-color 0.3s ease; /* Smooth hover transition */
+    margin-bottom: 10px; /* Adds spacing for mobile view */
+    width: 100%; /* Buttons take full width on mobile */
   }
-  
-  .rice-selection button:hover {
-    background-color: #45a049; /* Darker green on hover */
-  }
-  
-  /* Responsive Adjustments */
-  @media (max-width: 600px) {
-    .quantity-selection, .chapati-selection, .rice-selection {
-      text-align: center; /* Ensure centered alignment on smaller screens */
-    }
-  
-    .rice-selection button {
-      margin-bottom: 10px; /* Adds spacing for mobile view */
-      width: 100%; /* Buttons take full width on mobile */
-    }
-  }
-  
-  /* Start Date Selection */
+}
+
+/* Start Date Selection */
 .start-date-selection {
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  .start-date-selection h2 {
-    font-size: 20px;
-    margin-bottom: 10px;
-  }
-  
-  .start-date-selection input[type="date"] {
-    padding: 8px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    width: 200px;
-    text-align: center;
-  }
-  
-  /* Error and Success Messages */
-  .error-message {
-    color: red;
-    font-size: 14px;
-    text-align: center;
-    margin-bottom: 15px;
-  }
-  
-  .success-message {
-    color: green;
-    font-size: 14px;
-    text-align: center;
-    margin-bottom: 15px;
-  }
-  
-  /* Submit Button */
-   .form-submit {
-    background-color: #4CAF50; /* Green background */
-    color: white; /* White text */
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    display: block;
-    margin: 0 auto;
-  }
-  
-  .submit-button:hover {
-    background-color: #45a049; /* Darker green on hover */
-  }
-  
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.start-date-selection h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.start-date-selection input[type="date"] {
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 200px;
+  text-align: center;
+}
+
+/* Error and Success Messages */
+.error-message {
+  color: red;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.success-message {
+  color: green;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* Submit Button */
+.form-submit {
+  background-color: #4caf50; /* Green background */
+  color: white; /* White text */
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: block;
+  margin: 0 auto;
+}
+
+.submit-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}

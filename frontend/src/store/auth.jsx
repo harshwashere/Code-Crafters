@@ -15,6 +15,7 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState("");
   const authorizationToken = `Bearer ${token}`;
+  console.log(authorizationToken);
   const storeTokenInLS = (serverToken) => {
     setToken(serverToken);
     return localStorage.setItem("token", serverToken);
@@ -31,7 +32,7 @@ export const AuthProvider = ({ children }) => {
       const response = await axios(`${URL}/api/user`, {
         method: 'GET',
         headers: {
-          Authorization: authorizationToken,
+          "Authorization": authorizationToken,
         },
       });
       if (response.status === 200) {

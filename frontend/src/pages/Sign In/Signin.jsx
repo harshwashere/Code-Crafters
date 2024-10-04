@@ -62,18 +62,19 @@ export const Signin = () => {
       e.preventDefault()
       setLoading(true)
 
-      const verifyData = await fetch(`${URL}/api/login`, {
+      const verifyData = await axios(`${URL}/api/login`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({ "otp": otp })
       })
+      console.log(verifyData);
 
-      if (verifyData.ok) {
-        const otpVerify = await verifyData.json()
+      if (verifyData.status === 200) {
+        // const otpVerify = await verifyData.json()
 
-        storeTokenInLS(otpVerify.token)
+        storeTokenInLS(verifyData.token)
         setUser({ otps: otp })
 
         toast.success('Login Succesful')

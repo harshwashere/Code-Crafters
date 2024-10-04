@@ -1,5 +1,4 @@
 import Menu from "../models/menu-model.js";
-import TiffinData from '../models/specialTiffin-model.js'
 
 export const getTiffinData = async (req, res) => {
   try {
