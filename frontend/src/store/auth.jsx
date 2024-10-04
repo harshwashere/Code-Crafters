@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     userAuthentication();
-  }, []);
+  }, [authorizationToken]);
 
   const getSpecialTiffinData = async () => {
     try {

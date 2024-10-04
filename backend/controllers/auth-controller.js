@@ -60,7 +60,7 @@ export const sendOTP = async (req, res) => {
 
 export const verifyOTP = async (req, res) => {
   const { otp, email } = req.body; // Only the OTP is passed
-  console.log(otp, email);
+  console.log("otp, email",otp, email);
   try {
     const user = await User.findOne({ otp });
     console.log(user);

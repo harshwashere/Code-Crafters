@@ -7,6 +7,7 @@ import axios from 'axios';
 
 const Profile = () => {
     const { authorizationToken, user } = useAuth()
+    console.log("user", user)
     // const [userData, setUserData] = useState(true)
     const [User, setUser] = useState({
         firstname: "",
