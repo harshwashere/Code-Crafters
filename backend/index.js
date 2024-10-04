@@ -24,8 +24,8 @@ const corsOptions = {
   method: "GET, POST, PUT, DELETE, PATCH, HEAD",
   credential: true,
 };
-
-app.use(cors(corsOptions));
+app.options("*")
+app.use(cors());
 
 app.set("view engine", "ejs");
 

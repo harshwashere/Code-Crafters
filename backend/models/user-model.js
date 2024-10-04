@@ -33,7 +33,7 @@ const userModel = new Schema({
   },
   otp: {
     type: String,
-    unique: true,
+    // unique: true,
   },
   otpExpires: {
     type: Date,

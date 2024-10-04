@@ -12,13 +12,13 @@ import Profile from "./pages/Profile/Profile";
 import useAuth from "./store/useAuth";
 
 function App() {
-  const { isLoggedIn } = useAuth()
+  // const { isLoggedIn } = useAuth()
   return (
     <>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          {!isLoggedIn ? <Route path="/signin" element={<Signin />} /> : <Route path="/signin" element={<Home />} />}
+          <Route path="/signin" element={<Signin />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/search" element={<Search />} />
