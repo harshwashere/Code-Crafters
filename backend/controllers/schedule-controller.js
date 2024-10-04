@@ -20,6 +20,7 @@ export const getSchedule = async (req, res) => {
 export const getScheduleData = async (req, res) => {
   try {
     const schedules = await scheduleModel.find({ userId: req.userID }); // Fetch schedules for the logged-in user
+    console.log(schedules);
     res.status(200).json(schedules);
   } catch (error) {
     res.status(500).json({ message: "Error fetching schedules", error });

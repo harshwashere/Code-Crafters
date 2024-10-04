@@ -207,9 +207,15 @@ const SchedulePage = () => {
     };
 
     try {
+      const token = localStorage.getItem("token");
       const response = await axios.post(
-        "http://localhost:7000/api/schedule",
-        formData
+        "http://localhost:7000/scheduleapi/getSchedule",
+        formData,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
       );
       console.log(response);
       if (response.status === 200) {

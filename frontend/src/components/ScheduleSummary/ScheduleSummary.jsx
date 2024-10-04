@@ -6,19 +6,18 @@ import DateSelector from "../DateSelector/DateSelector";
 import MealCard from "../MealCard/MealCard";
 
 export const ScheduleSummary = () => {
-  // eslint-disable-next-line no-unused-vars
   const [summaryDetails, setSummaryDetails] = useState([]);
 
   const getScheduleSummary = async () => {
     try {
       const token = localStorage.getItem("token");
-      // console.log(token);
+      console.log(token);
       if (token) {
         const response = await axios.get(
-          "http://localhost:7000/api/getScheduleData",
+          "http://localhost:7000/scheduleapi/getScheduleData",
           {
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: token,
               "Content-Type": "application/json",
             },
           }
