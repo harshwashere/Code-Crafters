@@ -28,10 +28,12 @@ export const Signin = () => {
     try {
       e.preventDefault();
       setLoading(true);
-      const response = await fetch(`${URL}/api/otp`, { "email": emails }, {
+      const response = await fetch(`${URL}/api/otp`, {
+        method: 'POST',
         headers: {
           "Content-Type": "application/json"
-        }
+        },
+        body: JSON.stringify({ "email": emails })
       });
 
       if (response.ok) {
