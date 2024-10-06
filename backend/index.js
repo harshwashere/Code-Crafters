@@ -20,7 +20,8 @@ const PORT = process.env.PORT;
 connect();
 
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: "https://code-crafters-6gxf-68zahx2tg-harsh-chauhans-projects-24dc09c6.vercel.app/",
+  // https://code-crafters-6gxf-68zahx2tg-harsh-chauhans-projects-24dc09c6.vercel.app/
   method: "GET, POST, PUT, DELETE, PATCH, HEAD",
   credential: true,
 };

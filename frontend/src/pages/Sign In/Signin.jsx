@@ -96,10 +96,6 @@ export const Signin = () => {
   return (
     <>
       <div className="mainSignInDiv">
-        <div className="loginImage">
-          <NavLink to="/"><IoMdArrowRoundBack className="loginBackBtn" /></NavLink>
-          <img src="https://st3.depositphotos.com/5653638/14935/i/450/depositphotos_149356192-stock-photo-save-download-preview-indian-typical.jpg" alt="" width='100%' height="100%" />
-        </div>
         <div className="loginSection">
           <h1>Login</h1>
           {showOTP ? (
