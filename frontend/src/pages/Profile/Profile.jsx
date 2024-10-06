@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import useAuth from '../../store/useAuth';
 import './profile.css';
-import { URL } from '../../pages(1)/helper/helper';
+import { URL } from '../../pages/helper/helper';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 

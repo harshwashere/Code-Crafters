@@ -14,7 +14,6 @@ export const Signin = () => {
   const [emails, setEmails] = useState("");
   const [loading, setLoading] = useState(false);
   const [showOTP, setShowOTP] = useState(false);
-  // eslint-disable-next-line no-unused-vars
   const [user, setUser] = useState({
     email: "",
     otps: "",
