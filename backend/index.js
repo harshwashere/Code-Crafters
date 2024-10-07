@@ -20,7 +20,11 @@ const PORT = process.env.PORT;
 connect();
 
 const corsOptions = {
+<<<<<<< HEAD
   origin: "http://localhost:5173",
+=======
+  origin: "https://aaichadabba.netlify.app/",
+>>>>>>> 6766abe682adf2b9a69306a754b20221ac93dfbc
   // https://code-crafters-5930qq9ns-harsh-chauhans-projects-24dc09c6.vercel.app/
   method: "GET, POST, PUT, DELETE, PATCH, HEAD",
   credential: true,
