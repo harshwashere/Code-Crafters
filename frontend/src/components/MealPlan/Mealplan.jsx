@@ -37,7 +37,7 @@ const Mealplan = () => {
               </h3>
             </div>
             <div className="ourMealPrice">
-              <span>${data.price}</span>
+              <span>₹{data.price}</span>
             </div>
           </div>
           <div className="ourMealPara">

@@ -20,13 +20,13 @@ const PORT = process.env.PORT;
 connect();
 
 const corsOptions = {
-  origin: "https://code-crafters-5930qq9ns-harsh-chauhans-projects-24dc09c6.vercel.app/",
+  origin: "http://localhost:5173",
   // https://code-crafters-5930qq9ns-harsh-chauhans-projects-24dc09c6.vercel.app/
   method: "GET, POST, PUT, DELETE, PATCH, HEAD",
   credential: true,
 };
-app.options("*")
-app.use(cors());
+app.options("*");
+app.use(cors(corsOptions));
 
 app.set("view engine", "ejs");
 

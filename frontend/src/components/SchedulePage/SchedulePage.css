@@ -1,7 +1,6 @@
 .schedule-container {
-  border: 1px solid black;
   width: 100%;
-  height: auto;
+  height: 100%;
 }
 
 .schedule-page {

@@ -15,8 +15,6 @@ import useAuth from "../../store/useAuth";
 const Navbar = () => {
   const { isLoggedIn } = useAuth();
 
-  const [navigator, setNavigator] = useState("home");
-
   const [visible, setVisible] = useState(true);
 
   const [visible2, setVisible2] = useState(true);
@@ -55,26 +53,17 @@ const Navbar = () => {
           <div className="navigator">
             <ul>
               <NavLink to="/">
-                <li
-                  onClick={() => setNavigator("home")}
-                  className={navigator === "home" ? "actiev" : ""}
-                >
+                <li>
                   Home
                 </li>
               </NavLink>
               <NavLink to="/menu">
-                <li
-                  onClick={() => setNavigator("menu")}
-                  className={navigator === "menu" ? "actiev" : ""}
-                >
+                <li>
                   Menu
                 </li>
               </NavLink>
               <NavLink to="/contact">
-                <li
-                  onClick={() => setNavigator("contact")}
-                  className={navigator === "contact" ? "actiev" : ""}
-                >
+                <li>
                   Contact
                 </li>
               </NavLink>
@@ -169,13 +158,13 @@ const Navbar = () => {
           <LuUtensilsCrossed />
         </div>
         <ul type="none">
-          <NavLink onClick={visibility} to="/">
+          <NavLink style={{textDecoration: "none", color: "black"}} onClick={visibility} to="/">
             <li>Home</li>
           </NavLink>
-          <NavLink onClick={visibility} to="/menu">
+          <NavLink style={{textDecoration: "none", color: "black"}} onClick={visibility} to="/menu">
             <li>Menu</li>
           </NavLink>
-          <NavLink onClick={visibility} to="/contact">
+          <NavLink style={{textDecoration: "none", color: "black"}} onClick={visibility} to="/contact">
             <li>Contact</li>
           </NavLink>
           <div className="mainBtn1">

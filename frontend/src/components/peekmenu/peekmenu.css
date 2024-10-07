@@ -1,27 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+CU:wght@100..400&family=Quicksand:wght@300..700&display=swap");
 
-:root {
-  --orange-border: #fd9400;
-  --orange-bg: #ffad3b;
-  --light-orange-bg: #ffd293;
-  --new-color: #ef7e6c;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  min-height: 100vh;
-}
-
 .peekMenu {
   height: 100%;
   width: 100%;
   padding: 20px 0;
-  background-color: var(--new-color);
+  background-color: var(--element-bg-color);
 }
 
 .peekMenu .sneakPeekTitle {
@@ -80,8 +63,8 @@ body {
   text-align: center;
   gap: 15px;
   border-radius: 30px;
-  background-color: var(--light-orange-bg);
-  box-shadow: 2px 2px 10px var(--orange-bg);
+  background-color: #C7FFDA;
+  box-shadow: 2px 2px 10px #C7FFDA;
 }
 
 .peekMenu .peekMenuDish h3 {
@@ -99,8 +82,8 @@ body {
 }
 
 .peekMenuDish span {
-  border: 3px solid var(--orange-border);
-  background: var(--orange-bg);
+  border: 3px solid #C4F4C7;
+  background: #B3E9C7;
   height: 50px;
   padding: 10px;
   border-radius: 25px;
@@ -114,8 +97,8 @@ body {
   height: 50px;
   padding: 10px;
   border-radius: 60px;
-  border: 2px solid var(--orange-border);
-  background: var(--orange-bg);
+  border: 2px solid #C4F4C7;
+  background: #B3E9C7;
   transition: 0.9s;
   cursor: pointer;
   color: black;

@@ -60,10 +60,10 @@ export const sendOTP = async (req, res) => {
 
 export const verifyOTP = async (req, res) => {
   const { otp, email } = req.body; // Only the OTP is passed
-  console.log("otp, email", otp, email);
+  // console.log("otp, email", otp, email);
   try {
-    const user = await User.findOne({ otp });
-    console.log(user);
+    const user = await User.findOne({ otp, email });
+    // console.log(user);
     if (!user) {
       return res.status(400).json({ message: "Invalid OTP" });
     }
@@ -75,7 +75,7 @@ export const verifyOTP = async (req, res) => {
 
     // Mark user as verified
     user.verified = true;
-    // user.otp = undefined; // Clear OTP after successful verification
+    // user.otp = undefined
     user.otpExpires = undefined;
     // Save the user as verified
     await user.save();
@@ -117,11 +117,11 @@ export const googleLogin = async (req, res) => {
       email: userEmail,
       photo: userphoto,
       phone: null,
-      otp: null,
+      otp: undefined,
       verified: req.user.emails[0].verified,
     });
 
-    ///    res.cookie()
+    res.cookie({ token: await newUser.generateToken() });
 
     // res.status(200).send({
     //   msg: "Login Successful with Google",

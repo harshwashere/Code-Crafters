@@ -4,9 +4,16 @@
     box-sizing: border-box;
 }
 
+:root {
+    --main-bg-color: #F0FFF1    ;
+    --element-bg-color: #78C091;
+    --child-element-bg-color: #C7FFDA;
+    --border-color: #2F4B26;
+    --font-color: #2F4B26;
+}
+
 #root {
-    /* background: linear-gradient(to right, #46494C, #C5C3C6); */
-    background: #F7F3E3;
+    background: var(--main-bg-color);
 }
 ::-webkit-scrollbar {
     display: none;

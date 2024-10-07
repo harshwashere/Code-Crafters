@@ -9,10 +9,8 @@ import SchedulePage from "./components/SchedulePage/SchedulePage";
 import { ScheduleSummary } from "./components/ScheduleSummary/ScheduleSummary";
 import Contact from "./pages/Contact/Contact";
 import Profile from "./pages/Profile/Profile";
-import useAuth from "./store/useAuth";
 
 function App() {
-  // const { isLoggedIn } = useAuth()
   return (
     <>
       <BrowserRouter>

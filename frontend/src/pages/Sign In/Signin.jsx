@@ -6,8 +6,6 @@ import { NavLink, useNavigate } from "react-router-dom";
 import useAuth from '../../store/useAuth'
 import { toast } from 'react-toastify'
 import { URL } from '../helper/helper'
-import { IoMdArrowRoundBack } from "react-icons/io";
-import axios from "axios";
 
 export const Signin = () => {
   const [otp, setOtp] = useState("");
@@ -68,12 +66,12 @@ export const Signin = () => {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ "otp": otp, "email": emails  })
+        body: JSON.stringify({ "otp": otp, "email": emails })
       })
       console.log(verifyData);
 
       if (verifyData.ok) {
-         const otpVerify = await verifyData.json()
+        const otpVerify = await verifyData.json()
 
         storeTokenInLS(otpVerify.token)
         setUser({ otps: otp })
@@ -96,7 +94,7 @@ export const Signin = () => {
     <>
       <div className="mainSignInDiv">
         <div className="loginSection">
-          <h1>Login</h1>
+          <h1>Login with email</h1>
           {showOTP ? (
             <div className="otpSection">
               <form method="POST" onSubmit={onOTPVerify}>
@@ -133,7 +131,7 @@ export const Signin = () => {
                   {loading && <div className="loadingPie"></div>}
                   <span>Get OTP</span>
                 </button>
-                <p>Or </p>
+                <p>Or</p>
                 <div className="googleLogin"><NavLink to={`${URL}/auth/google`} className="googleLink"><img src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png" alt="" /> <p>Log In with Google</p></NavLink></div>
               </form>
             </div>

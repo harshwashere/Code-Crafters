@@ -1,21 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+CU:wght@100..400&family=Quicksand:wght@300..700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+CU:wght@100..400&family=Quicksand:wght@300..700&display=swap");
 
 :root {
-  --orange-border: #fd9400;
-  --orange-bg: #ffad3b;
-  --light-orange-bg: #ffd293;
-  --new-color: #ef7e6c;
-  --new-color-bg: #ee8c7d;
+  --name-color: #276113;
+  --order-button: #84bd99;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-body {
-  min-height: 100vh;
 }
 
 .header {
@@ -35,54 +28,54 @@ body {
 }
 
 .div1header .hungrydiv {
-  color: var(--new-color);
+  color: #2f4b26;
   padding: 20px 20px;
   width: fit-content;
   border-radius: 50px;
-  border: 2px solid var(--new-color);
+  border: 2px solid var(--border-color);
 }
 
-.div1header .hungrydiv>h3 {
-  font-family: 'Abhaya Libre', serif;
+.div1header .hungrydiv > h3 {
+  font-family: "Abhaya Libre", serif;
   font-size: 25px;
 }
 
-.div1header .tagline>h1 {
+.div1header .tagline > h1 {
   color: black;
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
   word-spacing: 5px;
   letter-spacing: 1px;
   font-weight: 500;
+  color: rgb(83, 83, 83);
 }
 
-.tagline h1>span {
-  color: var(--new-color);
+.tagline h1 > span {
+  color: var(--name-color);
   font-family: "Playwrite CU", cursive;
   font-weight: 700;
 }
 
 .div1header p {
   color: black;
-  font-family: 'Abhaya Libre', serif;
+  font-family: "Abhaya Libre", serif;
   font-size: larger;
 }
 
 .div1header .orderNowBtn {
-  color: white;
   margin-right: 10px;
-  background-color: var(--new-color);
+  background-color: var(--order-button );
   padding: 10px 20px;
 }
 
 .div1header button {
-  color: var(--new-color);
+  color: var(--font-color);
   font-weight: 400;
   padding: 10px 20px;
   border-radius: 50px;
-  font-family: 'Abhaya Libre', serif;
+  font-family: "Abhaya Libre", serif;
   font-size: 600;
   letter-spacing: 1px;
-  border: 1.9px solid var(--new-color);
+  border: 1.9px solid var(--border-color);
   background: transparent;
   cursor: pointer;
 }
@@ -90,8 +83,8 @@ body {
 .headerImg {
   height: 100%;
   width: 450px;
-  background: var(--new-color);
-  border: 5px solid var(--new-color);
+  background: var(--element-bg-color);
+  border: 5px solid var(--element-bg-color);
   border-radius: 10px;
   margin-bottom: 20px;
 }
@@ -103,20 +96,3 @@ body {
   position: relative;
   top: 2.5px;
 }
-
-/* @media (max-width: 412px) {
-  .div1header .orderNowGroup>button {
-    margin-bottom: 10px;
-  }
-
-  .header .div1header>.hungrydiv {
-    width: fit-content;
-  }
-  .div1header .hungrydiv>h3 {
-    font-size: 20px;
-  }
-  .div1header .tagline {
-    width: 100%;
-    height: auto;
-  }
-} */
