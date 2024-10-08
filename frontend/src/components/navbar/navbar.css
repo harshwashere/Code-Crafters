@@ -32,8 +32,8 @@
   height: 50px;
   padding: 0 30px;
   border-radius: 50px;
-  border: 3px solid var(--new-color);
-  background-color: var(--new-color);
+  border: 3px solid var(--element-bg-color);
+  background-color: var(--element-bg-color);
   cursor: pointer;
   font-family: "Playfair Display", serif;
   font-size: 15px;
@@ -49,12 +49,8 @@
 
 .mainBtn button:hover {
   background-color: transparent;
-  color: var(--new-color);
+  color: var(--font-color);
 }
-
-/* .mainBtn a:hover {
-  color: var(--new-color);
-} */
 
 .nameTitle {
   width: 300px;
@@ -64,7 +60,7 @@
   width: 100%;
   font-family: "Playwrite CU", cursive;
   font-weight: 500;
-  color: var(--new-color);
+  color: var(--font-color);
 }
 
 .navBtnGroup {
@@ -75,19 +71,50 @@
 }
 
 .navigator ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   gap: 20px;
-  list-style: none;
 }
 
-.navigator ul > li {
-  font-family: "Playfair Display", serif;
-  font-weight: 600;
+.navigator ul a > li {
+  position: relative;
+  display: inline-block;
   cursor: pointer;
+  text-decoration: none; /* Remove default underline */
+  font-family: "Playfair Display", serif;
+  font-weight: 300;
+  cursor: pointer;
+  color: var(--font-color);
+  text-decoration: none;
+}
+
+.navigator li::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: var(--element-bg-color); /* Underline color */
+  left: 0;
+  bottom: -5px; /* Position just below the text */
+  transform: scaleX(0); /* Hidden initially */
+  transform-origin: right;
+  transition: transform 0.3s ease; /* Smooth animation */
+}
+
+.navigator li:hover::after {
+  transform: scaleX(1); /* Expand underline */
+  transform-origin: left;
+}
+
+.navigator ul > li:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
 }
 
 .navigator .actiev {
@@ -103,13 +130,18 @@ a {
 
 .cartIcon {
   position: relative;
+  color: var(--font-color);
+}
+
+.cartIcon a {
+  color: var(--font-color);
 }
 
 .cartIcon .dot {
   position: absolute;
   min-width: 10px;
   min-height: 10px;
-  background-color: var(--new-color);
+  background-color: var(--element-bg-color);
   border-radius: 5px;
   top: -8px;
   right: -8px;
@@ -134,11 +166,12 @@ a {
   cursor: pointer;
   color: black;
   background: transparent;
-  border: 2.5px solid var(--new-color);
+  border: 2.5px solid var(--element-bg-color);
+  font-family: 'Playfair Display', sans-serif;
 }
 
 .btnGroup button:hover {
-  background-color: var(--new-color);
+  background-color: var(--element-bg-color);
   color: white;
   transition: 0.9s;
 }
@@ -165,6 +198,7 @@ a {
   height: 30px;
   border-radius: 50%;
   cursor: pointer;
+  color: var(--font-color );
 }
 
 .profile-icon svg {
@@ -186,8 +220,8 @@ a {
   right: 1px;
   position: absolute;
   border: none;
-  box-shadow: 3px 5px 8px rgb(211, 142, 142);
-  background-color: #ef7e6c;
+  box-shadow: 3px 5px 8px var(--element-bg-color);
+  background-color: var(--element-bg-color);
   border-radius: 15px;
   color: white;
   display: none;
@@ -221,7 +255,7 @@ a {
 }
 
 .navbarline {
-  border: 1px solid var(--new-color);
+  border: 1px solid var(--border-color);
 }
 
 @media (max-width: 1080px) {
@@ -303,6 +337,8 @@ a {
 
   .otherNavigator li {
     margin-bottom: 18px;
+    text-decoration: none;
+
   }
   .mainBtn {
     display: none;

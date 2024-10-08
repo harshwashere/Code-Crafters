@@ -1,17 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+CU:wght@100..400&family=Quicksand:wght@300..700&display=swap");
 
 :root {
-  --orange-border: #fd9400;
-  --orange-bg: #ffad3b;
-  --light-orange-bg: #ffd293;
-  --new-color: #ef7e6c;
-  --new-color-light: #ee9e92;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  --new-bg: #C7FFDA;
 }
 
 .homeAbout {
@@ -20,11 +10,13 @@
   align-items: center;
   padding: 40px;
   font-family: "Abhaya Libre", serif;
+  background: var(--element-bg-color);
 }
 
 .homeAbout .homeAboutHead {
   text-align: center;
   padding: 20px;
+  color: var(--font-color);
 }
 
 .homeAbout .homeAboutHead > h1 {
@@ -33,7 +25,7 @@
 
 .homeAbout .homeAboutHead h1 > span {
   font-family: "Playwrite CU", cursive;
-  color: var(--new-color);
+  color: var(--new-bg);
 }
 
 .homeAbout .homeAboutContent {
@@ -51,8 +43,9 @@
   width: max(9cm,30%);
   padding: 19.8px;
   border-radius: 30px;
-  box-shadow: 5px 5px 5px var(--new-color-light);
-  background: var(--new-color);
+  box-shadow: 5px 5px 5px var(--new-bg);
+  background: var(--new-bg);
+  color: var(--font-color);
 }
 
 .homeAboutContent1 > i,
@@ -64,94 +57,3 @@
 .homeAboutContent1 i {
   font-size: 100px;
 }
-
-/* @media (max-width: 931px) {
-  .homeAbout {
-    width: 100%;
-  }
-
-  .homeAbout .homeAboutContent1 > i {
-    font-size: 50px;
-  }
-
-  .homeAbout .homeAboutContent1 > h1 {
-    font-size: 25px;
-  }
-  .homeAbout .homeAboutContent .homeAboutContent1 {
-    width: 100%;
-    text-align: center;
-    padding: 20px;
-  }
-}
-
-@media (max-width: 714px) {
-  .homeAbout {
-    width: 100%;
-  }
-
-  .homeAbout .homeAboutContent1 > i {
-    font-size: 50px;
-  }
-
-  .homeAbout .homeAboutContent1 > h1 {
-    font-size: 25px;
-  }
-
-  .homeAbout .homeAboutContent .homeAboutContent1 {
-    width: 100%;
-    text-align: center;
-    padding: 20px;
-  }
-}
-
-@media (max-width: 666px) {
-  .homeAbout {
-    width: 100%;
-  }
-  .homeAbout .homeAboutHead > h1 {
-    font-size: 50px;
-    margin-bottom: 20px;
-  }
-
-  .homeAbout .homeAboutContent1 > i {
-    font-size: 35px;
-  }
-
-  .homeAbout .homeAboutContent1 > h1 {
-    font-size: 20px;
-  }
-
-  .homeAbout .homeAboutContent {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    overflow-x: scroll;
-  }
-
-  .homeAboutContent .homeAboutContent1 {
-    width: 100%;
-    height: 100px;
-  }
-}
-
-@media (max-width: 412px) {
-  .homeAbout {
-    width: 100%;
-  }
-  .homeAbout .homeAboutHead > h1 {
-    font-size: 50px;
-    margin-bottom: 20px;
-  }
-
-  .homeAbout .homeAboutContent {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    overflow-x: scroll;
-  }
-
-  .homeAboutContent .homeAboutContent1 {
-    width: 100%;
-    height: 100px;
-  }
-} */

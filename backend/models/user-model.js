@@ -33,7 +33,7 @@ const userModel = new Schema({
   },
   otp: {
     type: String,
-    // unique: true,
+    default: ''
   },
   otpExpires: {
     type: Date,
@@ -49,7 +49,6 @@ const userModel = new Schema({
 
 userModel.methods.generateToken = async function () {
   try {
-    console.log("thisthis", this)
     return jwt.sign(
       {
         userid: this._id.toString(),
