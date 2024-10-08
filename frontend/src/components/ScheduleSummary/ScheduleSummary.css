@@ -7,13 +7,14 @@
   border-radius: 10px;
   padding: 20px;
   max-height: 90vh; /* Limits the height to 80% of the viewport */
-  overflow-y: auto;/*Adds scrolling if content overflows */
+  overflow-y: auto; /*Adds scrolling if content overflows */
 }
 
-.order-left-side, .order-right-side {
+.order-left-side,
+.order-right-side {
   flex: 1;
   padding: 15px;
-  min-height: 80vh;  /* Ensures a minimum height of 60% of the viewport */
+  min-height: 80vh; /* Ensures a minimum height of 60% of the viewport */
 }
 
 .order-left-side {
@@ -25,7 +26,6 @@
 .summary-left-side h2 {
   font-size: 24px;
   margin-bottom: 25px;
-  
 }
 
 .summary-item {
@@ -43,7 +43,8 @@
   font-size: 20px;
   font-weight: bold;
   color: #e91e63;
-  margin-top: 20px;  
+  margin-top: 20px;
+  /* margin-bottom: 10px; */
 }
 
 .order-right-side {
@@ -54,7 +55,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  min-height: 80vh;  /* Matches the height of the left side */
+  min-height: 80vh; /* Matches the height of the left side */
   /* position: sticky; */
   /* overflow-y: auto; */
 }
@@ -107,17 +108,17 @@ header h2 span {
   font-size: 1rem;
 }
 
-.cta-button:hover{
+.cta-button:hover {
   background-color: rgb(241, 26, 26);
 }
 
-
 @media (max-width: 768px) {
-  .order-left-side, .order-right-side {
+  .order-left-side,
+  .order-right-side {
     max-width: 100%;
-    min-height: auto;  /* Removes the min-height constraint on smaller screens */
+    min-height: auto; /* Removes the min-height constraint on smaller screens */
   }
-  
+
   .order-right-side {
     border-left: none;
     border-top: 1px solid #ddd;

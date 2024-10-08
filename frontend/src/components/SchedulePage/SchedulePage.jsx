@@ -11,6 +11,12 @@ const SchedulePage = () => {
   const [summaryDetails, setSummaryDetails] = useState("");
   const [selectedMeal, setSelectedMeal] = useState("");
   const [selectedMealType, setSelectedMealType] = useState("");
+  const [selectedMealButton, setSelectedMealButton] = useState("");
+  const [selectedMealTypeButton, setSelectedMealTypeButton] = useState("");
+  const [selectedMealPlanButton, setSelectedMealPlanButton] = useState({
+    lunch: "",
+    dinner: "",
+  });
   const [selectedMealPlan, setSelectedMealPlan] = useState({
     lunch: "",
     dinner: "",
@@ -40,16 +46,19 @@ const SchedulePage = () => {
 
   const handleMealSelection = (meal) => {
     setSelectedMeal(meal);
+    setSelectedMealButton(meal);
     setSelectedMealPlan({ lunch: "", dinner: "" });
     setSelectedDuration({ lunch: "", dinner: "" });
   };
 
   const handleMealType = (type) => {
     setSelectedMealType(type);
+    setSelectedMealTypeButton(type);
   };
 
   const handleMealPlan = (meal, plan) => {
     setSelectedMealPlan((prev) => ({ ...prev, [meal]: plan }));
+    setSelectedMealPlanButton((prev) => ({ ...prev, [meal]: plan }));
   };
 
   const handleDurationSelection = (meal, duration) => {
@@ -191,7 +200,6 @@ const SchedulePage = () => {
     // Log the updated summaryDetails state after setting it
     console.log("Updated Summary Details:", summaryDetails);
 
-    navigate("/scheduleSummary");
     const resetForm = () => {
       setSelectedMeal("");
       setSelectedMealType("");
@@ -223,6 +231,7 @@ const SchedulePage = () => {
         setFormError(""); // Clear any form errors
         resetForm(); // Call function to reset the form
         setSummaryDetails(formData);
+        navigate("/scheduleSummary");
       }
     } catch (error) {
       console.error("Error during form submission:", error);
@@ -254,21 +263,27 @@ const SchedulePage = () => {
               <hr />
               <button
                 onClick={() => handleMealSelection("lunch")}
-                className="lunch"
+                className={`lunch ${
+                  selectedMealButton === "lunch" ? "selected" : ""
+                }`}
               >
                 <img src="https://www.happygrub.in/img/sun.png" alt="" />{" "}
                 <span>Lunch</span>
               </button>
               <button
                 onClick={() => handleMealSelection("dinner")}
-                className="dinner"
+                className={`dinner ${
+                  selectedMealButton === "dinner" ? "selected" : ""
+                }`}
               >
                 <img src="https://www.happygrub.in/img/moon.png" alt="" />{" "}
                 <span>Dinner</span>
               </button>
               <button
                 onClick={() => handleMealSelection("both")}
-                className="both"
+                className={`both ${
+                  selectedMealButton === "both" ? "selected" : ""
+                }`}
               >
                 <img src="https://www.happygrub.in/img/sun-moon.png" alt="" />{" "}
                 <span>Both</span>
@@ -279,7 +294,12 @@ const SchedulePage = () => {
               <div className="meal-type-selection">
                 <h2>Select Meal Type</h2>
                 <hr />
-                <button onClick={() => handleMealType("Veg")} className="Veg">
+                <button
+                  onClick={() => handleMealType("Veg")}
+                  className={`Veg ${
+                    selectedMealTypeButton === "Veg" ? "selected" : ""
+                  }`}
+                >
                   <img
                     src="https://www.happygrub.in/img/healthy-meal.png"
                     alt=""
@@ -288,7 +308,9 @@ const SchedulePage = () => {
                 </button>
                 <button
                   onClick={() => handleMealType("Non-Veg")}
-                  className="Non-veg"
+                  className={`Non-veg ${
+                    selectedMealTypeButton === "Non-Veg" ? "selected" : ""
+                  }`}
                 >
                   <img
                     src="https://www.happygrub.in/img/healthy-jain-meal.png"
@@ -319,7 +341,9 @@ const SchedulePage = () => {
                     <hr />
                     <button
                       onClick={() => handleMealPlan("lunch", "eco")}
-                      className="eco"
+                      className={`eco ${
+                        selectedMealPlanButton.lunch === "eco" ? "selected" : ""
+                      }`}
                     >
                       <img src="https://www.happygrub.in/img/bag.png" alt="" />
                       <span>Eco</span>
@@ -327,7 +351,11 @@ const SchedulePage = () => {
                     <p>₹130</p>
                     <button
                       onClick={() => handleMealPlan("lunch", "mini")}
-                      className="mini"
+                      className={`mini ${
+                        selectedMealPlanButton.lunch === "mini"
+                          ? "selected"
+                          : ""
+                      }`}
                     >
                       <img src="https://www.happygrub.in/img/bag.png" alt="" />
                       <span>Mini</span>
@@ -335,7 +363,11 @@ const SchedulePage = () => {
                     <p>₹150</p>
                     <button
                       onClick={() => handleMealPlan("lunch", "executive")}
-                      className="executive"
+                      className={`executive ${
+                        selectedMealPlanButton.lunch === "executive"
+                          ? "selected"
+                          : ""
+                      }`}
                     >
                       <img src="https://www.happygrub.in/img/bag.png" alt="" />
                       <span>Executive</span>
@@ -349,7 +381,9 @@ const SchedulePage = () => {
                     <hr />
                     <button
                       onClick={() => handleMealPlan("dinner", "eco")}
-                      className="eco"
+                      className={`eco ${
+                        selectedMealPlanButton.lunch === "eco" ? "selected" : ""
+                      }`}
                     >
                       <img src="https://www.happygrub.in/img/bag.png" alt="" />{" "}
                       <span>Eco</span>
@@ -357,7 +391,11 @@ const SchedulePage = () => {
                     <p>₹130</p>
                     <button
                       onClick={() => handleMealPlan("dinner", "mini")}
-                      className="mini"
+                      className={`mini ${
+                        selectedMealPlanButton.lunch === "mini"
+                          ? "selected"
+                          : ""
+                      }`}
                     >
                       <img src="https://www.happygrub.in/img/bag.png" alt="" />{" "}
                       <span>Mini</span>
@@ -373,7 +411,11 @@ const SchedulePage = () => {
                         <hr />
                         <button
                           onClick={() => handleMealPlan("lunch", "eco")}
-                          className="eco"
+                          className={`eco ${
+                            selectedMealPlanButton.lunch === "eco"
+                              ? "selected"
+                              : ""
+                          }`}
                         >
                           <img
                             src="https://www.happygrub.in/img/bag.png"
@@ -384,7 +426,11 @@ const SchedulePage = () => {
                         <p>₹130</p>
                         <button
                           onClick={() => handleMealPlan("lunch", "mini")}
-                          className="mini"
+                          className={`mini ${
+                            selectedMealPlanButton.lunch === "mini"
+                              ? "selected"
+                              : ""
+                          }`}
                         >
                           <img
                             src="https://www.happygrub.in/img/bag.png"
@@ -395,7 +441,11 @@ const SchedulePage = () => {
                         <p>₹150</p>
                         <button
                           onClick={() => handleMealPlan("lunch", "executive")}
-                          className="executive"
+                          className={`executive ${
+                            selectedMealPlanButton.lunch === "executive"
+                              ? "selected"
+                              : ""
+                          }`}
                         >
                           <img
                             src="https://www.happygrub.in/img/bag.png"

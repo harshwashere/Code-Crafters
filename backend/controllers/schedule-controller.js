@@ -17,21 +17,69 @@ export const getSchedule = async (req, res) => {
   }
 };
 
+//*-----------------------
+//* Getting schdeule Summary
+//*-----------------------
+
 export const getScheduleData = async (req, res) => {
   try {
     const schedules = await scheduleModel.find({ userId: req.userID }); // Fetch schedules for the logged-in user
-    console.log(schedules);
+    // console.log(schedules);
     res.status(200).json(schedules);
   } catch (error) {
     res.status(500).json({ message: "Error fetching schedules", error });
   }
 };
 
-// router.get('/all', async (req, res) => {
-//   try {
-//     const schedules = await Schedule.find();
-//     res.status(200).json(schedules);
-//   } catch (error) {
-//     res.status(500).json({ message: 'Error fetching schedules', error });
-//   }
-// });
+//*----------------------
+//* Delete Schedule
+//*----------------------
+
+export const deleteSchedule = async (req, res) => {
+  console.log("userId:", req.userID);
+  try {
+    const { id } = req.params;
+    console.log(id);
+    const deletedSchedule = await scheduleModel.findOneAndDelete({
+      _id: id,
+      userId: req.userID,
+    });
+
+    if (!deletedSchedule) {
+      return res
+        .status(404)
+        .json({ message: "Schedule not found or not authorized to delete" });
+    }
+
+    res.status(200).json({ message: "Schedule deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting schedule", error });
+  }
+};
+
+//*-----------------------
+//* Update a schedule by ID
+//*-----------------------
+
+export const updateSchedule = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedSchedule = await scheduleModel.findOneAndUpdate(
+      { _id: id, userId: req.userID },
+      { ...req.body },
+      { new: true } // Returns the updated document
+    );
+
+    if (!updatedSchedule) {
+      return res
+        .status(404)
+        .json({ message: "Schedule not found or not authorized to update" });
+    }
+
+    res
+      .status(200)
+      .json({ message: "Schedule updated successfully", updatedSchedule });
+  } catch (error) {
+    res.status(500).json({ message: "Error updating schedule", error });
+  }
+};
