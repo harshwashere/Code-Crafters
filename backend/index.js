@@ -14,6 +14,8 @@ import menuRoute from "./routers/menu-router.js";
 import { paymentRoute } from "./routers/payment-router.js";
 import scheduleRoute from "./routers/schedule-router.js";
 import contactRoute from "./routers/contact-router.js";
+import mealRoute from "./routers/meal-router.js";
+import seedRoute from "./routers/seed-router.js";
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
@@ -49,6 +51,9 @@ app.use("/admin", router);
 app.use("/payment", paymentRoute);
 
 app.use("/scheduleapi", scheduleRoute);
+
+app.use("/api", mealRoute);
+app.use("/api", seedRoute);
 
 const isLoggedIn = (req, res, next) => {
   req.user ? next() : res.sendStatus(401);

@@ -610,3 +610,25 @@ input[type="number"] {
 .submit-button:hover {
   background-color: #45a049; /* Darker green on hover */
 }
+
+button {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 10px;
+  cursor: pointer;
+}
+
+button.selected {
+  background-color: #007bff;
+  color: white;
+  border: 1px solid #0056b3;
+  transition: background-color 0.3s ease;
+}
+
+button img {
+  margin-right: 8px;
+}
+
+button span {
+  font-size: 16px;
+}

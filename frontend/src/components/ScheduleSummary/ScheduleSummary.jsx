@@ -8,6 +8,8 @@ import MealCard from "../MealCard/MealCard";
 export const ScheduleSummary = () => {
   const [summaryDetails, setSummaryDetails] = useState([]);
 
+
+
   const getScheduleSummary = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -35,63 +37,48 @@ export const ScheduleSummary = () => {
     }
   };
 
+  const deleteSchedule = async (id) => {
+    try {
+      const token = localStorage.getItem("token");
+      if (token) {
+        const response = await axios.delete(
+          `http://localhost:7000/scheduleapi/deleteSchedule/${id}`,
+          {
+            headers: {
+              Authorization: token,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        console.log(response);
+
+        if (response.status === 200) {
+          alert("Schedule deleted successfully!");
+          setSummaryDetails((prevDetails) =>
+            prevDetails.filter((schedule) => schedule._id !== id)
+          );
+        }
+      }
+    } catch (error) {
+      console.error("Error deleting schedule:", error);
+      alert("Failed to delete the schedule.");
+    }
+  };
+
   useEffect(() => {
     getScheduleSummary([]);
   }, []);
 
   return (
-    // <>
-    //   <Navbar />
-    //   <div className="order-summary">
-    //     {Array.isArray(summaryDetails) &&
-    //       summaryDetails.map((curElem) => {
-    //         console.log(curElem);
-    //         return (
-    //           <div className="summary-left-side" key={curElem.id}>
-    //             <h2>Order Summary</h2>
-    //             <hr />
-    //             <div className="summary-item">
-    //               <strong>Meal For:</strong> {curElem.mealFor}
-    //             </div>
-    //             <div className="summary-item">
-    //               <strong>Meal Type:</strong> {curElem.mealType}
-    //             </div>
-    //             <div className="summary-item">
-    //               <strong>Lunch Plan:</strong> {curElem.mealPlans.lunch}
-    //             </div>
-    //             <div className="summary-item">
-    //               <strong>Dinner Plan:</strong> {curElem.mealPlans.dinner}
-    //             </div>
-    //             <div className="summary-item">
-    //               <strong>Lunch Duration:</strong> {curElem.duration.lunch}
-    //             </div>
-    //             <div className="summary-item">
-    //               <strong>Dinner Duration:</strong> {curElem.duration.dinner}
-    //             </div>
-    //             <div className="summary-item">
-    //               <strong>Meals Per Week:</strong> {curElem.mealsPerWeek}
-    //             </div>
-    //             <div className="summary-item">
-    //               <strong>Quantity:</strong> {curElem.quantity}
-    //             </div>
-
-    //             <div className="summary-item">
-    //               <strong>Start Date:</strong> {curElem.startDate}
-    //             </div>
-    //             <div className="summary-item">
-    //               <strong>Total Price:</strong> ₹{curElem.totalPrice}
-    //             </div>
-    //           </div>
-    //         );
-    //       })}
-    //   </div>
-    // </>
-    // <>
     <>
       <Navbar />
       <div className="order-summary">
         {Array.isArray(summaryDetails) &&
           summaryDetails.map((curElem) => {
+            const isLunchSelected =
+              curElem.mealFor === "lunch" || curElem.mealFor === "both";
+            const isDinnerSelected =
+              curElem.mealFor === "dinner" || curElem.mealFor === "both";
             return (
               <div className="order-left-side" key={curElem.id}>
                 <div className="summary-left-side">
@@ -103,18 +90,30 @@ export const ScheduleSummary = () => {
                   <div className="summary-item">
                     <strong>Meal Type:</strong> {curElem.mealType}
                   </div>
-                  <div className="summary-item">
-                    <strong>Lunch Plan:</strong> {curElem.mealPlans.lunch}
-                  </div>
-                  <div className="summary-item">
-                    <strong>Dinner Plan:</strong> {curElem.mealPlans.dinner}
-                  </div>
-                  <div className="summary-item">
-                    <strong>Lunch Duration:</strong> {curElem.duration.lunch}
-                  </div>
-                  <div className="summary-item">
-                    <strong>Dinner Duration:</strong> {curElem.duration.dinner}
-                  </div>
+                  {isLunchSelected && (
+                    <>
+                      <div className="summary-item">
+                        <strong>Lunch Plan:</strong> {curElem.mealPlans.lunch}
+                      </div>
+                      <div className="summary-item">
+                        <strong>Lunch Duration:</strong>{" "}
+                        {curElem.duration.lunch}
+                      </div>
+                    </>
+                  )}
+
+                  {isDinnerSelected && (
+                    <>
+                      <div className="summary-item">
+                        <strong>Dinner Plan:</strong> {curElem.mealPlans.dinner}
+                      </div>
+                      <div className="summary-item">
+                        <strong>Dinner Duration:</strong>{" "}
+                        {curElem.duration.dinner}
+                      </div>
+                    </>
+                  )}
+
                   <div className="summary-item">
                     <strong>Meals Per Week:</strong> {curElem.mealsPerWeek}
                   </div>
@@ -129,6 +128,12 @@ export const ScheduleSummary = () => {
                     <strong>Total Price:</strong> {curElem.totalPrice}
                   </div>
                 </div>
+                <button
+                  className="cta-button"
+                  onClick={() => deleteSchedule(curElem._id)}
+                >
+                  Clear Schedules
+                </button>
               </div>
             );
           })}
