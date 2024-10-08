@@ -19,7 +19,7 @@
 .cart-summary {
   width: 50%;
   height: 93vh;
-  border-left: 2px solid var(--new-color);
+  border-left: 2px solid var(--border-color);
 }
 
 .cart-items-title {
@@ -28,7 +28,7 @@
   align-items: center;
   justify-content: center;
   height: 1cm;
-  color: black;
+  color: var(--font-color);
   margin-bottom: 20px;
   font-size: max(1vw, 12px);
   text-align: center;
@@ -37,7 +37,7 @@
 
 .cart-items-item {
   margin: 10px 0px;
-  color: black;
+  color: var(--font-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -57,7 +57,7 @@
 
 .cart hr {
   height: 1px;
-  background-color: #e2e2e2;
+  background-color: var(--border-color);
   border: none;
 }
 
@@ -79,7 +79,10 @@
   flex-direction: column;
   gap: 20px;
   width: 90%;
-  /* border: 1px solid black; */
+}
+
+.cart-total h2 {
+  color: var(--font-color);
 }
 
 .cart-total .cart-total-summary {
@@ -91,7 +94,7 @@
 .cart-total-details {
   display: flex;
   justify-content: space-between;
-  color: black;
+  color: var(--font-color);
   gap: 10px;
 }
 
@@ -99,6 +102,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  color: var(--font-color);
 }
 
 .cart .cart-summary-dish .dish-count {
@@ -109,12 +113,13 @@
 
 .cart-total hr {
   margin: 10px 0px;
+  background: var(--border-color);
 }
 
 .cart-total button {
   border: none;
-  color: white;
-  background-color: tomato;
+  color: var(--child-element-bg-color);
+  background-color: var(--font-color);
   width: max(15vw, 200px);
   padding: 12px 0px;
   border-radius: 5px;
@@ -149,21 +154,26 @@
   font-size: 18px;
 }
 
+.cart .address-section .address-form div > label {
+  color: var(--font-color);
+}
+
 .cart .address-section .address-form div > input {
   height: 50px;
   border-radius: 40px;
-  border: 1px solid var(--new-color);
+  border: 1px solid var(--border-color);
   padding-left: 20px;
   width: 100%;
+  color: var(--font-color);
 }
 
 .cart .address-section .address-form button {
-  border: 1px solid var(--new-color);
   width: 40%;
   padding: 20px;
   border-radius: 10px;
-  background-color: var(--new-color);
+  background-color: var(--border-color);
   cursor: pointer;
+  color: var(--child-element-bg-color);
 }
 .cart .tab {
   position: absolute;
@@ -174,13 +184,14 @@
   width: 50%;
   justify-content: center;
   height: 10vh;
-  border-bottom: 2px solid var(--new-color);
+  border-bottom: 2px solid var(--border-color);
 }
 
 .cart .tab p {
   font-size: 20px;
   font-weight: bold;
   cursor: pointer;
+  color: var(--font-color);
 }
 @media (max-width: 750px) {
   .cart {

@@ -98,7 +98,7 @@ const Contact = () => {
                                 pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
                                 required
                             />
-                            <label htmlFor="mobile" className="contactFormLabel">Mobile Number(optional)</label>
+                            <label htmlFor="mobile" className="contactFormLabel">Mobile Number<span>*</span></label>
                             <input
                                 type="tel"
                                 name="mobile"
