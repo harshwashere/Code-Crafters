@@ -24,10 +24,9 @@ connect();
 const corsOptions = {
   origin: "https://code-crafters-harsh-chauhans-projects-24dc09c6.vercel.app/",
   // https://code-crafters-seven.vercel.app/
-  method: "GET, POST, PUT, DELETE, PATCH, HEAD",
+  method: ["GET, POST, PUT, DELETE, PATCH, HEAD"],
   credential: true,
 };
-app.options("*");
 app.use(cors(corsOptions));
 
 app.set("view engine", "ejs");
