@@ -7,7 +7,7 @@ export const StoreContext = createContext(null);
 const StoreContextProvider = (props) => {
     const [cartItems, setCartItems] = useState({});
     const { Menu } = useAuth();
-    console.log(Object.keys(cartItems).length)
+
     // Check if Menu and Menu.message exist
     const food_list = Menu && Menu ? Menu : [];
 

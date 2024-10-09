@@ -1,35 +1,57 @@
 import { validateWebhookSignature } from "razorpay/dist/utils/razorpay-utils.js";
 import razorpay from "../config/razorpay-setup.js";
+import crypto from "crypto";
+import Payment from "../models/payment-model.js";
+
+const URL = "https://code-crafters-seven.vercel.app";
+// https://code-crafters-seven.vercel.app
+
+export const getKey = (req, res) => {
+  res.status(200).json({ key: process.env.KEYID });
+};
 
 export const createOrder = async (req, res) => {
   try {
-    const { amount, currency, reciept, notes } = req.body;
+    const { amount } = req.body;
+    const options = {
+      amount: Number(amount * 100),
+      currency: "INR",
+    };
+
+    const order = await razorpay.orders.create(options);
+    return res.status(200).json({ order });
   } catch (error) {
     console.log("This error is from payment-router.js            ", error);
   }
 };
 
-export const verifyOrder = (req, res) => {
+export const verifyOrder = async (req, res) => {
   try {
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
       req.body;
 
-    const secret = razorpay.key_secret;
+    const signature = razorpay_order_id + "|" + razorpay_payment_id;
 
-    const body = razorpay_order_id + "|" + razorpay_payment_id;
+    const isVerifiedSignature = crypto
+      .createHmac("sha256", process.env.KEYSECRET)
+      .update(signature.toString())
+      .digest("hex");
 
-    const isValidSign = validateWebhookSignature(
-      body,
-      razorpay_signature,
-      secret
-    );
+    console.log("sig recieved ", razorpay_signature);
+    console.log("sig generated ", isVerifiedSignature);
 
-    if (isValidSign) {
-      console.log("Payment Verification Successful");
-      return res.status(200).json({ status: "ok" });
+    const isAuthentic = isVerifiedSignature === razorpay_signature;
+
+    if (isAuthentic) {
+      await Payment.create({
+        razorpay_order_id,
+        razorpay_payment_id,
+        razorpay_signature,
+      });
+
+      res.redirect(`${URL}/payment-success?reference=${razorpay_payment_id}`);
     } else {
-      console.log("Payment Verification Failed");
-      return res.status(400).json({ status: "Verification Failed" });
+      return res.status(400).json({ success: false });
     }
   } catch (error) {
     console.log("This error is from payment-router.js            ", error);

@@ -22,9 +22,9 @@ const PORT = process.env.PORT;
 connect();
 
 const corsOptions = {
-  origin: "https://code-crafters-seven.vercel.app/",
-  // https://code-crafters-seven.vercel.app/
-  method: "GET, POST, PUT, DELETE, PATCH, HEAD",
+  origin: ["https://code-crafters-seven.vercel.app", "http://localhost:5174"],
+  // https://code-crafters-seven.vercel.app
+  method: ["GET, POST, PUT, DELETE, PATCH, HEAD"],
   credential: true,
 };
 app.options("*");
@@ -54,10 +54,6 @@ app.use("/scheduleapi", scheduleRoute);
 
 app.use("/api", mealRoute);
 app.use("/api", seedRoute);
-
-const isLoggedIn = (req, res, next) => {
-  req.user ? next() : res.sendStatus(401);
-};
 
 app.get("/", (req, res) => {
   res.send(
