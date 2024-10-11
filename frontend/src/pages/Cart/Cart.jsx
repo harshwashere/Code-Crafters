@@ -34,9 +34,11 @@ export const Cart = () => {
             key,
             amount: response.data.order.amount,
             currency: "INR",
-            name: "Happy Inc.",
+            name: "AailovesTiffin",
             description: "Test Transaction",
-            order_id: response.data.order.id,
+            order_id: response.data.
+            
+            order.id,
             callback_url: `${URL}/payment/verifyOrder`,
             prefill: {
                 name: user.firstname + ' ' + user.lastname,

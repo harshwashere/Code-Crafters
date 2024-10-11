@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { createContext, useState } from "react";
 import useAuth from "../store/useAuth";
+import { toast } from 'react-toastify'
 
 export const StoreContext = createContext(null);
 
@@ -14,12 +15,15 @@ const StoreContextProvider = (props) => {
     const addToCart = (itemId) => {
         if (!cartItems[itemId]) {
             setCartItems((prev) => ({ ...prev, [itemId]: 1 }));
+            toast.info('Your dish had been added')
         } else {
             setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
+            toast.info('Your dish had been added')
         }
     };
 
     const removeFromCart = (itemId) => {
+        toast.info('Dish is removed')
         setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
     };
 
@@ -51,14 +55,7 @@ const StoreContextProvider = (props) => {
     };
 
     return (
-        <StoreContext.Provider value={{
-            Menu,
-            addToCart,
-            removeFromCart,
-            setCartItems,
-            cartItems,
-            getTotalCartAmount,
-        }}>
+        <StoreContext.Provider value={contextValue}>
             {props.children}
         </StoreContext.Provider>
     );

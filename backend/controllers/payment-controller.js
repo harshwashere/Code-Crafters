@@ -19,6 +19,14 @@ export const createOrder = async (req, res) => {
     };
 
     const order = await razorpay.orders.create(options);
+    // await Payment.create({
+    //   order_id: order.id,
+    //   currency: order.currency,
+    //   status: order.status,
+    //   amount: order.amount,
+    //   amount_paid: order.amount_paid,
+    //   amount_due: order.amount_due
+    // })
     return res.status(200).json({ order });
   } catch (error) {
     console.log("This error is from payment-router.js            ", error);
@@ -36,9 +44,6 @@ export const verifyOrder = async (req, res) => {
       .createHmac("sha256", process.env.KEYSECRET)
       .update(signature.toString())
       .digest("hex");
-
-    console.log("sig recieved ", razorpay_signature);
-    console.log("sig generated ", isVerifiedSignature);
 
     const isAuthentic = isVerifiedSignature === razorpay_signature;
 
