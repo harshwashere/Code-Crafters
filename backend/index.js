@@ -22,7 +22,7 @@ const PORT = process.env.PORT;
 connect();
 
 const corsOptions = {
-  origin: ["https://code-crafters-seven.vercel.app", "http://localhost:5173", "http://localhost:5174"],
+  origin: ["https://c.vercel.app", "https://aai-loves-tiffin-admin.vercel.app/", "http://localhost:5173", "http://localhost:5174"],
   // https://code-crafters-seven.vercel.app
   method: ["GET, POST, PUT, DELETE, PATCH, HEAD"],
   credential: true,
