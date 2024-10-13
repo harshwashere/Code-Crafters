@@ -107,7 +107,7 @@ export const adminotpverify = async (req, res) => {
       return res.status(404).json({ message: "Invalid OTP" });
     }
 
-    if (adminuser.otpExpires > Date.now()) {
+    if (adminuser.otpExpires < Date.now()) {
       return res.status(400).json({ message: "OTP has expired" });
     }
 
