@@ -139,7 +139,7 @@ export const user = (req, res) => {
   try {
     const userData = req.user;
 
-    res.status(200).json({ userData });
+    return res.status(200).json({ userData });
   } catch (error) {
     console.log(error);
   }

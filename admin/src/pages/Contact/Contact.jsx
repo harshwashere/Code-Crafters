@@ -4,13 +4,21 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { URL } from "../Helper/Helper";
 import { FaTrashCan } from "react-icons/fa6";
+import { Sidebar } from "../../components/sidebar/Sidebar";
+import useAuth from '../../auth/useAuth'
 
 export const Contact = () => {
   const [contact, setcontact] = useState([]);
+  const { authorizationToken } = useAuth()
 
   const fetchList = async () => {
-    const response = await axios.get(`${URL}/admin/getAllContacts`);
-    console.log(response)
+    const response = await axios.get(`${URL}/admin/getAllContacts`, {
+      headers: {
+        Authorization: authorizationToken,
+        "Content-Type": "application/json",
+      }
+    });
+
     if (response.status === 200) {
       setcontact(response.data.message);
     } else {
@@ -24,7 +32,6 @@ export const Contact = () => {
       if (ans === true) {
         // Make sure the foodId is properly concatenated in the URL
         const response = await axios.delete(`${URL}/admin/contactremove/${contactId}`);
-        console.log(response.data);
 
         // Fetch the updated food list
         await fetchList();
@@ -50,30 +57,33 @@ export const Contact = () => {
   }, []);
 
   return (
-    <div className="list add flex-col">
-      <p>All contact lists</p>
-      <div className="list-table">
-        <div className="list-table-format title">
-          <b>Query</b>
-          <b>Name</b>
-          <b>Email</b>
-          <b>Phone</b>
-          <b>Message</b>
-          <b>Action</b>
+    <>
+      <Sidebar />
+      <div className="list add flex-col">
+        <p>All contact lists</p>
+        <div className="list-table">
+          <div className="list-table-format title">
+            <b>Query</b>
+            <b>Name</b>
+            <b>Email</b>
+            <b>Phone</b>
+            <b>Message</b>
+            <b>Action</b>
+          </div>
+          {contact ? contact.map((item, index) => {
+            return (
+              <div key={index} className="list-table-format">
+                <p>{item.option}</p>
+                <p>{item.name}</p>
+                <p>{item.email}</p>
+                <p>{item.phone}</p>
+                <p>{item.message}</p>
+                <p onClick={() => removeFood(item._id)} className="cursor"><FaTrashCan /></p>
+              </div>
+            )
+          }) : <><p>No contact found</p></>}
         </div>
-        {contact ? contact.map((item, index) => {
-          return (
-            <div key={index} className="list-table-format">
-              <p>{item.option}</p>
-              <p>{item.name}</p>
-              <p>{item.email}</p>
-              <p>{item.phone}</p>
-              <p>{item.message}</p>
-              <p onClick={() => removeFood(item._id)} className="cursor"><FaTrashCan /></p>
-            </div>
-          )
-        }) : <><p>No contact found</p></>}
       </div>
-    </div>
+    </>
   );
 }

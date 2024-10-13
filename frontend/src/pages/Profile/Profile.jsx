@@ -39,7 +39,6 @@ const Profile = () => {
 
     const updatedetails = async () => {
         try {
-            console.log(`${URL}/api/updateuserdetails`)
             const response = await axios(`${URL}/api/updateuserdetails`, user, User, {
                 method: 'PATCH',
                 headers: {

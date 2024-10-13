@@ -16,11 +16,19 @@ export const Sidebar = () => {
         </NavLink>
         <NavLink to='/menu' className="sidebar-option">
           <img src={assets.order_icon} alt="" />
-          <p>List Items</p>
+          <p>List Menu</p>
+        </NavLink>
+        <NavLink to='/special' className="sidebar-option">
+          <img src={assets.order_icon} alt="" />
+          <p>List Special Tiffin</p>
         </NavLink>
         <NavLink to='/contact' className="sidebar-option">
           <img src={assets.order_icon} alt="" />
           <p>Contacts</p>
+        </NavLink>
+        <NavLink to='/scheduleorder' className="sidebar-option">
+          <img src={assets.order_icon} alt="" />
+          <p>Scheduled Orders</p>
         </NavLink>
         <NavLink to='/viewOrders' className="sidebar-option">
           <img src={assets.order_icon} alt="" />

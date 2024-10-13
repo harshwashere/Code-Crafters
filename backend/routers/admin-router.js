@@ -1,8 +1,14 @@
 import express from "express";
 import {
+  adminotp,
+  adminotpverify,
   deleteContacts,
+  deleteDeals,
   deleteMenuDish,
+  deleteScheduleData,
+  deleteSpecial,
   deleteUsers,
+  getAdminUser,
   getAllOrder,
   getAllScheduleOrders,
   getContact,
@@ -12,24 +18,40 @@ import {
   getUser,
 } from "../controllers/admin-controller.js";
 
+import adminMiddleware from "../middleware/adminMiddleware.js";
+
 export const router = express.Router();
 
-router.route("/getAllContacts").get(getContact);
+router.route("/getotp").post(adminotp);
 
-router.route("/getAllUser").get(getUser);
+router.route("/verifyotp").post(adminotpverify);
 
-router.route("/getAllMenu").get(getMenu);
+router.route("/adminuser").get(adminMiddleware, getAdminUser);
 
-router.route("/getAllSpecialTiffin").get(getSpecialTiffin);
+router.route("/getAllContacts").get(adminMiddleware, getContact);
 
-router.route("/getAllDeals").get(getDeals);
+router.route("/getAllUser").get(adminMiddleware, getUser);
 
-router.route("/getAllOrders").get(getAllOrder);
+router.route("/getAllMenu").get(adminMiddleware, getMenu);
 
-router.route("/getAllScheduleOrders").get(getAllScheduleOrders);
+router.route("/getAllSpecialTiffin").get(adminMiddleware, getSpecialTiffin);
 
-router.route("/foodremove/:id").delete(deleteMenuDish);
+router.route("/getAllDeals").get(adminMiddleware, getDeals);
 
-router.route("/contactremove/:id").delete(deleteContacts);
+router.route("/getAllOrders").get(adminMiddleware, getAllOrder);
 
-router.route("/userremove/:id").delete(deleteUsers);
+router
+  .route("/getAllScheduleOrders")
+  .get(adminMiddleware, getAllScheduleOrders);
+
+router.route("/foodremove/:id").delete(adminMiddleware, deleteMenuDish);
+
+router.route("/contactremove/:id").delete(adminMiddleware, deleteContacts);
+
+router.route("/userremove/:id").delete(adminMiddleware, deleteUsers);
+
+router.route("/dealremove/:id").delete(adminMiddleware, deleteDeals);
+
+router.route("/specialremove/:id").delete(adminMiddleware, deleteSpecial);
+
+router.route("/scheduleremove/:id").delete(adminMiddleware, deleteScheduleData);

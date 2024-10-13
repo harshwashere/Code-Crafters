@@ -1,0 +1,32 @@
+.deal-table-format{
+    display: grid;
+    grid-template-columns: 1fr 0.5fr;
+    align-items: center;
+    padding: 12px 17px;
+    gap: 10px;
+    border: 1px solid #cacaca;
+    font-size: 13px;
+}
+
+.deal-table-format title{
+    background-color: #f9f9f9;
+}
+
+.deal-table-format img{
+    width: 100%;
+}
+
+.cursor {
+    color: red;
+}
+
+@media (max-width:600px) {
+    .deal-table-format{
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+
+    .deal-table-format .titel{
+        display: none;
+    }
+}

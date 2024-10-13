@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { createContext, useEffect, useState } from "react";
 import { URL } from "../pages/helper/helper";
@@ -108,23 +107,6 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     deals()
   }, [])
-
-  const payment = async (req, res) => {
-    try {
-      const { amount } = req.body
-
-      const paymentResponse = await axios.post(`${URL}/payment/create-order`, {
-        body: JSON.stringify({
-          amount,
-          currency: "INR",
-          reciept: "reciept#1",
-          notes: []
-        })
-      })
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   return (
     <AuthContext.Provider
