@@ -302,7 +302,7 @@ a {
   .mainBtn1 button:hover {
     background-color: var(--border-color);
     border: 3px solid var(--border-color);
-    color: var(--element-bg-color);
+    color: white;
   }
   @keyframes slide-animate {
     0% {
@@ -379,7 +379,7 @@ a {
   }
   .mainBtn1 button:hover {
     background-color: transparent;
-    color: var(--new-color);
+    color: white;
   }
 }
 

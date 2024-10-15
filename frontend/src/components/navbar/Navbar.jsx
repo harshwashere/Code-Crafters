@@ -177,8 +177,8 @@ const Navbar = () => {
             <li>Contact</li>
           </NavLink>
           <div className="mainBtn1">
-            <button>Order Now</button>
-            <button>Schedule a tiffin</button>
+            <button to='/menu'>Order Now</button>
+            <button to='/schedule'>Schedule a tiffin</button>
           </div>
         </ul>
       </div>
