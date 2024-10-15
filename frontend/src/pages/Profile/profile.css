@@ -5,10 +5,16 @@
 
 /* Sidebar Styles */
 .profile-container .profile-sidebar {
-  background-color: #f7f7f7;
   width: 250px;
   padding: 20px;
   height: 100vh;
+  background: var(--border-color);
+}
+
+.profile-container .profile-sidebar hr {
+  background: var(--element-bg-color);
+  border: 2px solid var(--element-bg-color);
+  border-radius: 10px;
 }
 
 .profile-container .profile-sidebar .logo {
@@ -16,6 +22,7 @@
   margin-bottom: 30px;
   font-weight: bold;
   text-align: center;
+  color: var(--element-bg-color);
 }
 
 .profile-container .profile-sidebar .menu-list {
@@ -27,11 +34,11 @@
 .profile-container .profile-sidebar .menu-list li {
   padding: 15px 0;
   cursor: pointer;
-  color: #7f7f7f;
+  color: var(--child-element-bg-color);
 }
 
 .profile-container .profile-sidebar .menu-list li.active {
-  color: #3f51b5;
+  color: var(--element-bg-color);
   font-weight: bold;
 }
 
@@ -39,7 +46,6 @@
 .profile-container .main-content {
   flex-grow: 1;
   padding: 60px;
-  background-color: white;
   display: flex; /* Flexbox layout */
   align-items: flex-start; /* Align content at the top */
   justify-content: center; /* Center the form horizontally */
@@ -48,7 +54,7 @@
 
 /* Profile Form */
 .profile-container .main-content .profile-form {
-  background-color: #f9f9f9;
+  background-color: var(--element-bg-color);
   padding: 30px;
   border-radius: 8px;
   width: 100%;
@@ -80,36 +86,35 @@
 
 .profile-container .main-content .profile-form .form-contents .form-group label {
   margin-top: 35px;
-  color: #555;
+  margin-bottom: 10px;
+  color: var(--font-color);
 }
 
 /* Input Fields */
 .profile-container .main-content .profile-form .form-contents .form-group input {
-  padding: 10px;
+  padding: 20px;
   font-size: 20px;
-  background-color: transparent;
+  border-radius: 20px;
   border: none;
-  border-bottom: 1px solid rgb(64, 60, 60);
+  border-bottom: 2px solid var(--border-color);
   outline: none;
-  color: #000;
-}
-
-.profile-container .main-content .profile-form .form-contents .form-group input::placeholder {
-  color: #999;
+  color: var(--font-color);
+  font-size: 16px;
 }
 
 /* Save Button */
 .profile-container .main-content .profile-form .form-contents .btn-save {
   grid-column: span 2;
   padding: 2px 5px;
-  background-color: #0e277fd8;
-  color: white;
+  background-color: var(--border-color);
+  color: var(--child-element-bg-color);
   border: none;
-  border-radius: 5px;
+  border-radius: 20px;
   cursor: pointer;
   margin-top: 20px;
   font-size: 16px;
 }
 .profile-container .main-content .profile-form .form-contents .btn-save:hover {
-  background-color: rgb(40, 40, 109);
+  background-color: var(--child-element-bg-color);
+  color: var(--font-color);
 }

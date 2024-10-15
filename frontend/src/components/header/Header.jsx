@@ -12,7 +12,7 @@ const Header = () => {
           </div>
           <div className="tagline">
             <h1>
-              Special dishes from <span>Aai Cha Dabba</span>
+              Special dishes from <span>आई&apos;s Tiffin</span>
               <br />
               made with <span>Love from Aai</span>
             </h1>

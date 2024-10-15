@@ -35,13 +35,13 @@ export const Footer = () => {
                     <h3>Follow Us</h3>
                     <div className="social-icons">
                         <NavLink to=""><BsTwitterX /></NavLink>
-                        <NavLink to=""><BsInstagram /></NavLink>
+                        <NavLink to="https://www.instagram.com/aailovestiffin/"><BsInstagram /></NavLink>
                     </div>
                 </div>
             </div>
 
             <div className="footer-bottom">
-                <p>© 2024 Tiffin Service. All rights reserved.</p>
+                <p>© 2024 Aai&apos;s Tiffin. All rights reserved.</p>
             </div>
         </footer>
     </>)

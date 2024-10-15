@@ -7,7 +7,7 @@ import axios from 'axios';
 
 const Profile = () => {
     const { authorizationToken, user } = useAuth()
-    console.log("user", user)
+    // console.log("user", user)
     // const [userData, setUserData] = useState(true)
     const [User, setUser] = useState({
         firstname: "",
@@ -39,7 +39,6 @@ const Profile = () => {
 
     const updatedetails = async () => {
         try {
-            console.log(`${URL}/api/updateuserdetails`)
             const response = await axios(`${URL}/api/updateuserdetails`, user, User, {
                 method: 'PATCH',
                 headers: {

@@ -9,12 +9,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { Provider } from "react-redux";
 import Store from "./react-redux/store.jsx";
 
-// const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
-
-// if(!PUBLISHABLE_KEY) {
-//   throw new Error("Missing Publishable Key")
-// }
-
 createRoot(document.getElementById("root")).render(
   <AuthProvider>
     <Provider store={Store}>
@@ -23,7 +17,7 @@ createRoot(document.getElementById("root")).render(
           <App />
           <ToastContainer
             position="top-right"
-            autoClose={3000}
+            autoClose={1000}
             hideProgressBar={false}
             newestOnTop={true}
             closeOnClick

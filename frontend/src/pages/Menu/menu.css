@@ -3,7 +3,7 @@
   flex-direction: column;
   height: auto;
   width: 100%;
-  background: #2a6892;
+  background: var(--border-color);
 }
 .slider-container {
   position: relative;
@@ -16,13 +16,13 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: white;
+  background-color: var(--child-element-bg-color);
   border-radius: 50%;
   border: none;
   padding: 10px;
   cursor: pointer;
   font-size: 24px;
-  color: black;
+  color: var(--font-color);
   z-index: 10;
 }
 
@@ -69,7 +69,8 @@
   padding-top: 30px;
   display: flex;
   flex-direction: column;
-  gap: 20px ;
+  gap: 20px;
+  color: var(--font-color);
 }
 
 .menu .main-menu .menu-category {
@@ -94,18 +95,20 @@
   align-items: center;
   justify-content: center;
   border-radius: 20px;
-  box-shadow: 5px 5px 10px #e3a89f;
-  border: 2px solid var(--new-color);
+  box-shadow: 2px 2px 10px var(--border-color);
+  border: 2px solid var(--border-color);
   width: 90%;
   padding: 50px;
   height: auto;
   text-align: center;
+  color: var(--font-color);
 }
 
 .menu .main-menu .menu-category .cat-dish {
   height: 90vh;
   width: 100%;
-  border: 1px solid black;
+  background: var(--element-bg-color);
+  border-radius: 20px;
 }
 
 .food-display {
@@ -123,8 +126,9 @@
 
 .food-display p {
   font-size: 12px;
-  color: #707373;
+  color: var(--font-color);
   font-weight: 500;
+  margin: 0 10px;
 }
 
 .food-display-list {
@@ -158,10 +162,11 @@
   border-radius: 20px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   width: 350px;
+  background: var(--child-element-bg-color);
 }
 
 .food-list:hover {
-  border: 1px solid var(--new-color);
+  border: 1px solid var(--border-color);
 }
 
 .food-item-detail img {
@@ -181,6 +186,7 @@
 .food-item-detail {
   margin-left: 10px;
   margin-right: 10px;
+  color: var(--font-color);
 }
 
 .food-card-deatil h3 {
@@ -207,19 +213,19 @@
 
 .food-card-tags .food-item-price {
   font-size: 16px;
-  color: #0c0d0d;
+  color: var(--font-color);
   font-weight: 600;
 }
 
 .food-card-tags .add-btn {
-  border: 1px solid black;
+  color: var(--child-element-bg-color);
   width: 120px;
   font-size: 14px;
   border: none;
   border-radius: 20px;
   padding: 10px 20px;
   cursor: pointer;
-  background-color: var(--new-color);
+  background-color: var(--border-color);
 }
 
 @media (max-width: 1150px) {

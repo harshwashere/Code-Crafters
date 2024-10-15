@@ -45,7 +45,7 @@
 }
 
 .footer-section ul li a:hover {
-  color: #f08a5d; /* Change color on hover */
+  color: var(--element-bg-color); /* Change color on hover */
 }
 
 .footer-section p a {

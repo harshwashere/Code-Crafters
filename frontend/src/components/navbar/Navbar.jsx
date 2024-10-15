@@ -21,7 +21,16 @@ const Navbar = () => {
 
   const [visible3, setVisible3] = useState(true);
 
-  const { getTotalCartAmount } = useContext(StoreContext);
+  const { getTotalCartAmount, cartItems } = useContext(StoreContext);
+
+
+  function cartLength() {
+    if (Object.keys(cartItems).length === 0) {
+      return <></>
+    } else {
+      return Object.keys(cartItems).length
+    }
+  }
 
   const visibility = () => {
     setVisible(!visible);
@@ -39,7 +48,7 @@ const Navbar = () => {
     <>
       <nav className="navbar">
         <div className="nameTitle">
-          <h1>Aai cha Dabba</h1>
+          <h1><NavLink to='/'>आई&apos;s Tiffin</NavLink></h1>
         </div>
         <div className="mainBtn">
           <NavLink to="/menu">
@@ -82,7 +91,7 @@ const Navbar = () => {
                   </NavLink>
                   <div
                     className={getTotalCartAmount() === 0 ? "" : "dot"}
-                  ></div>
+                  >{cartLength()}</div>
                 </p>
                 <div className="profile-section">
                   <CgProfile onClick={visibility3} className="profile-icon" />
@@ -158,13 +167,13 @@ const Navbar = () => {
           <LuUtensilsCrossed />
         </div>
         <ul type="none">
-          <NavLink style={{textDecoration: "none", color: "black"}} onClick={visibility} to="/">
+          <NavLink style={{ textDecoration: "none", color: "black" }} onClick={visibility} to="/">
             <li>Home</li>
           </NavLink>
-          <NavLink style={{textDecoration: "none", color: "black"}} onClick={visibility} to="/menu">
+          <NavLink style={{ textDecoration: "none", color: "black" }} onClick={visibility} to="/menu">
             <li>Menu</li>
           </NavLink>
-          <NavLink style={{textDecoration: "none", color: "black"}} onClick={visibility} to="/contact">
+          <NavLink style={{ textDecoration: "none", color: "black" }} onClick={visibility} to="/contact">
             <li>Contact</li>
           </NavLink>
           <div className="mainBtn1">

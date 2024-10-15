@@ -68,7 +68,6 @@ export const Signin = () => {
         },
         body: JSON.stringify({ "otp": otp, "email": emails })
       })
-      console.log(verifyData);
 
       if (verifyData.ok) {
         const otpVerify = await verifyData.json()

@@ -1,11 +1,13 @@
 import express from "express";
-import { createOrder, verifyOrder } from "../controllers/payment-controller.js";
+import { createOrder, getKey, verifyOrder } from "../controllers/payment-controller.js";
 export const paymentRoute = express.Router();
 
-paymentRoute.post("/create-order", createOrder);
+paymentRoute.route('/getkey').get(getKey)
 
-paymentRoute.post("/verfy-order", verifyOrder);
+paymentRoute.route("/createOrder").post(createOrder);
 
-paymentRoute.post("/payment-success", (req, res) => {
-  res.status(200).json("Payment done successfully")
+paymentRoute.route("/verifyOrder").post(verifyOrder);
+
+paymentRoute.route("/payment-success").post((req, res) => {
+  res.status(200).json("Payment done successfully");
 });

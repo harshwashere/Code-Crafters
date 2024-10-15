@@ -22,13 +22,18 @@ const PORT = process.env.PORT;
 connect();
 
 const corsOptions = {
+<<<<<<< HEAD
   origin: "http://localhost:5173",
   // origin: "https://code-crafters-seven.vercel.app/",
   // https://code-crafters-seven.vercel.app/
   method: "GET, POST, PUT, DELETE, PATCH, HEAD",
+=======
+  origin: ["https://code-crafters-seven.vercel.app", "https://aai-loves-tiffin-admin.vercel.app", "http://localhost:5173", "http://localhost:5174"],
+  // https://code-crafters-seven.vercel.app
+  method: ["GET, POST, PUT, DELETE, PATCH, HEAD"],
+>>>>>>> bad2319581ef956ef7d2709a82a17179fbdec0a6
   credential: true,
 };
-app.options("*");
 app.use(cors(corsOptions));
 
 app.set("view engine", "ejs");
@@ -55,10 +60,6 @@ app.use("/scheduleapi", scheduleRoute);
 
 app.use("/api", mealRoute);
 app.use("/api", seedRoute);
-
-const isLoggedIn = (req, res, next) => {
-  req.user ? next() : res.sendStatus(401);
-};
 
 app.get("/", (req, res) => {
   res.send(

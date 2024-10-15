@@ -109,7 +109,7 @@ export const googleLogin = async (req, res) => {
       //   token: await existingUser.generateToken(),
       //   userId: existingUser._id.toString(),
       // });
-      res.redirect("http://localhost:5173");
+      res.redirect("https://code-crafters-seven.vercel.app");
     }
 
     const newUser = await User.create({
@@ -129,7 +129,7 @@ export const googleLogin = async (req, res) => {
     //   userId: newUser._id.toString(),
     // });
 
-    res.redirect("http://localhost:5173");
+    res.redirect("https://code-crafters-seven.vercel.app");
   } catch (error) {
     console.log(error);
   }
@@ -139,7 +139,7 @@ export const user = (req, res) => {
   try {
     const userData = req.user;
 
-    res.status(200).json({ userData });
+    return res.status(200).json({ userData });
   } catch (error) {
     console.log(error);
   }

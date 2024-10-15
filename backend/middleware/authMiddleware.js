@@ -3,7 +3,8 @@ import { User } from "../models/user-model.js";
 
 const authMiddleware = async (req, res, next) => {
   const token = req.header("Authorization");
-
+  // console.log(token);
+  
   if (!token) {
     return res
       .status(401)
@@ -11,11 +12,12 @@ const authMiddleware = async (req, res, next) => {
   }
 
   const jwtToken = token.replace("Bearer", "").trim();
-
+  // console.log(jwtToken)
+  console.log(process.env.JWT_KEY)
   try {
-    const isVerfied = jwt.verify(jwtToken, process.env.JWT_KEY);
-
-    const userData = await User.findOne({ email: isVerfied.email }).select({
+    const email = jwt.verify(jwtToken, process.env.JWT_KEY);
+    console.log()
+    const userData = await User.findOne({ email }).select({
       password: 0,
     });
 
