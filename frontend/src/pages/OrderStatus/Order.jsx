@@ -14,7 +14,7 @@ const Order = () => {
     const getUserOrder = async () => {
         try {
             const response = await axios.get(
-                'http://localhost:7000/order/getUserOrder/6703cc6b769909b4d7e7adf1', // Check URL
+                `${URL}/order/getUserOrder/${user._id}`, // Check URL
                 {
                     headers: {
                         Authorization: authorizationToken, // Ensure token is sent

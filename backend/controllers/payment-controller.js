@@ -3,7 +3,7 @@ import razorpay from "../config/razorpay-setup.js";
 import crypto from "crypto";
 import Payment from "../models/payment-model.js";
 
-const URL = "http://localhost:5173";
+const URL = "https://code-crafters-seven.vercel.app";
 // https://code-crafters-seven.vercel.app
 
 export const getKey = (req, res) => {
@@ -74,7 +74,7 @@ export const verifyOrder = async (req, res) => {
       existingOrder.amount_due = undefined;
       await existingOrder.save(); // Correct usage
 
-      res.redirect(`${URL}/getOrderByPaymentId/${razorpay_payment_id}`);
+      res.redirect(`${URL}/order/${razorpay_payment_id}`);
     } else {
       return res
         .status(400)
