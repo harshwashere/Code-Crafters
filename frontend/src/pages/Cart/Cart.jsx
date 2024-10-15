@@ -247,16 +247,6 @@ export const Cart = () => {
                     </div>
                 </div>
                 <hr />
-                <div className="cart-total-details">
-                  <p>Delivery Fee</p>
-                  <p>₹{2}</p>
-                </div>
-                <hr />
-                <div className="cart-total-details">
-                  <b>Total</b>
-                  <b>₹{getTotalCartAmount() + 2}</b>
-                </div>
-                <button>Proceed to checkout</button>
               </div>
             <Footer />
         </>
