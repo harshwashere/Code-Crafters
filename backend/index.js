@@ -15,7 +15,6 @@ import { paymentRoute } from "./routers/payment-router.js";
 import scheduleRoute from "./routers/schedule-router.js";
 import contactRoute from "./routers/contact-router.js";
 import mealRoute from "./routers/meal-router.js";
-import seedRoute from "./routers/seed-router.js";
 import orderRoute from "./routers/order-router.js";
 
 dotenv.config();
@@ -24,8 +23,8 @@ const PORT = process.env.PORT;
 connect();
 
 const corsOptions = {
-  origin: "http://localhost:5173",
-  // https://code-crafters-seven.vercel.app/
+  origin: ["https://code-crafters-seven.vercel.app", "https://aai-loves-tiffin-admin.vercel.app", "http://localhost:5173", "http://localhost:5174"],
+  // https://code-crafters-seven.vercel.app            https://aai-loves-tiffin-admin.vercel.app
   method: "GET, POST, PUT, DELETE, PATCH, HEAD",
   credential: true,
 };
