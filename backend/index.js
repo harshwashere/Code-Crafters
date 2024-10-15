@@ -15,23 +15,17 @@ import { paymentRoute } from "./routers/payment-router.js";
 import scheduleRoute from "./routers/schedule-router.js";
 import contactRoute from "./routers/contact-router.js";
 import mealRoute from "./routers/meal-router.js";
-import seedRoute from "./routers/seed-router.js";
+
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
 connect();
 
 const corsOptions = {
-<<<<<<< HEAD
   origin: "http://localhost:5173",
   // origin: "https://code-crafters-seven.vercel.app/",
   // https://code-crafters-seven.vercel.app/
   method: "GET, POST, PUT, DELETE, PATCH, HEAD",
-=======
-  origin: ["https://code-crafters-seven.vercel.app", "https://aai-loves-tiffin-admin.vercel.app", "http://localhost:5173", "http://localhost:5174"],
-  // https://code-crafters-seven.vercel.app
-  method: ["GET, POST, PUT, DELETE, PATCH, HEAD"],
->>>>>>> bad2319581ef956ef7d2709a82a17179fbdec0a6
   credential: true,
 };
 app.use(cors(corsOptions));
@@ -59,7 +53,6 @@ app.use("/payment", paymentRoute);
 app.use("/scheduleapi", scheduleRoute);
 
 app.use("/api", mealRoute);
-app.use("/api", seedRoute);
 
 app.get("/", (req, res) => {
   res.send(
