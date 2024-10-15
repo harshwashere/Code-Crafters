@@ -1,16 +1,15 @@
 // models/Meal.js
 import mongoose from "mongoose";
 
-const MealSchema = new mongoose.Schema({
+const mealSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  type: { type: String, enum: ["lunch", "dinner", "both"], required: true },
-  dietary: {
-    type: String,
-    enum: ["veg", "non-veg", "diabetic"],
-    required: true,
-  },
-  // Add any additional fields you require
+  type: { type: String, required: true },
+  plan: { type: String, required: true },
+  mealFor: { type: String, required: true },
+  price: { type: Number, required: true },
+  meals: { type: [String], required: true }, // Array of meal names
 });
 
-const mealModel = mongoose.model("Meal", MealSchema);
+const mealModel = new mongoose.model("Meal", mealSchema);
+
 export default mealModel;

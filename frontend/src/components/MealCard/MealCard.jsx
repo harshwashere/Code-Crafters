@@ -1,18 +1,40 @@
-// import React from 'react';
-import './MealCard.css';
+/* eslint-disable react/prop-types */
+import "./MealCard.css";
 
-const MealCard = () => {
+const MealCard = ({ meal }) => {
+  // Check if both data is coming (mealFor and type)
+  const isDinner = meal.mealFor === "Dinner"; // Example condition, adjust as needed
+  const isVeg = meal.type === "Non-Veg";
+
   return (
     <section className="meal-card">
       <h3>
-        Lunch <span className="badge">Lite</span>
+        {meal.mealFor} <span className="badge">{meal.plan}</span>
       </h3>
-      <p className="high-protein">High Protein</p>
-      <p>North Indian Lite (Nonveg)</p>
-      <p>Andhara Ginger Chicken, Dal Tadka, Aloo Dum Pulao</p>
+      <div className="meal-typeImg">
+        {isVeg ? (
+          <img
+            src="https://www.vhv.rs/dpng/d/437-4370761_non-veg-icon-non-veg-logo-png-transparent.png"
+            alt=""
+            width="15px"
+            height="15px"
+          />
+        ) : (
+          <img
+            src="https://www.clipartmax.com/png/middle/299-2998556_vegetarian-food-symbol-icon-non-veg-symbol-png.png"
+            alt=""
+            width="15px"
+            height="15px"
+          />
+        )}
+
+        <p>{meal.type}</p>
+      </div>
+      <p>{meal.name}</p>
+      <p className="meals">{meal.meals.join(", ")}</p>
       <div className="delivery-time">
-        <p>Standard Delivery</p>
-        <p>11:30 am - 01:30 pm</p>
+        <p>{isDinner ? "Dinner Delivery" : "Standard Delivery"}</p>
+        <p>{isDinner ? "7:00 pm - 09:00 pm" : "11:30 am - 01:30 pm"}</p>
       </div>
     </section>
   );
