@@ -13,6 +13,7 @@ export const UserDetailsPopup = ({ onClose, onSubmit }) => {
     phone: "",
   });
   const [isSubmitted, setIsSubmitted] = useState(false); // Track submission status
+  // eslint-disable-next-line no-unused-vars
   const [isCovering, setIsCovering] = useState(false); // Track covering animation status
 
   const handleChange = (e) => {

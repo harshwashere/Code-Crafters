@@ -27,8 +27,6 @@ const SchedulePage = () => {
   });
   const [selectedMealsPerWeek, setSelectedMealsPerWeek] = useState("");
   const [selectedQuantity, setSelectedQuantity] = useState(1);
-  // const [chapatiCount, setChapatiCount] = useState(1);
-  // const [riceType, setRiceType] = useState("normal");
   const [startDate, setStartDate] = useState("");
   const [formError, setFormError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
@@ -137,13 +135,6 @@ const SchedulePage = () => {
     const dinnerDiscount = discounts[selectedDuration.dinner] || 0;
     const totalDiscount = Math.max(lunchDiscount, dinnerDiscount); // Ensure no over-discounting
     totalPrice -= totalPrice * totalDiscount;
-    // if (discounts[selectedDuration.lunch]) {
-    //   totalPrice -= totalPrice * discounts[selectedDuration.lunch]; // Apply percentage discount for lunch
-    // }
-    // if (discounts[selectedDuration.dinner]) {
-    //   totalPrice -= totalPrice * discounts[selectedDuration.dinner]; // Apply percentage discount for dinner
-    // }
-
     totalPrice = Math.round(totalPrice);
     return totalPrice;
   };
@@ -199,18 +190,6 @@ const SchedulePage = () => {
       validationError = true;
     }
 
-    // Validate if chapati count is selected
-    // if (!chapatiCount) {
-    //   setFormError("Please select how many chapatis you want!");
-    //   validationError = true;
-    // }
-
-    // Validate if a rice type is selected
-    // if (!riceType) {
-    //   setFormError("Please select a rice type!");
-    //   validationError = true;
-    // }
-
     // Check if a quantity is selected
     if (!selectedQuantity) {
       setFormError("Please select a quantity!");
@@ -246,8 +225,6 @@ const SchedulePage = () => {
       setSelectedDuration({ lunch: "", dinner: "" });
       setSelectedMealsPerWeek("");
       setSelectedQuantity(1);
-      // setChapatiCount(1);
-      // setRiceType("normal");
       setStartDate("");
       setFormError("");
       setSuccessMessage("");

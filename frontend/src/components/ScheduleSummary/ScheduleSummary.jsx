@@ -8,7 +8,6 @@ import { UserDetailsPopup } from "../../pages/ScheduleCart/UserDetailsPopup";
 
 export const ScheduleSummary = () => {
   const [summaryDetails, setSummaryDetails] = useState([]);
-  // const [userData, setuserData] = useState([]);
 
   const [mealData, setMealData] = useState([]); // Store all meals from backend
   const [selectedDateMeals, setSelectedDateMeals] = useState([]); // Meals for selected date
@@ -51,7 +50,6 @@ export const ScheduleSummary = () => {
           setSummaryDetails(response.data); // Assuming response.data has the required data
         }
         if (response.data.length > 0) {
-          // console.log("0", response.data[0]);
           fetchMeals(response.data[0]); // Use the first schedule for meals fetching
         }
       }
@@ -76,7 +74,6 @@ export const ScheduleSummary = () => {
             },
           }
         );
-        console.log(response);
 
         if (response.status === 200) {
           alert("Schedule deleted successfully!");
@@ -114,9 +111,6 @@ export const ScheduleSummary = () => {
         durations.dinner = schedule.duration.dinner;
       }
 
-      console.log("Meal Plans:", mealPlans);
-      console.log("Durations:", durations);
-
       const combinedMeals = []; // Store all meal responses
 
       // Prepare the payload to match the backend expected structure
@@ -129,15 +123,12 @@ export const ScheduleSummary = () => {
         mealPlans: mealPlans, // Pass meal plans object
       };
 
-      console.log("Sending request with payload:", payload);
-
       // Send request for meal schedule
       const response = await axios.post(
         "http://localhost:7000/api/schedule",
         payload
       );
 
-      console.log("Response for meal schedule:", response.data);
       combinedMeals.push(...response.data); // Collect all meal responses
 
       // Update state with fetched meal data
@@ -155,7 +146,6 @@ export const ScheduleSummary = () => {
 
   const handleDateChange = (selectedDate) => {
     try {
-      console.log("Selected Date:", selectedDate); // Should be "YYYY-MM-DD"
 
       const validDate = new Date(selectedDate);
       if (isNaN(validDate)) throw new Error("Invalid date format");
@@ -166,28 +156,13 @@ export const ScheduleSummary = () => {
       const day = validDate.getDate().toString().padStart(2, "0");
 
       const formattedDate = `${year}-${month}-${day}`;
-      // console.log("Formatted Date:", formattedDate);
-
-      // console.log("Meal Data:", mealData);
-      // console.log("Meal Data Sample:", mealData);
 
       const filteredMeals = mealData.filter((meal) => {
-        // console.log("meal23", meal);
         console.log("formattedDate", formattedDate);
         console.log(`Checking meal startDate: ${meal.date === formattedDate}`); // Log each meal's date
         return meal.date === formattedDate;
       });
-
-      // const filteredMeals = mealData
-      //   .map((meal) => {
-      //     return meal;
-      //   })
-      //   .filter((meals) => {
-      //     console.log("object", meals.date);
-      //     return meals.date === formattedDate;
-      //   });
-
-      console.log("Filtered Meals:", filteredMeals);
+      
       setSelectedDateMeals(filteredMeals);
     } catch (error) {
       console.error("Error handling date:", error.message);
