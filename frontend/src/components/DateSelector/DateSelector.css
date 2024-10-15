@@ -1,80 +1,79 @@
 .date-selector {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 2rem;
-    /* gap: rem; */
-    position: relative;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  
-  .prev-arrow,
-  .next-arrow {
-    /* background-color: #fff; */
-    background: transparent; 
-    border: none;
-    color: #f44;
-    font-size: 2rem;
-    width: 40px;
-    height: 40px;
-    /* border-radius: 50%; */
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
-    transition: background-color 0.2s ease;
-  }
-  
-  .prev-arrow:disabled,
-  .next-arrow:disabled {
-    background-color: transparent;
-    cursor: not-allowed;
-  }
-  
-  .dates-container {
-    overflow: hidden; /* Hide out-of-view dates */
-    width: 420px; /* Ensure only 7 dates visible (60px * 7) */
-    display: flex;
-    position: relative;
-  }
-  
-  .date-track {
-    display: flex;
-    transition: transform 0.3s ease;
-    width: max-content; /* Prevent shrinking */
-  }
-  
-  .date {
-    background-color: #f5c0c0;
-    border: none;
-    width: 60px;
-    height: 60px;
-    color: #fff;
-    font-size: 1rem;
-    font-weight: 550;
-    border-radius: 10px;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 0 5px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.2s ease, color 0.2s ease;
-  }
-  
-  .date.active {
-    background-color: #f44;
-    color: white;
-  }
-  
-  .date:hover {
-    background-color: #e57373;
-  }
-  
-  .dates-container::-webkit-scrollbar {
-    display: none; /* Hide the scrollbar */
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+  /* gap: rem; */
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.prev-arrow,
+.next-arrow {
+  /* background-color: #fff; */
+  background: transparent;
+  border: none;
+  color: #f44;
+  font-size: 2rem;
+  width: 40px;
+  height: 40px;
+  /* border-radius: 50%; */
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+  transition: background-color 0.2s ease;
+}
+
+.prev-arrow:disabled,
+.next-arrow:disabled {
+  background-color: transparent;
+  cursor: not-allowed;
+}
+
+.dates-container {
+  overflow: hidden; /* Hide out-of-view dates */
+  width: 420px; /* Ensure only 7 dates visible (60px * 7) */
+  display: flex;
+  position: relative;
+}
+
+.date-track {
+  display: flex;
+  transition: transform 0.3s ease;
+  width: max-content; /* Prevent shrinking */
+}
+
+.date {
+  background-color: #f5c0c0;
+  border: none;
+  width: 60px;
+  height: 60px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 550;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.date.active {
+  background-color: #f44;
+  color: white;
+}
+
+.date:hover {
+  background-color: #e57373;
+}
+
+.dates-container::-webkit-scrollbar {
+  display: none; /* Hide the scrollbar */
+}

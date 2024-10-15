@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { StoreContext } from "../../context/StoreContext";
 import Navbar from "../../components/navbar/Navbar";
 import "./cart.css";
+import "./cart.css";
 import { Footer } from "../../components/footer/Footer";
 import { FaTrashCan } from "react-icons/fa6";
 import axios from "axios";
@@ -245,7 +246,18 @@ export const Cart = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+                <hr />
+                <div className="cart-total-details">
+                  <p>Delivery Fee</p>
+                  <p>₹{2}</p>
+                </div>
+                <hr />
+                <div className="cart-total-details">
+                  <b>Total</b>
+                  <b>₹{getTotalCartAmount() + 2}</b>
+                </div>
+                <button>Proceed to checkout</button>
+              </div>
             <Footer />
         </>
     );

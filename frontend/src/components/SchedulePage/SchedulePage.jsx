@@ -3,7 +3,7 @@ import "./SchedulePage.css";
 import Navbar from "../navbar/Navbar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { ScheduleSummary } from "../ScheduleSummary/ScheduleSummary";
+// import { ScheduleSummary } from "../ScheduleSummary/ScheduleSummary";
 // import axios from "axios";
 
 const SchedulePage = () => {
@@ -27,8 +27,6 @@ const SchedulePage = () => {
   });
   const [selectedMealsPerWeek, setSelectedMealsPerWeek] = useState("");
   const [selectedQuantity, setSelectedQuantity] = useState(1);
-  // const [chapatiCount, setChapatiCount] = useState(1);
-  // const [riceType, setRiceType] = useState("normal");
   const [startDate, setStartDate] = useState("");
   const [formError, setFormError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
@@ -69,17 +67,15 @@ const SchedulePage = () => {
     setSelectedMealsPerWeek(mealsPerWeek);
   };
 
-  const handleQuantityChange = (event) => {
-    setSelectedQuantity(parseInt(event.target.value));
+  const handleQuantityChange = (e) => {
+    const value = Number(e.target.value);
+    if (value >= 0 && value <= 10) {
+      // Ensure value is between 0 and 10
+      setSelectedQuantity(value);
+    } else if (value < 0) {
+      setSelectedQuantity(0); // Set to 0 if the user tries to enter a negative number
+    }
   };
-
-  // const handleChapatiCountChange = (event) => {
-  //   setChapatiCount(parseInt(event.target.value));
-  // };
-
-  // const handleRiceTypeChange = (type) => {
-  //   setRiceType(type);
-  // };
 
   const handleStartDateChange = (event) => {
     setStartDate(event.target.value);
@@ -88,22 +84,58 @@ const SchedulePage = () => {
   const calculatePrice = () => {
     let totalPrice = 0;
 
+    // Total number of days based on selected duration plan for lunch and dinner
+    const totalDaysLunch =
+      selectedDuration.lunch === "1-week"
+        ? 7
+        : selectedDuration.lunch === "1-month"
+        ? 30
+        : selectedDuration.lunch === "3-day"
+        ? 3
+        : 0;
+    const totalDaysDinner =
+      selectedDuration.dinner === "1-week"
+        ? 7
+        : selectedDuration.dinner === "1-month"
+        ? 30
+        : selectedDuration.dinner === "3-day"
+        ? 3
+        : 0;
+
+    // Get the number of meals per week
+    const mealsPerWeek =
+      selectedMealsPerWeek === "5-days"
+        ? 5
+        : selectedMealsPerWeek === "6-days"
+        ? 6
+        : 0;
+
+    // Calculate total number of meals for lunch and dinner
+    const totalMealsLunch =
+      totalDaysLunch > 0 ? mealsPerWeek * (totalDaysLunch / 7) : 0; // Adjust meals based on total days for lunch
+    const totalMealsDinner =
+      totalDaysDinner > 0 ? mealsPerWeek * (totalDaysDinner / 7) : 0; // Adjust meals based on total days for dinner
+
+    // Calculate total price for lunch
     if (selectedMealPlan.lunch) {
-      totalPrice += mealPlanPrices[selectedMealPlan.lunch];
-    }
-    if (selectedMealPlan.dinner) {
-      totalPrice += mealPlanPrices[selectedMealPlan.dinner];
+      totalPrice += mealPlanPrices[selectedMealPlan.lunch] * totalMealsLunch;
     }
 
+    // Calculate total price for dinner
+    if (selectedMealPlan.dinner) {
+      totalPrice += mealPlanPrices[selectedMealPlan.dinner] * totalMealsDinner;
+    }
+
+    // Multiply by the quantity selected by the user
     totalPrice *= selectedQuantity;
 
-    if (selectedDuration.lunch && discounts[selectedDuration.lunch]) {
-      totalPrice -= totalPrice * discounts[selectedDuration.lunch];
-    }
-    if (selectedDuration.dinner && discounts[selectedDuration.dinner]) {
-      totalPrice -= totalPrice * discounts[selectedDuration.dinner];
-    }
-
+    // Apply discounts based on duration plan (if applicable)
+    // Apply discounts if applicable
+    const lunchDiscount = discounts[selectedDuration.lunch] || 0;
+    const dinnerDiscount = discounts[selectedDuration.dinner] || 0;
+    const totalDiscount = Math.max(lunchDiscount, dinnerDiscount); // Ensure no over-discounting
+    totalPrice -= totalPrice * totalDiscount;
+    totalPrice = Math.round(totalPrice);
     return totalPrice;
   };
 
@@ -158,18 +190,6 @@ const SchedulePage = () => {
       validationError = true;
     }
 
-    // Validate if chapati count is selected
-    // if (!chapatiCount) {
-    //   setFormError("Please select how many chapatis you want!");
-    //   validationError = true;
-    // }
-
-    // Validate if a rice type is selected
-    // if (!riceType) {
-    //   setFormError("Please select a rice type!");
-    //   validationError = true;
-    // }
-
     // Check if a quantity is selected
     if (!selectedQuantity) {
       setFormError("Please select a quantity!");
@@ -188,8 +208,6 @@ const SchedulePage = () => {
       duration: selectedDuration,
       mealsPerWeek: selectedMealsPerWeek,
       quantity: selectedQuantity,
-      // chapatiCount: chapatiCount,
-      // riceType: riceType,
       startDate: startDate,
       totalPrice: calculatePrice(),
     };
@@ -207,8 +225,6 @@ const SchedulePage = () => {
       setSelectedDuration({ lunch: "", dinner: "" });
       setSelectedMealsPerWeek("");
       setSelectedQuantity(1);
-      // setChapatiCount(1);
-      // setRiceType("normal");
       setStartDate("");
       setFormError("");
       setSuccessMessage("");
@@ -239,6 +255,8 @@ const SchedulePage = () => {
     }
   };
 
+  
+
   return (
     <>
       <Navbar />
@@ -252,8 +270,7 @@ const SchedulePage = () => {
             </p>
             <p>For our users we also provide amazing deals.</p>
             <p>1 week orders: 5% discount</p>
-            <p>1 month orders: 10% discoun</p>
-            <p>3 month order: 15% discount</p>
+            <p>1 month orders: 10% discount</p>
           </div>
 
           <form onSubmit={handleSubmit}>
@@ -261,73 +278,68 @@ const SchedulePage = () => {
             <div className="meal-selection">
               <h2>Select Meal For</h2>
               <hr />
-              <button
-                onClick={() => handleMealSelection("lunch")}
-                className={`lunch ${
-                  selectedMealButton === "lunch" ? "selected" : ""
-                }`}
-              >
-                <img src="https://www.happygrub.in/img/sun.png" alt="" />{" "}
-                <span>Lunch</span>
-              </button>
-              <button
-                onClick={() => handleMealSelection("dinner")}
-                className={`dinner ${
-                  selectedMealButton === "dinner" ? "selected" : ""
-                }`}
-              >
-                <img src="https://www.happygrub.in/img/moon.png" alt="" />{" "}
-                <span>Dinner</span>
-              </button>
-              <button
-                onClick={() => handleMealSelection("both")}
-                className={`both ${
-                  selectedMealButton === "both" ? "selected" : ""
-                }`}
-              >
-                <img src="https://www.happygrub.in/img/sun-moon.png" alt="" />{" "}
-                <span>Both</span>
-              </button>
+              <div className="meal-buttons">
+                <button
+                  onClick={() => handleMealSelection("lunch")}
+                  className={`lunch ${
+                    selectedMealButton === "lunch" ? "selected" : ""
+                  }`}
+                >
+                  <img src="https://www.happygrub.in/img/sun.png" alt="" />
+                  <span>Lunch</span>
+                </button>
+                <button
+                  onClick={() => handleMealSelection("dinner")}
+                  className={`dinner ${
+                    selectedMealButton === "dinner" ? "selected" : ""
+                  }`}
+                >
+                  <img src="https://www.happygrub.in/img/moon.png" alt="" />
+                  <span>Dinner</span>
+                </button>
+                <button
+                  onClick={() => handleMealSelection("both")}
+                  className={`both ${
+                    selectedMealButton === "both" ? "selected" : ""
+                  }`}
+                >
+                  <img src="https://www.happygrub.in/img/sun-moon.png" alt="" />
+                  <span>Both</span>
+                </button>
+              </div>
             </div>
 
             {selectedMeal && (
               <div className="meal-type-selection">
                 <h2>Select Meal Type</h2>
                 <hr />
-                <button
-                  onClick={() => handleMealType("Veg")}
-                  className={`Veg ${
-                    selectedMealTypeButton === "Veg" ? "selected" : ""
-                  }`}
-                >
-                  <img
-                    src="https://www.happygrub.in/img/healthy-meal.png"
-                    alt=""
-                  />{" "}
-                  <span>Veg </span>
-                </button>
-                <button
-                  onClick={() => handleMealType("Non-Veg")}
-                  className={`Non-veg ${
-                    selectedMealTypeButton === "Non-Veg" ? "selected" : ""
-                  }`}
-                >
-                  <img
-                    src="https://www.happygrub.in/img/healthy-jain-meal.png"
-                    alt=""
-                  />{" "}
-                  <span>Non-Veg</span>
-                </button>
-                <button
-                  onClick={() => handleMealType("diabetic")}
-                  className="diabetic"
-                >
-                  <img
-                    src="https://www.happygrub.in/img/diabetiv-meal.png"
-                    alt=""
-                  />{" "}
-                  <span>Diabetic Meals</span>
-                </button>
+                <div className="meal-type-buttons">
+                  <button
+                    onClick={() => handleMealType("Veg")}
+                    className={`Veg ${
+                      selectedMealTypeButton === "Veg" ? "selected" : ""
+                    }`}
+                  >
+                    <img
+                      src="https://www.happygrub.in/img/healthy-meal.png"
+                      alt="Veg Meal"
+                    />
+                    <span>Veg</span>
+                  </button>
+                  <button
+                    onClick={() => handleMealType("Non-Veg")}
+                    className={`Non-veg ${
+                      selectedMealTypeButton === "Non-Veg" ? "selected" : ""
+                    }`}
+                  >
+                    <img
+                      src="https://www.happygrub.in/img/healthy-jain-meal.png"
+                      alt="Non-Veg Meal"
+                    />
+                    <span>Non-Veg</span>
+                  </button>
+                  {/* Add more buttons here if needed */}
+                </div>
               </div>
             )}
 
@@ -335,80 +347,125 @@ const SchedulePage = () => {
             {selectedMeal && selectedMealType && (
               <div className="meal-plan-selection">
                 <h2>Select Your Meal Plan</h2>
+                <hr />
                 {selectedMeal.includes("lunch") && (
                   <>
                     <h3>Lunch Plans</h3>
                     <hr />
-                    <button
-                      onClick={() => handleMealPlan("lunch", "eco")}
-                      className={`eco ${
-                        selectedMealPlanButton.lunch === "eco" ? "selected" : ""
-                      }`}
-                    >
-                      <img src="https://www.happygrub.in/img/bag.png" alt="" />
-                      <span>Eco</span>
-                    </button>
-                    <p>₹130</p>
-                    <button
-                      onClick={() => handleMealPlan("lunch", "mini")}
-                      className={`mini ${
-                        selectedMealPlanButton.lunch === "mini"
-                          ? "selected"
-                          : ""
-                      }`}
-                    >
-                      <img src="https://www.happygrub.in/img/bag.png" alt="" />
-                      <span>Mini</span>
-                    </button>
-                    <p>₹150</p>
-                    <button
-                      onClick={() => handleMealPlan("lunch", "executive")}
-                      className={`executive ${
-                        selectedMealPlanButton.lunch === "executive"
-                          ? "selected"
-                          : ""
-                      }`}
-                    >
-                      <img src="https://www.happygrub.in/img/bag.png" alt="" />
-                      <span>Executive</span>
-                    </button>
-                    <p>₹180</p>
+                    <div className="meal-plan-buttons">
+                      <button
+                        onClick={() => handleMealPlan("lunch", "eco")}
+                        className={`eco ${
+                          selectedMealPlanButton.lunch === "eco"
+                            ? "selected"
+                            : ""
+                        }`}
+                      >
+                        <img
+                          src="https://www.happygrub.in/img/bag.png"
+                          alt=""
+                        />
+                        <span>Eco</span>
+                      </button>
+                      <p>₹130</p>
+
+                      <button
+                        onClick={() => handleMealPlan("lunch", "mini")}
+                        className={`mini ${
+                          selectedMealPlanButton.lunch === "mini"
+                            ? "selected"
+                            : ""
+                        }`}
+                      >
+                        <img
+                          src="https://www.happygrub.in/img/bag.png"
+                          alt=""
+                        />
+                        <span>Mini</span>
+                      </button>
+                      <p>₹150 -/per day</p>
+
+                      <button
+                        onClick={() => handleMealPlan("lunch", "executive")}
+                        className={`executive ${
+                          selectedMealPlanButton.lunch === "executive"
+                            ? "selected"
+                            : ""
+                        }`}
+                      >
+                        <img
+                          src="https://www.happygrub.in/img/bag.png"
+                          alt=""
+                        />
+                        <span>Executive</span>
+                      </button>
+                      <p>₹180</p>
+                    </div>
                   </>
                 )}
+
                 {selectedMeal.includes("dinner") && (
                   <>
                     <h3>Dinner Plans</h3>
                     <hr />
-                    <button
-                      onClick={() => handleMealPlan("dinner", "eco")}
-                      className={`eco ${
-                        selectedMealPlanButton.lunch === "eco" ? "selected" : ""
-                      }`}
-                    >
-                      <img src="https://www.happygrub.in/img/bag.png" alt="" />{" "}
-                      <span>Eco</span>
-                    </button>
-                    <p>₹130</p>
-                    <button
-                      onClick={() => handleMealPlan("dinner", "mini")}
-                      className={`mini ${
-                        selectedMealPlanButton.lunch === "mini"
-                          ? "selected"
-                          : ""
-                      }`}
-                    >
-                      <img src="https://www.happygrub.in/img/bag.png" alt="" />{" "}
-                      <span>Mini</span>
-                    </button>
-                    <p>₹150</p>
+                    <div className="meal-plan-buttons">
+                      <button
+                        onClick={() => handleMealPlan("dinner", "eco")}
+                        className={`eco ${
+                          selectedMealPlanButton.dinner === "eco"
+                            ? "selected"
+                            : ""
+                        }`}
+                      >
+                        <img
+                          src="https://www.happygrub.in/img/bag.png"
+                          alt=""
+                        />
+                        <span>Eco</span>
+                      </button>
+                      <p>₹130</p>
+
+                      <button
+                        onClick={() => handleMealPlan("dinner", "mini")}
+                        className={`mini ${
+                          selectedMealPlanButton.dinner === "mini"
+                            ? "selected"
+                            : ""
+                        }`}
+                      >
+                        <img
+                          src="https://www.happygrub.in/img/bag.png"
+                          alt=""
+                        />
+                        <span>Mini</span>
+                      </button>
+                      <p>₹150</p>
+
+                      <button
+                        onClick={() => handleMealPlan("dinner", "executive")}
+                        className={`executive ${
+                          selectedMealPlanButton.dinner === "executive"
+                            ? "selected"
+                            : ""
+                        }`}
+                      >
+                        <img
+                          src="https://www.happygrub.in/img/bag.png"
+                          alt=""
+                        />
+                        <span>Executive</span>
+                      </button>
+                      <p>₹180</p>
+                    </div>
                   </>
                 )}
+
                 {selectedMeal.includes("both") && (
-                  <>
-                    <div className="Both-side">
-                      <div className="lunch-side">
-                        <h3>Lunch Plans</h3>
-                        <hr />
+                  <div className="Both-side">
+                    <div className="lunch-side">
+                      <h3>Lunch Plans</h3>
+                      <hr />
+                      <div className="meal-plan-buttons">
                         <button
                           onClick={() => handleMealPlan("lunch", "eco")}
                           className={`eco ${
@@ -420,10 +477,11 @@ const SchedulePage = () => {
                           <img
                             src="https://www.happygrub.in/img/bag.png"
                             alt=""
-                          />{" "}
+                          />
                           <span>Eco</span>
                         </button>
                         <p>₹130</p>
+
                         <button
                           onClick={() => handleMealPlan("lunch", "mini")}
                           className={`mini ${
@@ -435,10 +493,11 @@ const SchedulePage = () => {
                           <img
                             src="https://www.happygrub.in/img/bag.png"
                             alt=""
-                          />{" "}
+                          />
                           <span>Mini</span>
                         </button>
                         <p>₹150</p>
+
                         <button
                           onClick={() => handleMealPlan("lunch", "executive")}
                           className={`executive ${
@@ -450,40 +509,67 @@ const SchedulePage = () => {
                           <img
                             src="https://www.happygrub.in/img/bag.png"
                             alt=""
-                          />{" "}
+                          />
                           <span>Executive</span>
                         </button>
                         <p>₹180</p>
                       </div>
+                    </div>
 
-                      <div className="dinner-side">
-                        <h3>Dinner Plans</h3>
-                        <hr />
+                    <div className="dinner-side">
+                      <h3>Dinner Plans</h3>
+                      <hr />
+                      <div className="meal-plan-buttons">
                         <button
                           onClick={() => handleMealPlan("dinner", "eco")}
-                          className="eco"
+                          className={`eco ${
+                            selectedMealPlanButton.dinner === "eco"
+                              ? "selected"
+                              : ""
+                          }`}
                         >
                           <img
                             src="https://www.happygrub.in/img/bag.png"
                             alt=""
-                          />{" "}
+                          />
                           <span>Eco</span>
                         </button>
                         <p>₹130</p>
+
                         <button
                           onClick={() => handleMealPlan("dinner", "mini")}
-                          className="mini"
+                          className={`mini ${
+                            selectedMealPlanButton.dinner === "mini"
+                              ? "selected"
+                              : ""
+                          }`}
                         >
                           <img
                             src="https://www.happygrub.in/img/bag.png"
                             alt=""
-                          />{" "}
-                          <span>mini</span>
+                          />
+                          <span>Mini</span>
                         </button>
                         <p>₹150</p>
+
+                        <button
+                          onClick={() => handleMealPlan("dinner", "executive")}
+                          className={`executive ${
+                            selectedMealPlanButton.dinner === "executive"
+                              ? "selected"
+                              : ""
+                          }`}
+                        >
+                          <img
+                            src="https://www.happygrub.in/img/bag.png"
+                            alt=""
+                          />
+                          <span>Executive</span>
+                        </button>
+                        <p>₹180</p>
                       </div>
                     </div>
-                  </>
+                  </div>
                 )}
               </div>
             )}
@@ -492,10 +578,15 @@ const SchedulePage = () => {
             {selectedMealPlan.lunch && (
               <div className="duration-plan-selection">
                 <h2>Select Lunch Duration Plan</h2>
+                <hr />
                 <div className="duration-btn">
                   <div className="button-wrapper">
                     <button
                       onClick={() => handleDurationSelection("lunch", "3-day")}
+                      className={
+                        selectedDuration.lunch === "3-day" ? "selected" : ""
+                      }
+                      data-duration="3-day"
                     >
                       3 Day
                     </button>
@@ -504,6 +595,10 @@ const SchedulePage = () => {
                   <div className="button-wrapper">
                     <button
                       onClick={() => handleDurationSelection("lunch", "1-week")}
+                      className={
+                        selectedDuration.lunch === "1-week" ? "selected" : ""
+                      }
+                      data-duration="1-week"
                     >
                       1 Week
                     </button>
@@ -514,6 +609,10 @@ const SchedulePage = () => {
                       onClick={() =>
                         handleDurationSelection("lunch", "1-month")
                       }
+                      className={
+                        selectedDuration.lunch === "1-month" ? "selected" : ""
+                      }
+                      data-duration="1-month"
                     >
                       1 Month
                     </button>
@@ -526,10 +625,15 @@ const SchedulePage = () => {
             {selectedMealPlan.dinner && (
               <div className="duration-plan-selection">
                 <h2>Select Dinner Duration Plan</h2>
+                <hr />
                 <div className="duration-btn">
                   <div className="button-wrapper">
                     <button
                       onClick={() => handleDurationSelection("dinner", "3-day")}
+                      className={
+                        selectedDuration.dinner === "3-day" ? "selected" : ""
+                      }
+                      data-duration="3-day"
                     >
                       3 Day
                     </button>
@@ -540,6 +644,10 @@ const SchedulePage = () => {
                       onClick={() =>
                         handleDurationSelection("dinner", "1-week")
                       }
+                      className={
+                        selectedDuration.dinner === "1-week" ? "selected" : ""
+                      }
+                      data-duration="1-week"
                     >
                       1 Week
                     </button>
@@ -550,6 +658,10 @@ const SchedulePage = () => {
                       onClick={() =>
                         handleDurationSelection("dinner", "1-month")
                       }
+                      className={
+                        selectedDuration.dinner === "1-month" ? "selected" : ""
+                      }
+                      data-duration="1-month"
                     >
                       1 Month
                     </button>
@@ -560,29 +672,38 @@ const SchedulePage = () => {
             )}
 
             {/* Meals Per Week */}
-            {(selectedDuration.lunch || selectedDuration.dinner) && (
-              <div className="meals-per-week-selection">
-                <h2>Select Number of Meals per Week</h2>
-                <div className="meals-btn-container">
-                  <div className="meals-btn">
-                    <button
-                      onClick={() => handleMealsPerWeekSelection("5-days")}
-                    >
-                      5 Days
-                    </button>
-                    <p>Mon-Sat</p>
-                  </div>
-                  <div className="meals-btn">
-                    <button
-                      onClick={() => handleMealsPerWeekSelection("6-days")}
-                    >
-                      6 Days
-                    </button>
-                    <p>Mon-Sat</p>
+            {selectedDuration.lunch !== "3-day" &&
+              selectedDuration.dinner !== "3-day" &&
+              (selectedDuration.lunch || selectedDuration.dinner) && (
+                <div className="meals-per-week-selection">
+                  <h2>Select Number of Meals per Week</h2>
+                  <hr />
+                  <div className="meals-btn-container">
+                    <div className="meals-btn">
+                      <button
+                        onClick={() => handleMealsPerWeekSelection("5-days")}
+                        className={
+                          selectedMealsPerWeek === "5-days" ? "selected" : ""
+                        }
+                      >
+                        5 Days
+                      </button>
+                      <p>Mon-Fri</p>
+                    </div>
+                    <div className="meals-btn">
+                      <button
+                        onClick={() => handleMealsPerWeekSelection("6-days")}
+                        className={
+                          selectedMealsPerWeek === "6-days" ? "selected" : ""
+                        }
+                      >
+                        6 Days
+                      </button>
+                      <p>Mon-Sat</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              )}
 
             {/* Quantity and Chapati Selection */}
             {selectedMealsPerWeek && (
@@ -593,32 +714,11 @@ const SchedulePage = () => {
                     type="number"
                     value={selectedQuantity}
                     onChange={handleQuantityChange}
-                    min="1"
+                    min="0"
                     max="10"
+                    className="quantity-input"
                   />
                 </div>
-
-                {/* <div className="chapati-selection">
-                  <h2>Select Chapati Count</h2>
-                  <input
-                    type="number"
-                    value={chapatiCount}
-                    onChange={handleChapatiCountChange}
-                    min="1"
-                    max="10"
-                  />
-                </div> */}
-
-                {/* Rice Options */}
-                {/* <div className="rice-selection">
-                  <h2>Select Rice Type</h2>
-                  <button onClick={() => handleRiceTypeChange("normal")}>
-                    Normal Rice
-                  </button>
-                  <button onClick={() => handleRiceTypeChange("brown")}>
-                    Brown Rice
-                  </button>
-                </div> */}
               </>
             )}
 
@@ -627,6 +727,7 @@ const SchedulePage = () => {
               <div className="start-date-selection">
                 <h2>Select Start Date</h2>
                 <input
+                  className="date-picker"
                   type="date"
                   onChange={handleStartDateChange}
                   value={startDate}
@@ -641,17 +742,15 @@ const SchedulePage = () => {
             )}
 
             {/* Submit Button */}
-            <button type="submit" className="form-submit">
-              Submit
-            </button>
+            <div className="submit-btn">
+              <button type="submit" className="form-submit">
+                Submit
+              </button>
+            </div>
           </form>
           <div className="total-price">
             <h2>Total Price: ₹{calculatePrice()}</h2>
           </div>
-
-          {summaryDetails && (
-            <ScheduleSummary summaryDetails={summaryDetails} />
-          )}
         </div>
       </div>
     </>

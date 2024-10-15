@@ -1,634 +1,774 @@
+/* Schedule Container */
 .schedule-container {
-  width: 100%;
-  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #eef2f3; /* Soft background for contrast */
+  padding: 50px; /* Ample padding for spacious layout */
 }
 
-.schedule-page {
-  max-width: 132rem;
-  background-color: #fff;
-  width: 80%;
-  margin: auto;
-  height: auto;
-  padding: 20px 25px;
+/* Schedule Page */
+.schedule-container .schedule-page {
+  width: 90%;
+  max-width: 800px; /* Consistent maximum width for readability */
+  background-color: #ffffff; /* Clean white background */
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); /* Subtle depth effect */
+  padding: 40px; /* Generous padding */
+  overflow: hidden; /* Prevent overflow */
+  position: relative; /* For child positioning */
 }
 
-.tiffin-header h1 {
-  font-weight: 400;
-  margin-bottom: 5px;
+/* Header Styles */
+.schedule-page .tiffin-header {
+  text-align: center; /* Centered header */
+  margin-bottom: 30px; /* Space below header */
 }
 
+.schedule-page .tiffin-header h1 {
+  color: #2c3e50; /* Dark text for header */
+  font-size: 2.5em; /* Larger font size */
+  margin: 0; /* Remove default margin */
+}
+
+/* Section Styles */
 .meal-selection {
-  /* border: 1px solid black; */
   text-align: center;
   margin: 20px 0;
 }
 
 .meal-selection h2 {
   font-size: 24px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
+  /* font-family: "Arial", sans-serif; */
 }
 
-.meal-selection hr {
-  width: 80%;
-  margin: 0 auto 30px;
-  border: none;
-  border-top: 2px solid #ddd;
+/* Flexbox for buttons in a row */
+.meal-buttons {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  gap: 20px; /* Space between buttons */
+  align-items: center;
 }
-
 .meal-selection button {
-  background-color: white;
-  color: #333;
-  border: 1px solid #ddd;
+  background-color: #f5f5f5;
+  border: none;
   border-radius: 10px;
-  padding: 20px;
   margin: 10px;
+  padding: 15px 30px;
   font-size: 18px;
+  font-family: "Arial", sans-serif;
+  display: inline-flex;
+  align-items: center;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.3s ease;
-  width: 200px;
-  text-align: center;
-  position: relative;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .meal-selection button img {
-  width: 40px;
-  height: 40px;
-  margin-bottom: 10px;
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  transition: transform 0.3s ease;
 }
 
 .meal-selection button span {
-  display: block;
+  margin-left: 5px;
   font-weight: bold;
 }
 
 .meal-selection button:hover {
-  transform: scale(1.05); /* Slight zoom on hover */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  background-color: #e0f7fa;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-.meal-selection button:active {
-  transform: translateY(0);
+.meal-selection button.selected {
+  background-color: #81d4fa;
+  color: white;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-.meal-selection button.lunch {
-  background-color: #e9f7ef; /* Light green background for Healthy */
-  border-color: #28a745;
+.meal-selection button.selected img {
+  animation: rotateAnimation 0.5s ease;
+}
+
+@keyframes rotateAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.meal-selection button:focus {
+  outline: none;
 }
 
 .meal-selection button.dinner {
-  background-color: #fff3cd; /* Light yellow background for Jain */
-  border-color: #ffc107;
+  background-color: #98a69a;
+  background-color: #74ebd5;
+  background: linear-gradient(90deg, #74ebd5 0%, #9face6 100%);
+}
+
+.meal-selection button.lunch {
+  /* background-color: #ffeb3b; */
+  background-color: #fbab7e;
+  background: linear-gradient(62deg, #fbab7e 0%, #f7ce68 100%);
 }
 
 .meal-selection button.both {
-  background-color: #d1ecf1; /* Light blue background for Diabetic */
-  border-color: #17a2b8;
+  /* background-color: #ff8a65; */
+  background: linear-gradient(225deg, #3cfffa 0%, #c3c52b 50%, #4ba086 100%);
+}
+
+.meal-selection button:hover img {
+  transform: scale(1.1);
 }
 
 .meal-type-selection {
-  /* display: flex; */
-  /* justify-content: space-evenly; Space buttons evenly across the page */
-  /* flex-wrap: wrap; Wrap the buttons on smaller screens */
-  /* margin: 40px auto; */
-  /* max-width: 900px; Set a max width for the section */
-  /* border: 1px solid black; */
   text-align: center;
-  margin: 20px 0;
+  margin: 20px 20px;
 }
 
 .meal-type-selection h2 {
-  text-align: center;
-  font-size: 20px;
-  margin-bottom: 10px;
-  color: #444;
+  font-size: 24px;
+  margin-bottom: 5px;
+  /* font-family: "Arial", sans-serif; */
 }
 
-.meal-type-selection hr {
-  width: 80%;
-  margin: 0 auto 30px;
+/* Flexbox for aligning the buttons horizontally */
+.meal-type-buttons {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Space between buttons */
+  align-items: center;
+}
+
+.meal-type-buttons button {
+  background-color: #f5f5f5;
   border: none;
-  border-top: 2px solid #ddd;
-}
-
-.meal-type-selection button {
-  background-color: white;
-  color: #333;
-  border: 1px solid #ddd;
   border-radius: 10px;
-  padding: 20px;
-  margin: 10px;
+  padding: 15px 30px;
   font-size: 18px;
+  font-family: "Arial", sans-serif;
+  display: inline-flex;
+  align-items: center;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.3s ease;
-  width: 200px;
-  text-align: center;
-  position: relative;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Card-like shadow effect */
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.meal-type-selection button:hover {
-  transform: scale(1.05); /* Slight zoom on hover */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+.meal-type-buttons button img {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  transition: transform 0.3s ease;
 }
 
-.meal-type-selection button img {
-  width: 40px;
-  height: 40px;
-  margin-bottom: 10px;
-}
-
-.meal-type-selection button span {
-  display: block;
+.meal-type-buttons button span {
+  margin-left: 5px;
   font-weight: bold;
-  /* font-size: 20px; */
-  color: #444;
 }
 
-.meal-type-selection button.Veg {
-  background-color: #9aefbf; /* Light green background for Healthy */
-  border-color: #28a745;
+.meal-type-buttons button:hover {
+  background-color: #e0f7fa;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-.meal-type-selection button.Non-veg {
-  background-color: #f6e2a1; /* Light yellow background for Jain */
-  border-color: #ffc107;
+.meal-type-buttons button.selected {
+  background-color: #4caf50; /* Change the color for Veg/Non-Veg selected */
+  color: white;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-.meal-type-selection button.diabetic {
-  background-color: #689eeb; /* Light blue background for Diabetic */
-  border-color: #003a61;
+.meal-type-buttons button.selected img {
+  animation: rotateAnimation 0.5s ease;
 }
 
-@media screen and (max-width: 768px) {
-  .meal-type-selection {
-    flex-direction: column; /* Stack buttons vertically on mobile */
-    align-items: center;
+@keyframes rotateAnimation {
+  0% {
+    transform: rotate(0deg);
   }
-
-  .meal-type-selection button {
-    width: 80%; /* Make buttons take up more space on mobile */
+  100% {
+    transform: rotate(360deg);
   }
+}
+
+.meal-type-buttons button:focus {
+  outline: none;
+}
+
+.meal-type-buttons button.Non-veg {
+  background-color: #ff8a65;
+}
+
+.meal-type-buttons button.Veg {
+  background-color: #81c784;
+}
+
+.meal-type-buttons button:hover img {
+  transform: scale(1.1);
 }
 
 .meal-plan-selection {
   text-align: center;
-  margin: 20px;
-  /* border: 1px solid black;/ */
-  border-radius: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.meal-plan-selection h2,
-.meal-plan-selection h3 {
-  font-size: 24px;
-  margin-bottom: 10px;
+  margin: 20px 0;
 }
 
 .meal-plan-selection h2 {
-  padding-top: 20px;
+  font-size: 26px;
+  /* margin-bottom: 20px; */
+  /* font-family: "Arial", sans-serif; */
 }
 
-.meal-plan-selection hr {
+.meal-plan-selection h3 {
+  font-size: 22px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+/* .meal-plan-selection hr {
+  width: 50px;
+  border: 1px solid #ccc;
+  margin: 10px auto;
+  transition: width 0.3s ease;
+} */
+
+.meal-plan-selection h3 + hr {
+  width: 100px;
+  margin: 0 auto 20px auto; /* Adjusts the margin so it appears below each plan */
+}
+
+.meal-plan-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.meal-plan-buttons button {
+  background: linear-gradient(
+    135deg,
+    #ff9a9e 0%,
+    #fad0c4 100%
+  ); /* Gradient for buttons */
   border: none;
-  height: 1px;
-  background-color: #ccc;
-  margin: 10px 0;
-}
-
-.meal-plan-selection button {
-  display: inline-block;
-  width: 150px;
-  padding: 10px;
-  margin: 10px;
-  /* border: none; */
-  border: 1px solid #ddd;
-  /* background-color: #007BFF; */
-  background-color: white;
-  color: #333;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  /* color: white; */
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-  text-align: center;
-  transition: transform 0.2s ease, box-shadow 0.3s ease;
-  position: relative;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s;
-}
-
-.meal-plan-selection button img {
-  width: 30px;
-  height: 30px;
-  display: block;
-  margin: 0 auto 5px;
-  /* background-color: white; */
-  padding: 5px;
-  /* border-radius: 50%; */
-}
-
-.meal-plan-selection button span {
-  display: block;
-  margin-top: 5px;
-}
-
-.meal-plan-selection button:hover {
-  transform: scale(1.05); /* Slight zoom on hover */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
-}
-
-.meal-plan-selection button.eco {
-  background-color: #9aefbf; /* Light green background for Healthy */
-  border-color: #28a745;
-}
-
-.meal-plan-selection button.mini {
-  background-color: #f6e2a1; /* Light yellow background for Jain */
-  border-color: #ffc107;
-}
-
-.meal-plan-selection button.executive {
-  background-color: #629ced; /* Light blue background for Diabetic */
-  border-color: #003a61;
-}
-
-.meal-plan-selection p {
-  margin-top: 5px;
+  border-radius: 10px;
+  padding: 15px 40px;
   font-size: 18px;
-  color: #333;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: white; /* Make text white for contrast */
 }
 
+.meal-plan-buttons button img {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  transition: transform 0.3s ease;
+}
+
+.meal-plan-buttons button span {
+  font-weight: bold;
+}
+
+.meal-plan-buttons button:hover {
+  background: linear-gradient(
+    135deg,
+    #43cea2 0%,
+    #185a9d 100%
+  ); /* New gradient on hover */
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.meal-plan-buttons button.selected {
+  background: linear-gradient(
+    135deg,
+    #4caf50 0%,
+    #81c784 100%
+  ); /* Selected button gradient */
+  color: white;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.meal-plan-buttons button.selected img {
+  animation: rotateAnimation 0.5s ease;
+}
+
+@keyframes rotateAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.meal-plan-buttons p {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+  margin-top: -10px;
+}
+
+/* Layout for lunch and dinner sections when both are selected */
 .Both-side {
   display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  margin-top: 20px;
+  justify-content: space-around;
+  gap: 40px;
+  margin-top: 10px;
 }
 
 .lunch-side,
 .dinner-side {
-  /* border: 1px solid black; */
-  margin-bottom: 10px;
-  flex: 1;
-}
-
-.lunch-side h3,
-.dinner-side h3 {
-  font-size: 20px;
-}
-
-.lunch-side button,
-.dinner-side button {
-  width: 50%;
-}
-
-.lunch-side p,
-.dinner-side p {
-  font-size: 16px;
-  color: #444;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .Both-side {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .lunch-side,
-  .dinner-side {
-    width: 100%;
-  }
-
-  .meal-plan-selection button {
-    width: 80%;
-    margin-bottom: 15px;
-  }
-}
-
-.duration-plan-selection {
-  background-color: #fff;
-  padding: 20px;
-  margin: 20px;
-  border-radius: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  text-align: center;
-}
-
-.duration-plan-selection h2 {
-  font-size: 1.5rem;
-  color: #333;
-  margin-bottom: 15px;
-}
-
-/* Flexbox for row alignment of buttons */
-.duration-btn {
-  display: flex;
-  justify-content: center;
-  gap: 20px; /* Space between each button set */
-}
-
-/* Wrapper to align each button and its discount text */
-.button-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* Button styling */
-.duration-plan-selection button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  transition: tra;
-  padding: 10px 20px;
-  transition: transform 0.2s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-  font-size: 1rem;
-  /* transition: background-color 0.3s ease; */
+/* Custom gradient colors for different meal plan buttons */
+button.eco {
+  background: linear-gradient(135deg, #81c784 0%, #43a047 100%);
 }
 
-.duration-plan-selection button:hover {
-  transform: scale(1.05); /* Slight zoom on hover */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  background-color: #0056b3;
+button.mini {
+  background: linear-gradient(135deg, #ffeb3b 0%, #fbc02d 100%);
 }
 
-.duration-plan-selection button:focus {
-  outline: none;
-  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+button.executive {
+  background: linear-gradient(135deg, #ff8a65 0%, #d84315 100%);
 }
 
-/* Discount text below buttons */
-.button-wrapper p {
-  margin-top: 5px;
-  font-size: 0.9rem;
-  color: #666;
+.meal-plan-selection {
   text-align: center;
-  min-height: 1.2em; /* Ensures even space if no text */
+  margin: 20px 0;
 }
 
-/* Responsive Design: Stack buttons vertically on small screens */
-@media (max-width: 768px) {
-  .duration-btn {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .button-wrapper {
-    margin-bottom: 10px;
-  }
-}
-
-/* Duration Plan  */
-
-.duration-plan-selection {
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  padding: 20px;
+.meal-plan-selection h2 {
+  font-size: 26px;
   margin-bottom: 20px;
+  font-family: "Arial", sans-serif;
+}
+
+.meal-plan-selection h3 {
+  font-size: 22px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+.meal-plan-selection hr {
+  border: 1px solid #ccc;
+  transition: width 0.3s ease;
+}
+
+.meal-plan-selection h3 + hr {
+  width: 100px;
+  margin: 0 auto 20px auto; /* Adjusts the margin so it appears below each plan */
+}
+
+.meal-plan-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.meal-plan-buttons button {
+  background: linear-gradient(
+    135deg,
+    #ff9a9e 0%,
+    #fad0c4 100%
+  ); /* Gradient for buttons */
+  border: none;
+  border-radius: 10px;
+  padding: 15px 40px;
+  font-size: 18px;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: white; /* Make text white for contrast */
+}
+
+.meal-plan-buttons button img {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  transition: transform 0.3s ease;
+}
+
+.meal-plan-buttons button span {
+  font-weight: bold;
+}
+
+.meal-plan-buttons button:hover {
+  background: linear-gradient(
+    135deg,
+    #43cea2 0%,
+    #185a9d 100%
+  ); /* New gradient on hover */
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.meal-plan-buttons button.selected {
+  background: linear-gradient(
+    135deg,
+    #4caf50 0%,
+    #81c784 100%
+  ); /* Selected button gradient */
+  color: white;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.meal-plan-buttons button.selected img {
+  animation: rotateAnimation 0.5s ease;
+}
+
+@keyframes rotateAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.meal-plan-buttons p {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+  margin-top: -10px;
+}
+
+/* Layout for lunch and dinner sections when both are selected */
+.Both-side {
+  display: flex;
+  justify-content: space-around;
+  gap: 50px;
+  margin-top: 10px;
+}
+
+.lunch-side,
+.dinner-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Custom gradient colors for different meal plan buttons */
+button.eco {
+  background: linear-gradient(135deg, #81c784 0%, #43a047 100%);
+}
+
+button.mini {
+  background: linear-gradient(135deg, #ffeb3b 0%, #fbc02d 100%);
+}
+
+button.executive {
+  background: linear-gradient(135deg, #ff8a65 0%, #d84315 100%);
+}
+
+.duration-plan-selection {
   text-align: center;
+  margin-top: 30px;
 }
 
 .duration-plan-selection h2 {
-  font-size: 1.5rem;
-  color: #333;
-  margin-bottom: 15px;
+  font-size: 24px;
+  margin-bottom: 5px;
+  /* font-family: "Arial", sans-serif; */
 }
 
-/* Flexbox for row alignment of buttons */
 .duration-btn {
   display: flex;
-  justify-content: center;
-  gap: 20px; /* Space between each button group */
+  justify-content: space-around;
+  margin-top: 20px;
 }
 
-/* Wrapper to align each button and its discount text */
 .button-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: transform 0.3s ease;
 }
 
-.duration-plan-selection button {
-  background-color: #007bff;
-  color: white;
+.button-wrapper:hover {
+  transform: scale(1.05); /* Slight zoom on hover */
+}
+
+.button-wrapper button {
+  background: linear-gradient(
+    135deg,
+    #74ebd5 0%,
+    #acb6e5 100%
+  ); /* Gradient background */
   border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
+  border-radius: 10px;
+  padding: 15px 30px;
+  font-size: 18px;
   cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
-.duration-plan-selection button:hover {
-  background-color: #0056b3;
+.button-wrapper button:hover {
+  background: linear-gradient(
+    135deg,
+    #43cea2 0%,
+    #185a9d 100%
+  ); /* Hover gradient */
+  transform: translateY(-5px);
 }
 
-.duration-plan-selection button:focus {
-  outline: none;
-  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+.button-wrapper button.selected {
+  background: linear-gradient(
+    135deg,
+    #4caf50 0%,
+    #81c784 100%
+  ); /* Selected state gradient */
+  color: white;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* Discount text below buttons */
 .button-wrapper p {
-  margin-top: 5px;
-  font-size: 0.9rem;
+  margin: 5px 0 0 0;
+  font-size: 14px;
   color: #666;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
 }
 
-/* Responsive Design: Stack buttons vertically on small screens */
-@media (max-width: 768px) {
-  .duration-btn {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .button-wrapper {
-    margin-bottom: 10px;
-  }
+.button-wrapper:hover p {
+  opacity: 1; /* Fade in discount on hover */
 }
+
+/* Styling for different discount plans */
+button[data-duration="3-day"] {
+  background: linear-gradient(135deg, #74ebd5 0%, #acb6e5 100%);
+}
+
+button[data-duration="1-week"] {
+  background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+}
+
+button[data-duration="1-month"] {
+  background: linear-gradient(135deg, #81c784 0%, #43a047 100%);
+}
+
+button[data-duration="3-day"].selected,
+button[data-duration="1-week"].selected,
+button[data-duration="1-month"].selected {
+  background: linear-gradient(135deg, #32c3b9 0%, #81c784 100%);
+}
+
 .meals-per-week-selection {
-  display: flex;
-  flex-direction: column;
-  background-color: #f8f9fa;
-  align-items: center;
-  border-radius: 8px;
-  margin: 20px;
-  padding: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  margin-top: 30px;
 }
 
 .meals-per-week-selection h2 {
   font-size: 24px;
-  margin-bottom: 20px;
+  /* font-family: "Arial", sans-serif; */
+  margin-bottom: 5px;
 }
 
 .meals-btn-container {
   display: flex;
   justify-content: center;
-  gap: 30px; /* Adjusts spacing between the two meal buttons */
+  gap: 40px; /* Space between buttons */
 }
 
 .meals-btn {
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.meals-btn:hover {
+  transform: scale(1.05); /* Slight zoom on hover */
 }
 
 .meals-btn button {
-  background-color: #4caf50; /* Green background for buttons */
-  color: white; /* White text */
-  border: none; /* Removes default border */
-  padding: 10px 20px; /* Adjusts the padding for better button size */
-  font-size: 16px; /* Ensures readable font size */
-  cursor: pointer; /* Adds a pointer cursor on hover */
-  border-radius: 5px; /* Slightly rounds the button corners */
-  /* transition: background-color 0.3s ease; Smooth hover transition */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+  border: none;
+  border-radius: 10px;
+  padding: 15px 30px;
+  font-size: 18px;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
 .meals-btn button:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  background-color: #45a049; /* Darker green on hover */
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  transform: translateY(-5px);
+}
+
+.meals-btn button.selected {
+  background: linear-gradient(135deg, #d963dd 0%, #81c784 100%);
+  color: white;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .meals-btn p {
-  margin-top: 8px; /* Adds space between the button and the text */
-  font-size: 14px; /* Slightly smaller font for the text */
-  color: #555; /* Subtle color for the text */
+  margin: 5px 0 0;
+  font-size: 14px;
+  color: #666;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
 }
 
-/* Global Form Styles */
-.quantity-selection,
-.chapati-selection,
-.rice-selection {
-  margin-bottom: 20px; /* Adds space between sections */
-  text-align: center; /* Centers content */
+.meals-btn:hover p {
+  opacity: 1; /* Fade in the description on hover */
 }
 
-.quantity-selection h2,
-.chapati-selection h2,
-.rice-selection h2 {
-  font-size: 20px; /* Standard size for section headings */
-  margin-bottom: 10px; /* Adds space between heading and input/buttons */
+.quantity-selection {
+  background-color: #f1f1f1; /* Light background to highlight the section */
+  padding: 20px;
+  border-radius: 8px; /* Rounded corners for a modern look */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  max-width: 400px;
+  margin: 20px auto; /* Center align */
+  text-align: center;
 }
 
-/* Input Styles */
-input[type="number"] {
-  width: 60px; /* Fixed width for inputs */
-  padding: 8px; /* Adds padding for input field */
-  font-size: 16px; /* Ensures readability of input */
-  text-align: center; /* Aligns input value in the center */
-  border-radius: 5px; /* Slight rounding of input field edges */
-  border: 1px solid #ccc; /* Light border for input field */
+.quantity-selection h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #333; /* Dark text for contrast */
 }
 
-/* Rice Selection Buttons */
-.rice-selection button {
-  background-color: #4caf50; /* Green background for rice type buttons */
-  color: white; /* White text */
-  border: none; /* Removes default border */
-  padding: 10px 20px; /* Padding for better button size */
-  margin: 0 10px; /* Adds spacing between buttons */
-  font-size: 16px; /* Ensures readability */
-  cursor: pointer; /* Pointer cursor for interactivity */
-  border-radius: 5px; /* Rounded corners */
-  transition: background-color 0.3s ease; /* Smooth hover transition */
+.quantity-input {
+  width: 100px; /* Narrow input field */
+  padding: 10px;
+  font-size: 1rem;
+  text-align: center; /* Center the text for better visual alignment */
+  border: 1px solid #ddd; /* Soft border */
+  border-radius: 4px;
+  background-color: #fff;
+  transition: all 0.3s ease; /* Smooth hover and focus effects */
 }
 
-.rice-selection button:hover {
-  background-color: #45a049; /* Darker green on hover */
+.quantity-input:hover {
+  border-color: #28a745; /* Green highlight on hover */
 }
 
-/* Responsive Adjustments */
-@media (max-width: 600px) {
-  .quantity-selection,
-  .chapati-selection,
-  .rice-selection {
-    text-align: center; /* Ensure centered alignment on smaller screens */
-  }
-
-  .rice-selection button {
-    margin-bottom: 10px; /* Adds spacing for mobile view */
-    width: 100%; /* Buttons take full width on mobile */
-  }
+.quantity-input:focus {
+  outline: none;
+  border-color: #28a745;
+  box-shadow: 0 0 6px rgba(40, 167, 69, 0.25); /* Focus shadow */
 }
 
-/* Start Date Selection */
+.quantity-input::-webkit-inner-spin-button,
+.quantity-input::-webkit-outer-spin-button {
+  -webkit-appearance: none; /* Hide the default spin buttons for cleaner look */
+  margin: 0;
+}
+
 .start-date-selection {
-  margin-bottom: 20px;
+  background-color: #f9f9f9; /* Light background for better visibility */
+  padding: 20px;
+  border-radius: 8px; /* Rounded corners for a modern look */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  max-width: 400px;
+  margin: 20px auto; /* Center align the container */
   text-align: center;
 }
 
 .start-date-selection h2 {
-  font-size: 20px;
+  font-size: 1.5rem;
   margin-bottom: 10px;
+  color: #333; /* Darker text for better readability */
 }
 
-.start-date-selection input[type="date"] {
-  padding: 8px;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  width: 200px;
-  text-align: center;
+.date-picker {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd; /* Soft border */
+  border-radius: 4px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05); /* Subtle inner shadow */
+  background-color: #fff;
+  transition: all 0.3s ease; /* Smooth transitions for hover effects */
 }
 
-/* Error and Success Messages */
+.date-picker:hover {
+  border-color: #007bff; /* Highlight on hover */
+}
+
+.date-picker:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.25); /* Focus shadow */
+}
+
+.error-message,
+.success-message {
+  max-width: 400px; /* Limit the width of the message for readability */
+  margin: 20px auto; /* Center align with margin */
+  /* padding: 15px; */
+  text-align: center; /* Center the text inside the box */
+  /* border-radius: 8px; Rounded corners for a modern look */
+  font-size: 1.1rem; /* Slightly larger font for readability */
+}
+
 .error-message {
-  color: red;
-  font-size: 14px;
-  text-align: center;
-  margin-bottom: 15px;
+  /* background-color: #f8d7da; Light red background for error */
+  color: #dc0c21; /* Dark red text for visibility */
+  /* border: 1px solid #f5c6cb; Border to match the error style */
 }
 
 .success-message {
-  color: green;
-  font-size: 14px;
-  text-align: center;
-  margin-bottom: 15px;
+  background-color: #d4edda; /* Light green background for success */
+  color: #155724; /* Dark green text for visibility */
+  border: 1px solid #c3e6cb; /* Border to match the success style */
 }
 
-/* Submit Button */
+.submit-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .form-submit {
-  background-color: #4caf50; /* Green background */
-  color: white; /* White text */
-  padding: 10px 20px;
-  font-size: 16px;
+  background-color: #28a745; /* Green background for the submit button */
+  color: white; /* White text for contrast */
+  padding: 12px 20px; /* Comfortable padding */
+  font-size: 1rem;
   border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  display: block;
-  margin: 0 auto;
+  border-radius: 5px; /* Rounded corners for a modern look */
+  cursor: pointer; /* Pointer to indicate it's clickable */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition on hover */
 }
 
-.submit-button:hover {
-  background-color: #45a049; /* Darker green on hover */
+.form-submit:hover {
+  background-color: #218838; /* Slightly darker green on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Shadow effect on hover */
 }
 
-button {
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  padding: 10px;
-  cursor: pointer;
+.form-submit:active {
+  background-color: #1e7e34; /* Darkest green on active state */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Pressed effect */
 }
 
-button.selected {
-  background-color: #007bff;
-  color: white;
-  border: 1px solid #0056b3;
-  transition: background-color 0.3s ease;
-}
-
-button img {
-  margin-right: 8px;
-}
-
-button span {
-  font-size: 16px;
+.total-price {
+  margin-top: 20px;
+  text-align: center;
 }

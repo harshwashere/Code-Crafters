@@ -1,38 +1,75 @@
 import mealModel from "../models/meal-model.js";
 
-const getMealData = async (req, res) => {
-  const { startDate, endDate, mealType, dietaryPreference } = req.body;
+// Helper function to generate meal schedule (UNCHANGED)
+const generateMealSchedule = async (userData) => {
+  const { mealType, startDate, mealsPerWeek, quantity, duration, mealPlans } =
+    userData;
 
-  try {
-    // Query for meals based on type and dietary preference
+  const generatedSchedules = [];
+
+  // Helper function to generate meals for a specific time (lunch or dinner)
+  const getMealForTime = async (mealTime, plan, durationPlan) => {
     const meals = await mealModel.find({
       type: mealType,
-      dietary: dietaryPreference,
+      plan: plan,
+      mealFor: mealTime,
     });
 
-    // Check if meals are found
-    if (meals.length === 0) {
-      return res
-        .status(404)
-        .json({ message: "No meals found for the selected criteria." });
+    if (!meals.length)
+      throw new Error(`No matching meals found for ${mealTime}`);
+
+    const startDateObj = new Date(startDate);
+    let totalDays =
+      durationPlan === "1-week" ? 7 : durationPlan === "1-month" ? 30 : 3;
+
+    const schedule = [];
+    for (let i = 0; i < totalDays; i++) {
+      const currentDay = new Date(startDateObj);
+      currentDay.setDate(startDateObj.getDate() + i);
+
+      const formattedDate = currentDay.toISOString().split("T")[0];
+      const mealIndex = i % meals.length; // Rotate through meals
+
+      schedule.push({
+        date: formattedDate,
+        meal: meals[mealIndex],
+        mealTime: mealTime, // Store whether it's lunch or dinner
+      });
     }
+    return schedule;
+  };
 
-    // Map meals to the date range
-    const mealSchedule = {};
-    const currentDate = new Date(startDate);
-    const end = new Date(endDate);
+  // Fetch schedules for lunch and dinner if available
+  if (mealPlans.lunch) {
+    const lunchSchedule = await getMealForTime(
+      "Lunch",
+      mealPlans.lunch,
+      duration.lunch
+    );
+    generatedSchedules.push(...lunchSchedule);
+  }
 
-    while (currentDate <= end) {
-      // Assign the meals for this date
-      mealSchedule[currentDate.toDateString()] = meals;
-      currentDate.setDate(currentDate.getDate() + 1);
-    }
+  if (mealPlans.dinner) {
+    const dinnerSchedule = await getMealForTime(
+      "Dinner",
+      mealPlans.dinner,
+      duration.dinner
+    );
+    generatedSchedules.push(...dinnerSchedule);
+  }
 
-    return res.status(200).json(mealSchedule);
+  return generatedSchedules;
+};
+
+// Controller function to handle meal schedule requests
+const createMealSchedule = async (req, res) => {
+  try {
+    const userData = req.body;
+    const mealSchedule = await generateMealSchedule(userData);
+    res.json(mealSchedule);
   } catch (error) {
-    console.error("Error fetching meals:", error);
-    return res.status(500).json({ message: "Server error." });
+    res.status(500).json({ error: error.message });
   }
 };
 
-export default getMealData;
+export default createMealSchedule;

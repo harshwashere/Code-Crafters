@@ -1,37 +1,96 @@
+:root {
+  --card-bg-color: #fff;
+  --badge-bg-color: #ffecb3;
+  --high-protein-bg-color: #d4edda;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --card-padding: 1.5rem;
+  --margin-bottom: 1.5rem;
+  --font-size-base: 1rem; /* Base font size */
+  --font-size-title: 1.2rem; /* Title font size */
+  --font-size-badge: 0.8rem; /* Badge font size */
+  --font-size-high-protein: 0.9rem; /* High protein badge font size */
+}
+
 .meal-card {
-    text-align: left;
-    background-color: #fff;
-    padding: 1.5rem;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 20px, rgba(0, 0, 0, 0.1) 0px 5px 5px;
-    margin-bottom: 1.5rem;
+  text-align: left;
+  background-color: var(--card-bg-color);
+  padding: var(--card-padding);
+  box-shadow: var(--shadow-color) 0px 10px 20px, var(--shadow-color) 0px 5px 5px;
+  margin-bottom: var(--margin-bottom);
+  border-radius: 8px; /* Add border radius for softer corners */
+  transition: transform 0.2s; /* Smooth transition for hover effect */
+}
+
+.meal-card:hover {
+  transform: translateY(-3px); /* Lift effect on hover */
+}
+
+.meal-card h3 {
+  display: flex;
+  margin-bottom: 0.2rem;
+  justify-content: space-between;
+  font-size: var(--font-size-title);
+}
+
+.badge {
+  background-color: var(--badge-bg-color);
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+  font-size: var(--font-size-badge);
+}
+
+.high-protein {
+  background-color: var(--high-protein-bg-color);
+  padding: 0.3rem;
+  font-size: var(--font-size-high-protein);
+  display: inline-block;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+}
+
+.delivery-time {
+  text-align: right;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+  .meal-card {
+    padding: 1rem; /* Adjust padding for smaller screens */
   }
-  
+
   .meal-card h3 {
-    display: flex;
-    margin-bottom: 0.2rem;
-    justify-content: space-between;
-    font-size: 1.2rem;
+    font-size: 1.1rem; /* Smaller title font size */
   }
-  
-  .badge {
-    background-color: #ffecb3;
-    padding: 0.2rem 0.5rem;
-    border-radius: 5px;
-    font-size: 0.8rem;
-  }
-  
+
+  .badge,
   .high-protein {
-    background-color: #d4edda;
-    padding: 0.3rem;
-    font-size: 0.9rem;
-    display: inline-block;
-    border-radius: 5px;
-    margin-bottom: 0.5rem;
+    font-size: 0.9rem; /* Slightly larger font size on small screens */
   }
-  
+
   .delivery-time {
-    text-align: right;
-    font-size: 0.9rem;
-    margin-top: 0.5rem;
+    font-size: 0.85rem; /* Smaller delivery time font size */
   }
-  
+}
+
+@media (max-width: 480px) {
+  .meal-card {
+    padding: 0.8rem; /* Further adjust padding for mobile */
+  }
+
+  .meal-card h3 {
+    font-size: 1rem; /* Even smaller title font size */
+  }
+}
+
+.meal-card .meals {
+  width: 50%;
+}
+
+.meal-card .meal-typeImg {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  text-align: center;
+}

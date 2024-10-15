@@ -1,38 +1,64 @@
-import { useState } from 'react';
+/* eslint-disable react/prop-types */
+import { useState, useEffect } from "react";
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa6";
-import './DateSelector.css';
-
+import "./DateSelector.css";
 
 // Generate a sequence of dates dynamically
-const generateDates = (numDays = 30) => {
-  const today = new Date();
+const generateDates = (startDate, numDays = 60) => {
+  const today = new Date(startDate);
   const dates = [];
   for (let i = 0; i < numDays; i++) {
     const date = new Date(today);
     date.setDate(today.getDate() + i);
-    const day = date.getDate().toString().padStart(2, '0'); // Format day with 2 digits
-    const label = date.toLocaleDateString('en-US', { weekday: 'short' });
-    dates.push({ day, label });
+    const day = date.getDate().toString().padStart(2, "0"); // Format day with 2 digits
+    const label = date.toLocaleDateString("en-US", { weekday: "short" });
+    dates.push({ date, day, label });
   }
   return dates;
 };
 
-const DateSelector = () => {
-  const allDates = generateDates();
-  const [activeDate, setActiveDate] = useState(allDates[0].day); // Initially, the first date is active
-  const [startIndex, setStartIndex] = useState(0); // Track visible starting index of the 7 dates
-  const totalDates = allDates.length; // Total number of generated dates
+// Get valid dates based on meals per week
+const getValidDates = (dates, mealsPerWeek) => {
+  const validDays = {
+    "5-days": [1, 2, 3, 4, 5], // Monday to Friday
+    "6-days": [1, 2, 3, 4, 5, 6], // Monday to Saturday
+    "7-days": [0, 1, 2, 3, 4, 5, 6], // All days
+  };
+
+  const selectedDays = validDays[mealsPerWeek] || [];
+  return dates.filter((dateObj) =>
+    selectedDays.includes(dateObj.date.getDay())
+  );
+};
+
+const DateSelector = ({ startDate, onDateChange, mealsPerWeek }) => {
+  const allDates = generateDates(startDate, 40); // Generate more dates for testing
+  const validDates = getValidDates(allDates, mealsPerWeek);
+
+  const [activeDateIndex, setActiveDateIndex] = useState(0); // Track active date index
+  const [displayedDateIndex, setDisplayedDateIndex] = useState(0); // Track displayed date index
+
+  useEffect(() => {
+    if (validDates.length > 0) {
+      onDateChange(validDates[activeDateIndex].date); // Notify parent about the active date change
+    }
+  }, [activeDateIndex, validDates, onDateChange]);
 
   const handlePrev = () => {
-    if (startIndex > 0) {
-      setStartIndex(startIndex - 1); // Slide left
+    if (displayedDateIndex > 0) {
+      setDisplayedDateIndex((prevIndex) => prevIndex - 1); // Move one slide to the left
     }
   };
 
   const handleNext = () => {
-    if (startIndex + 7 < totalDates) {
-      setStartIndex(startIndex + 1); // Slide right
+    if (displayedDateIndex < validDates.length - 1) {
+      setDisplayedDateIndex((prevIndex) => prevIndex + 1); // Move one slide to the right
     }
+  };
+
+  // Function to handle date selection manually
+  const handleDateClick = (index) => {
+    setActiveDateIndex(index); // Set active date index based on the clicked date
   };
 
   return (
@@ -40,7 +66,7 @@ const DateSelector = () => {
       <button
         className="prev-arrow"
         onClick={handlePrev}
-        disabled={startIndex === 0} // Disable left arrow when at the first date
+        disabled={displayedDateIndex === 0} // Disable left arrow when at the first date
       >
         <FaAngleLeft />
       </button>
@@ -48,18 +74,21 @@ const DateSelector = () => {
         <div
           className="date-track"
           style={{
-            transform: `translateX(-${(startIndex * 100) / 7}%)`, // Adjust for visible dates
-            transition: 'transform 0.3s ease', // Smooth transition
-            display: 'flex', // Ensure the track is a flex container
+            transform: `translateX(-${
+              (displayedDateIndex / validDates.length) * 100
+            }%)`, // Adjust for visible dates
+            transition: "transform 0.3s ease", // Smooth transition
+            display: "flex", // Ensure the track is a flex container
+            width: `${validDates.length * 100}vw`, // Set width for all valid dates
           }}
         >
-          {allDates.slice(startIndex, startIndex + 7).map((date, index) => (
+          {validDates.map((dateObj, index) => (
             <button
               key={index}
-              className={`date ${activeDate === date.day ? 'active' : ''}`}
-              onClick={() => setActiveDate(date.day)}
+              className={`date ${activeDateIndex === index ? "active" : ""}`}
+              onClick={() => handleDateClick(index)} // Set active index on click
             >
-              {date.day} <br /> {date.label}
+              {dateObj.day} <br /> {dateObj.label}
             </button>
           ))}
         </div>
@@ -67,7 +96,7 @@ const DateSelector = () => {
       <button
         className="next-arrow"
         onClick={handleNext}
-        disabled={startIndex + 7 >= totalDates} // Disable right arrow when at the last set of dates
+        disabled={displayedDateIndex + 1 >= validDates.length} // Disable right arrow when at the last set of dates
       >
         <FaAngleRight />
       </button>
