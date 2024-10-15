@@ -266,7 +266,6 @@ export const ScheduleSummary = () => {
               <p>Food Preference</p>
               <button className="edit">Edit ✎</button>
             </section>
-            {console.log("Selected Date Meals:", selectedDateMeals)}
             {selectedDateMeals.length > 0 ? (
               selectedDateMeals.map((meal, index) => (
                 <MealCard key={index} meal={meal.meal} />
