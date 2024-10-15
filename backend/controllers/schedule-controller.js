@@ -6,7 +6,6 @@ export const getSchedule = async (req, res) => {
       ...req.body,
       userId: req.userID, // Add the logged-in user's ID to the schedule data
     });
-    // console.log(mealData);
 
     await mealData.save();
     res.status(200).json({ message: "Meal scheduled successfully!" });

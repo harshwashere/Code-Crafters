@@ -1,8 +1,10 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import "./SchedulePage.css";
 import Navbar from "../navbar/Navbar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { URL } from "../../pages/helper/helper";
 // import { ScheduleSummary } from "../ScheduleSummary/ScheduleSummary";
 // import axios from "axios";
 
@@ -211,12 +213,7 @@ const SchedulePage = () => {
       startDate: startDate,
       totalPrice: calculatePrice(),
     };
-
-    console.log("Form Data:", formData);
     setSummaryDetails(formData);
-
-    // Log the updated summaryDetails state after setting it
-    console.log("Updated Summary Details:", summaryDetails);
 
     const resetForm = () => {
       setSelectedMeal("");
@@ -233,7 +230,7 @@ const SchedulePage = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        "http://localhost:7000/scheduleapi/getSchedule",
+        `${URL}/scheduleapi/getSchedule`,
         formData,
         {
           headers: {
@@ -241,7 +238,6 @@ const SchedulePage = () => {
           },
         }
       );
-      console.log(response);
       if (response.status === 200) {
         setSuccessMessage("Your meal plan has been scheduled successfully!");
         setFormError(""); // Clear any form errors
