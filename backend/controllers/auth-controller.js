@@ -147,16 +147,16 @@ export const user = (req, res) => {
 
 export const updateUserDetails = async (req, res) => {
   try {
-    const { firstname, lastname, email, phone, city, country } = req.body;
+    const { name, email, address, phone, city, country } = req.body;
     const ID = req.userID;
     const userDetail = await User.updateOne(
       { _id: req.userID },
       {
         $set: {
-          firstname: firstname,
-          lastname: lastname,
+          name: name,
           email: email,
           phone: phone,
+          address: address,
           city: city,
           country: country,
         },

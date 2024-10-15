@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react'; // Added useEffect for initialization
 import useAuth from '../../store/useAuth';
 import './profile.css';
 import { URL } from '../../pages/helper/helper';
@@ -6,64 +6,64 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 
 const Profile = () => {
-    const { authorizationToken, user } = useAuth()
-    // console.log("user", user)
-    // const [userData, setUserData] = useState(true)
+    const { authorizationToken, user } = useAuth();
     const [User, setUser] = useState({
-        firstname: "",
-        lastname: "",
+        name: "",
         email: "",
         phone: "",
         city: "",
-        country: ""
-    })
+        country: "",
+        address: ""
+    });
+    const [loading, setLoading] = useState(false);
+
+    // Initialize User state with data from user
+    useEffect(() => {
+        if (user) {
+            setUser({
+                name: user.name || "",
+                email: user.email || "",
+                phone: user.phone || "",
+                city: user.city || "",
+                country: user.country || "",
+                address: user.address || ""
+            });
+        }
+    }, [user]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        // if(userData && user) {
-        //     setUser({
-        //         firstname: user.firstname,
-        //         lastname: user.lastname,
-        //         email: user.email,
-        //         phone: user.phone,
-        //         city: user.city,
-        //         country: user.country
-        //     })
-        // }
-        // setUserData(false);
         setUser((prevState) => ({
             ...prevState,
             [name]: value
         }));
-    }
+    };
 
-    const updatedetails = async () => {
+    const updatedetails = async (e) => {
         try {
-            const response = await axios(`${URL}/api/updateuserdetails`, user, User, {
-                method: 'PATCH',
+            e.preventDefault();
+            setLoading(true);
+            const response = await axios.patch(`${URL}/api/updateuserdetails`, User, {
                 headers: {
-                    "Authorization": authorizationToken,
+                    Authorization: authorizationToken,
                     "Content-Type": "application/json"
-                },
-                body: JSON.stringify(User)
-            })
+                }
+            });
 
             if (response.status === 200) {
-                // await response.json()
-                console.log(response)
-                toast.success('Details Updated')
+                console.log(response);
+                toast.success('Details Updated');
             } else {
-                toast.error('Something went wrong, please try again')
+                toast.error('Something went wrong, please try again');
             }
         } catch (error) {
-            console.log(error)
+            console.log(error);
+            toast.error('Something went wrong, please try again');
+        } finally {
+            setLoading(false);
         }
-    }
+    };
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        updatedetails()
-    }
     return (
         <div className="profile-container">
             {/* Sidebar */}
@@ -79,42 +79,39 @@ const Profile = () => {
             <div className="main-content">
                 {/* Profile Form */}
                 <div className="profile-form">
-
-
-                    <form onSubmit={handleSubmit} className="form-contents">
+                    <form onSubmit={updatedetails} className="form-contents">
                         <div className="form-group">
-                            <label>First Name</label>
-                            <input onChange={handleChange} value={user.firstname} type="text" placeholder='John' />
-                        </div>
-
-                        <div className="form-group">
-                            <label>Last Name</label>
-                            <input onChange={handleChange} value={user.lastname} type="text" placeholder='Doe' />
+                            <label>Name</label>
+                            <input name="name" onChange={handleChange} value={User.name} type="text" placeholder='John Doe' />
                         </div>
 
                         <div className="form-group email-row">
                             <label>Email address</label>
-                            <input onChange={handleChange} value={user.email} type="email" placeholder='johndoe@example.com' />
+                            <input name="email" onChange={handleChange} value={User.email} type="email" placeholder='johndoe@example.com' />
                         </div>
 
                         <div className="form-group">
-                            <label>Email address</label>
-                            <input onChange={handleChange} value={user.phone} type="tel" placeholder='7498XXXX83' />
+                            <label>Mobile Number</label>
+                            <input name="phone" onChange={handleChange} value={User.phone} type="tel" placeholder='7498XXXX83' />
                         </div>
 
                         <div className="form-group">
-                            <label>Country</label>
-                            <input onChange={handleChange} value={user.city} type="text" placeholder='London' />
+                            <label>Address</label>
+                            <input name="address" onChange={handleChange} value={User.address} type="text" placeholder='4th Avenue, Cornelia Street' />
                         </div>
 
                         <div className="form-group">
                             <label>City</label>
-                            <input onChange={handleChange} value={user.country} type="text" placeholder='United Kingdom' />
+                            <input name="city" onChange={handleChange} value={User.city} type="text" placeholder='London' />
                         </div>
 
-                        <button className="btn-save">Save</button>
-                    </form>
+                        <div className="form-group">
+                            <label>Country</label>
+                            <input name="country" onChange={handleChange} value={User.country} type="text" placeholder='United Kingdom' />
+                        </div>
 
+                        <button type='submit' className="btn-save">{loading && <div className="loadingPie"></div>}Save</button>
+                    </form>
                 </div>
             </div>
         </div>

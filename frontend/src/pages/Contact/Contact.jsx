@@ -39,8 +39,6 @@ const Contact = () => {
             })
 
             if (contact.status === 200) {
-                await contact.json()
-
                 setFormData(formData)
                 setLoading(false)
                 toast.success("Form submitted, someone will contact you shortly")
@@ -54,7 +52,6 @@ const Contact = () => {
         } finally {
             setLoading(false)
         }
-        console.log(formData);
     };
 
     return (

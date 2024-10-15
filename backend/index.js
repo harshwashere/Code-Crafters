@@ -16,6 +16,7 @@ import scheduleRoute from "./routers/schedule-router.js";
 import contactRoute from "./routers/contact-router.js";
 import mealRoute from "./routers/meal-router.js";
 import seedRoute from "./routers/seed-router.js";
+import orderRoute from "./routers/order-router.js";
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
@@ -42,6 +43,8 @@ app.use("/api", route);
 app.use("/contact", contactRoute);
 
 app.use("/homeapi", homeDishRoute);
+
+app.use('/order', orderRoute)
 
 app.use("/menu", menuRoute);
 

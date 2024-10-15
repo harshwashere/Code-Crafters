@@ -1,10 +1,11 @@
 import express from "express";
 import { createOrder, getKey, verifyOrder } from "../controllers/payment-controller.js";
+import authMiddleware from "../middleware/authMiddleware.js";
 export const paymentRoute = express.Router();
 
 paymentRoute.route('/getkey').get(getKey)
 
-paymentRoute.route("/createOrder").post(createOrder);
+paymentRoute.route("/createOrder").post(authMiddleware,createOrder);
 
 paymentRoute.route("/verifyOrder").post(verifyOrder);
 

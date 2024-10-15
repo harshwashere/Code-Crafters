@@ -68,6 +68,7 @@ export const AllUsers = () => {
       toast.error("An error occurred while deleting the user.");
     }
   };
+console.log(user);
 
   return (
     <>
@@ -76,10 +77,10 @@ export const AllUsers = () => {
         <p>All user lists</p>
         <div className="user-table">
           <div className="user-table-format title">
-            <b>First Name</b>
-            <b>Last Name</b>
+            <b>Name</b>
             <b>Email</b>
             <b>Phone</b>
+            <b>Address</b>
             <b>City</b>
             <b>Country</b>
             <b>Action</b>
@@ -88,10 +89,10 @@ export const AllUsers = () => {
           {user.length > 0 ? (
             user.map((item, index) => (
               <div key={index} className="user-table-format">
-                <p>{item.firstname}</p>
                 <p>{item.name}</p>
                 <p>{item.email}</p>
                 <p>{item.phone}</p>
+                <p>{item.address}</p>
                 <p>{item.city}</p>
                 <p>{item.country}</p>
                 <p onClick={() => removeUser(item._id)} className="cursor">

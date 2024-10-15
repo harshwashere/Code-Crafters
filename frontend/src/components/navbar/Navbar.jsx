@@ -103,8 +103,8 @@ const Navbar = () => {
                       <NavLink to="/profile">My Profile</NavLink>
                     </div>
                     <hr className="list-line" />
-                    {/* <div className="list"><NavLink>Your Orders</NavLink></div>
-                  <hr className="list-line" /> */}
+                    <div className="list"><NavLink to="/order">Your Orders</NavLink></div>
+                    <hr className="list-line" />
                     <div className="list">
                       <NavLink to="/logout">
                         Log Out <TbLogout />

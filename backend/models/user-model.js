@@ -1,12 +1,9 @@
 import { Schema, model } from "mongoose";
 import jwt from "jsonwebtoken";
+import { type } from "os";
 
 const userModel = new Schema({
-  firstname: {
-    type: String,
-    default: "",
-  },
-  lastname: {
+  name: {
     type: String,
     default: "",
   },
@@ -22,6 +19,10 @@ const userModel = new Schema({
   photo: {
     type: String,
     default: "",
+  },
+  address: {
+    type: String,
+    default: ''
   },
   city: {
     type: String,
