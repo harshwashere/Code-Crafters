@@ -10,7 +10,6 @@ import { Footer } from '../../components/footer/Footer';
 const Order = () => {
     const [orders, setOrders] = useState([])
     const { authorizationToken, user } = useAuth()
-    console.log(orders);
 
     const getUserOrder = async () => {
         if (!user || !user?._id) {
