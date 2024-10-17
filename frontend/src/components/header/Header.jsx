@@ -22,13 +22,13 @@ const Header = () => {
             Now To Satisfy Your Hunger Pangs
           </p>
           <div className="orderNowGroup">
-            <NavLink><button className="orderNowBtn">Order Now</button></NavLink>
-            <button>
+            <NavLink to="/menu"><button className="orderNowBtn">Order Now</button></NavLink>
+            <NavLink to="/schedule"><button>
               Schedule a tiffin{" "}
               <i>
                 <FaArrowRight />
               </i>
-            </button>
+            </button></NavLink>
           </div>
         </div>
         <div className="headerImg">
