@@ -4,10 +4,13 @@ import { Navigate } from "react-router-dom"
 
 const Logout = () => {
     const { LogoutUser } = useAuth()
+    const ans = confirm('Do you want to logout?')
 
     useEffect(() => {
-        LogoutUser()
-    }, [LogoutUser])
+        if (ans === true) {
+            LogoutUser()
+        }
+    }, [LogoutUser, ans])
 
     return <Navigate to={"/signin"} />
 }

@@ -22,8 +22,14 @@ export const createOrder = async (req, res) => {
       totalPrice: totalPrice, // Use totalPrice directly from request body
     };
 
-    const newOrder = new Order(orderData);
-    await newOrder.save();
+    const newOrder = await Order.create({userId: userID,
+      name: userDetails.name, // Assuming userDetails contains name
+      email: userDetails.email, // Assuming userDetails contains email
+      phone: userDetails.phone, // Assuming userDetails contains phone
+      address: userDetails.address, // Assuming userDetails contains address
+      dishes: dishes, // Use the dishes array directly from request body
+      totalPrice: totalPrice, // Use totalPrice directly from request body
+      });
 
     // Optionally update user details if needed
     user.name = userDetails.name;
@@ -38,7 +44,7 @@ export const createOrder = async (req, res) => {
     }
 
     return res
-      .status(201)
+      .status(200)
       .json({ message: "Order created successfully", order: newOrder });
   } catch (error) {
     console.error("Order Creation Error:", error); // Log the error
@@ -50,17 +56,22 @@ export const createOrder = async (req, res) => {
 
 export const getUserOrders = async (req, res) => {
   try {
-    const { id } = req.params;
+      const { id } = req.params;
 
-    const order = await Order.findOne({ userId: id });
+      if (!id) {
+          return res.status(400).json({ message: "User ID is required." });
+      }
 
-    if (!order) {
-      return res.status(404).json({ message: "Dish not found", order });
-    }
+      const orders = await Order.find({ userId: id });
 
-    return res.status(200).json({ order });
+      if (!orders || orders.length === 0) {
+          return res.status(404).json({ message: "No orders found" });
+      }
+
+      return res.status(200).json({ orders });
   } catch (error) {
-    return res.status(500).json({ message: error });
+      console.error("Error fetching orders:", error);
+      return res.status(500).json({ message: "Internal server error", details: error.message });
   }
 };
 
@@ -68,7 +79,7 @@ export const getOrderByPaymentId = async (req, res) => {
   try {
     const { razorpay_payment_id } = req.params;
 
-    const order = await Order.findOne({ razorpay_payment_id });
+    const order = await Order.find({ razorpay_payment_id });
 
     if (!order) {
       return res.status(404).json({ message: "Dish not found", order });

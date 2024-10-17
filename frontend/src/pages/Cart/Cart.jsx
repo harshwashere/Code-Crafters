@@ -2,7 +2,6 @@ import { useContext, useState, useEffect } from "react";
 import { StoreContext } from "../../context/StoreContext";
 import Navbar from "../../components/navbar/Navbar";
 import "./cart.css";
-import "./cart.css";
 import { Footer } from "../../components/footer/Footer";
 import { FaTrashCan } from "react-icons/fa6";
 import axios from "axios";
@@ -13,6 +12,7 @@ import { toast } from "react-toastify";
 export const Cart = () => {
     const [visible1, setVisible1] = useState("grid");
     const [visible2, setVisible2] = useState("none");
+    const [submitted, setSubmitted] = useState(false);
 
     const [userDetails, setUserDetails] = useState({
         name: "",
@@ -21,10 +21,9 @@ export const Cart = () => {
         address: "",
     });
 
-    const { cartItems, Menu, removeFromCart, getTotalCartAmount } = useContext(StoreContext);
+    const { cartitems, Menu, removeFromCart, getTotalCartAmount } = useContext(StoreContext);
     const { user, authorizationToken } = useAuth();
 
-    // Populate form with user data when the component mounts
     useEffect(() => {
         if (user) {
             setUserDetails({
@@ -38,15 +37,17 @@ export const Cart = () => {
 
     const checkoutHandler = async (amount) => {
         const { data: { key } } = await axios.get(`${URL}/payment/getkey`);
-        
-        const response = await axios.post(`${URL}/payment/createOrder`, {
-            amount
-        }, {
-            headers: {
-                Authorization: authorizationToken,
-                "Content-Type": "application/json"
+
+        const response = await axios.post(
+            `${URL}/payment/createOrder`,
+            { amount },
+            {
+                headers: {
+                    Authorization: authorizationToken,
+                    "Content-Type": "application/json",
+                },
             }
-        });
+        );
 
         const options = {
             key,
@@ -71,14 +72,16 @@ export const Cart = () => {
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
+        setSubmitted(true);
+
         try {
             const orderData = {
                 userDetails,
-                dishes: Menu.filter(item => cartItems[item._id] > 0).map(item => ({
+                dishes: Menu.filter((item) => cartitems[item._id] > 0).map((item) => ({
                     dishName: item.name,
-                    quantity: cartItems[item._id],
+                    quantity: cartitems[item._id],
                     price: item.price,
-                    dishTotalPrice: item.price * cartItems[item._id],
+                    dishTotalPrice: item.price * cartitems[item._id],
                 })),
                 totalPrice: getTotalCartAmount() + 2, // Adding delivery fee
             };
@@ -90,9 +93,9 @@ export const Cart = () => {
                 },
             });
 
-            if (response.status === 201) {
-                toast.success("Your details have been submitted. Proceed to payment");
-            } else if (response.status === 400) {
+            if (response.status === 200) {
+                toast.success("Your details have been submitted. Proceed to payment.");
+            } else {
                 toast.error(response.data.message);
             }
         } catch (error) {
@@ -100,12 +103,12 @@ export const Cart = () => {
         }
     };
 
-    const visibility1 = () => {
-        setVisible1("flex");
+    const showCartSection = () => {
+        setVisible1("grid");
         setVisible2("none");
     };
 
-    const visibility2 = () => {
+    const showAddressSection = () => {
         setVisible2("flex");
         setVisible1("none");
     };
@@ -115,8 +118,8 @@ export const Cart = () => {
             <Navbar />
             <div className="cart">
                 <div className="tab">
-                    <div onClick={visibility1}><p>Your cart</p></div>
-                    <div onClick={visibility2}><p>Enter your address</p></div>
+                    <div onClick={showCartSection}><p>Your cart</p></div>
+                    <div onClick={showAddressSection}><p>Enter your address</p></div>
                 </div>
 
                 <div className="cart-items" style={{ display: visible1 }}>
@@ -128,12 +131,12 @@ export const Cart = () => {
                         <p>Remove</p>
                     </div>
                     <hr />
-                    {Menu.length > 0 ? (
+                    {cartitems ?
                         Menu.map((item, index) => {
-                            const quantity = cartItems[item._id] || 0;
+                            const quantity = cartitems[item._id] || 0;
                             if (quantity > 0) {
                                 return (
-                                    <div className="cart-items-title cart-items-item" key={index}>
+                                    <div className="cart-items-item" key={index}>
                                         <p>{item.name}</p>
                                         <p>₹{item.price}</p>
                                         <p>{quantity}</p>
@@ -150,10 +153,10 @@ export const Cart = () => {
                                     </div>
                                 );
                             }
-                        })
-                    ) : (
-                        <p>No items in Cart</p>
+                        }) : (
+                    <p>No items in Cart</p>
                     )}
+                    <button className="updateBtn" onClick={showAddressSection}>Update Address</button>
                 </div>
 
                 <div className="address-section" style={{ display: visible2 }}>
@@ -209,7 +212,7 @@ export const Cart = () => {
                             <div className="cart-summary-dish">
                                 {Menu.length > 0 ? (
                                     Menu.map((item, index) => {
-                                        const quantity = cartItems[item._id] || 0;
+                                        const quantity = cartitems[item._id] || 0;
                                         if (quantity > 0) {
                                             return (
                                                 <div className="dish-count" key={index}>
@@ -230,24 +233,18 @@ export const Cart = () => {
                                     <p>₹{getTotalCartAmount()}</p>
                                 </div>
                                 <hr />
-                                <div className="cart-total-details">
-                                    <p>Delivery Fee</p>
-                                    <p>₹2</p>
-                                </div>
-                                <hr />
-                                <div className="cart-total-details">
-                                    <b>Total</b>
-                                    <b>₹{getTotalCartAmount() + 2}</b>
-                                </div>
-                                <button onClick={() => checkoutHandler(getTotalCartAmount() + 2)}>
-                                    Proceed to checkout
+                                <h2>Total: ₹{getTotalCartAmount()}</h2>
+                                <button
+                                    onClick={() => checkoutHandler(getTotalCartAmount() + 2)}
+                                    disabled={!submitted}
+                                >
+                                    Proceed to Checkout
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <hr />
-              </div>
+            </div>
             <Footer />
         </>
     );

@@ -7,10 +7,11 @@
   --new-color: #ef7e6c;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@font-face {
+  font-family: "Optional";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Optional"), url("../../../public/static/fonts/Optional.otf") format("otf");
 }
 
 .navbar {
@@ -56,9 +57,9 @@
   width: 300px;
 }
 
-.nameTitle h1 {
+.nameTitle h1 a {
   width: 100%;
-  font-family: "Playwrite CU", cursive;
+  font-family: "Playwrite CU", sans-serif;
   font-weight: 500;
   color: var(--font-color);
 }
@@ -170,7 +171,7 @@ a {
   color: black;
   background: transparent;
   border: 2.5px solid var(--element-bg-color);
-  font-family: 'Playfair Display', sans-serif;
+  font-family: "Playfair Display", sans-serif;
 }
 
 .btnGroup button:hover {
@@ -200,7 +201,7 @@ a {
   height: 30px;
   border-radius: 50%;
   cursor: pointer;
-  color: var(--font-color );
+  color: var(--font-color);
 }
 
 .profile-icon svg {

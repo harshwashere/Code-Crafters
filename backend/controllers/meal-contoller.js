@@ -2,8 +2,15 @@ import mealModel from "../models/meal-model.js";
 
 // Helper function to generate meal schedule (UNCHANGED)
 const generateMealSchedule = async (userData) => {
-  const { mealType, startDate, mealsPerWeek, quantity, duration, mealPlans } =
-    userData;
+  const {
+    mealType,
+    startDate,
+    mealsPerWeek,
+    quantity,
+    duration,
+    mealPlans,
+    userId,
+  } = userData;
 
   const generatedSchedules = [];
 
@@ -31,9 +38,11 @@ const generateMealSchedule = async (userData) => {
       const mealIndex = i % meals.length; // Rotate through meals
 
       schedule.push({
+        userId,
         date: formattedDate,
         meal: meals[mealIndex],
         mealTime: mealTime, // Store whether it's lunch or dinner
+        quantity: quantity,
       });
     }
     return schedule;

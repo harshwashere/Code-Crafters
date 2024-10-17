@@ -15,23 +15,35 @@
 /* Popup Container */
 .popup-container {
   display: flex;
-  background: #fff; /* White background for right side */
-  border-radius: 20px; /* Softer rounded corners */
-  overflow: hidden; /* Prevent overflow */
-  width: 600px; /* Fixed width */
-  height: 500px; /* Fixed height */
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  max-width: 90vw; /* Allow the container to adjust to the viewport width */
+  max-height: 90vh; /* Ensure it doesn't exceed the viewport height */
+  width: 600px; /* Default width */
+  height: 500px; /* Default height */
+  overflow: hidden;
+  transform: scale(0.95);
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+
+.popup-container.show {
+  transform: scale(1); /* Smooth pop-up */
+  opacity: 1; /* Smooth fade-in */
 }
 
 /* Left Side */
 .popup-left {
-  background: #941cb3; /* Yellow background for left side */
+  background: #941cb3;
   padding: 20px;
-  width: 50%;
+  flex: 1; /* Ensure both left and right take up equal space */
+  color: #fff;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  color: #fff; /* White text */
+  align-items: center;
+  transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
 /* Avatar Placeholder */
@@ -46,9 +58,12 @@
 /* Right Side */
 .popup-right {
   padding: 20px;
-  width: 50%;
+  flex: 1; /* Ensure both left and right take up equal space */
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  position: relative;
+  transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
 /* Close Button */
@@ -104,6 +119,7 @@
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 /* Add hover effects */
@@ -138,10 +154,10 @@
 /* Animation Keyframes */
 @keyframes coverRight {
   0% {
-    width: 50%; /* Start width */
+    width: 50%;
   }
   100% {
-    width: 100%; /* End width */
+    width: 100%; /* Extend to cover full width */
   }
 }
 
@@ -153,11 +169,12 @@
 }
 
 .popup-left.covering + .popup-right {
-  opacity: 0; /* Fade out the right side */
-  pointer-events: none; /* Disable interactions */
-  transform: translateX(
-    20%
-  ); /* Slightly move out to add to the covering effect */
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(100%); /* Push fully off-screen */
+}
+.popup-left.covering + .popup-right {
+  width: 0; /* Collapse the right side during covering */
 }
 
 /* Firework Effect */
@@ -250,6 +267,7 @@
   font-weight: bold; /* Bold text */
   cursor: pointer; /* Pointer cursor on hover */
   transition: background-color 0.3s, transform 0.3s; /* Smooth transitions */
+  /* transition: background-color 0.3s ease; */
 }
 
 .proceed-button:hover {

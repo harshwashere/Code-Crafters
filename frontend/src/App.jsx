@@ -10,6 +10,7 @@ import { ScheduleSummary } from "./components/ScheduleSummary/ScheduleSummary";
 import Contact from "./pages/Contact/Contact";
 import Profile from "./pages/Profile/Profile";
 import { UserDetailsPopup } from "./pages/ScheduleCart/UserDetailsPopup";
+import Order from "./pages/OrderStatus/Order";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/scheduleSummary" element={<ScheduleSummary />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/order" element={<Order />} />
           <Route path="/ScheduleCart" element={<UserDetailsPopup />} />
         </Routes>
       </BrowserRouter>

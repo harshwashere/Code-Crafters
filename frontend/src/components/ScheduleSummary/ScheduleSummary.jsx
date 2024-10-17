@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import "./ScheduleSummary.css"; // Make sure to create a CSS file for styling
 import axios from "axios";
@@ -6,7 +5,7 @@ import Navbar from "../navbar/Navbar";
 import DateSelector from "../DateSelector/DateSelector";
 import MealCard from "../MealCard/MealCard";
 import { UserDetailsPopup } from "../../pages/ScheduleCart/UserDetailsPopup";
-import { URL } from "../../pages/helper/helper";
+import useAuth from "../../store/useAuth";
 
 export const ScheduleSummary = () => {
   const [summaryDetails, setSummaryDetails] = useState([]);
@@ -16,6 +15,7 @@ export const ScheduleSummary = () => {
   const [startDate, setStartDate] = useState("");
   const [mealsPerWeek, setmealsPerWeek] = useState("");
   const [showPopup, setShowPopup] = useState(false);
+  const { authorizationToken } = useAuth();
 
   const handleSubmitMeals = () => {
     setShowPopup(true); // Show the popup when meals are submitted
@@ -25,27 +25,20 @@ export const ScheduleSummary = () => {
     setShowPopup(false);
   };
 
-  const handleUserDetailsSubmit = (userDetails) => {
-    console.log("User Details Submitted:", userDetails);
-    // Here you can handle the submitted user details (e.g., send to server)
-    // axios.post('/api/userdetails', userDetails)...
-  };
-
   const getScheduleSummary = async () => {
     try {
       const token = localStorage.getItem("token");
-      // console.log(token);
       if (token) {
         const response = await axios.get(
-          `${URL}/scheduleapi/getScheduleData`,
+          "http://localhost:7000/scheduleapi/getScheduleData",
           {
             headers: {
               Authorization: token,
               "Content-Type": "application/json",
             },
           }
-        );// Log the response directly
-        // If you want to set summary details when the request is successful
+        );
+
         if (response.status === 200) {
           setSummaryDetails(response.data); // Assuming response.data has the required data
         }
@@ -63,13 +56,12 @@ export const ScheduleSummary = () => {
 
   const deleteSchedule = async (id) => {
     try {
-      const token = localStorage.getItem("token");
-      if (token) {
+      if (authorizationToken) {
         const response = await axios.delete(
-          `${URL}/scheduleapi/deleteSchedule/${id}`,
+          `http://localhost:7000/scheduleapi/deleteSchedule/${id}`,
           {
             headers: {
-              Authorization: token,
+              Authorization: authorizationToken,
               "Content-Type": "application/json",
             },
           }
@@ -115,6 +107,7 @@ export const ScheduleSummary = () => {
 
       // Prepare the payload to match the backend expected structure
       const payload = {
+        userId: schedule.userId,
         mealType: schedule.mealType, // Example: "Veg"
         startDate: schedule.startDate, // Example: "2024-10-15"
         mealsPerWeek: schedule.mealsPerWeek, // Example: "5-days"
@@ -125,14 +118,13 @@ export const ScheduleSummary = () => {
 
       // Send request for meal schedule
       const response = await axios.post(
-        `${URL}/api/schedule`,
+        "http://localhost:7000/api/schedule",
         payload
       );
 
       combinedMeals.push(...response.data); // Collect all meal responses
 
       // Update state with fetched meal data
-      // console.log("combinedMeals", combinedMeals);
       setMealData(combinedMeals);
       setStartDate(schedule.startDate);
       setmealsPerWeek(schedule.mealsPerWeek);
@@ -144,9 +136,33 @@ export const ScheduleSummary = () => {
     }
   };
 
+  const handleUserDetailsSubmit = async (userDetails) => {
+    console.log("userDetails", userDetails);
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.post(
+        `http://localhost:7000/api/meals/save`,
+        mealData,
+        {
+          headers: { Authorization: token },
+        }
+      );
+
+      if (response.status === 201) {
+        // alert("Meal and Details Save Successfully");
+        console.log("meal save successFully");
+      }
+    } catch (error) {
+      console.error(
+        "Error saving meal:",
+        error.response?.data || error.message
+      );
+      alert("Failed to save the meal.");
+    }
+  };
+
   const handleDateChange = (selectedDate) => {
     try {
-
       const validDate = new Date(selectedDate);
       if (isNaN(validDate)) throw new Error("Invalid date format");
 
@@ -158,11 +174,10 @@ export const ScheduleSummary = () => {
       const formattedDate = `${year}-${month}-${day}`;
 
       const filteredMeals = mealData.filter((meal) => {
-        // console.log("formattedDate", formattedDate);
-        // console.log(`Checking meal startDate: ${meal.date === formattedDate}`); // Log each meal's date
+        // Log each meal's date
         return meal.date === formattedDate;
       });
-      
+
       setSelectedDateMeals(filteredMeals);
     } catch (error) {
       console.error("Error handling date:", error.message);
@@ -254,7 +269,7 @@ export const ScheduleSummary = () => {
             <header>
               <h2>
                 Here is your
-                <span>Next Seven Days Of Chef-Curated Menu.</span>
+                <span> Next Seven Days Of Chef-Curated Menu.</span>
               </h2>
             </header>
             <DateSelector
@@ -274,13 +289,15 @@ export const ScheduleSummary = () => {
               <p>you have only selected Meals for {mealsPerWeek}</p>
             )}
             <button className="cta-button" onClick={handleSubmitMeals}>
-              Continue
+              Save & Continue
             </button>
 
             {showPopup && (
               <UserDetailsPopup
                 onClose={handlePopupClose}
                 onSubmit={handleUserDetailsSubmit}
+                summaryDetails={summaryDetails}
+                mealData={mealData}
               />
             )}
           </div>

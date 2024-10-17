@@ -13,13 +13,14 @@ export const AuthProvider = ({ children }) => {
   const [Deals, setDeals] = useState()
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState("");
+  // const [isLoggedIn, setIsloggedin] = useState(false)
   const authorizationToken = `Bearer ${token}`;
   const storeTokenInLS = (serverToken) => {
     setToken(serverToken);
     return localStorage.setItem("token", serverToken);
   };
-  
-  const isLoggedIn = !!token;
+
+  const isLoggedIn = !!token
   const LogoutUser = () => {
     setToken("");
     return localStorage.removeItem("token");
@@ -27,13 +28,15 @@ export const AuthProvider = ({ children }) => {
 
   const userAuthentication = async () => {
     try {
+      // 
       const response = await axios(`${URL}/api/user`, {
         method: 'GET',
         headers: {
-          "Authorization": authorizationToken,
+          Authorization: authorizationToken,
         },
       });
       if (response.status === 200) {
+        // setIsloggedin(true)
         setUser(response.data.userData);
       }
     } catch (error) {

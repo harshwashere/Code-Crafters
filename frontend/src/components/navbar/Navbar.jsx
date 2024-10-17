@@ -21,14 +21,14 @@ const Navbar = () => {
 
   const [visible3, setVisible3] = useState(true);
 
-  const { getTotalCartAmount, cartItems } = useContext(StoreContext);
+  const { getTotalCartAmount, cartitems } = useContext(StoreContext);
 
 
   function cartLength() {
-    if (Object.keys(cartItems).length === 0) {
+    if (Object.keys(cartitems).length === 0) {
       return <></>
     } else {
-      return Object.keys(cartItems).length
+      return Object.keys(cartitems).length
     }
   }
 
@@ -48,7 +48,7 @@ const Navbar = () => {
     <>
       <nav className="navbar">
         <div className="nameTitle">
-          <h1><NavLink to='/'>आई&apos;s Tiffin</NavLink></h1>
+          <h1><NavLink to='/'>आई❤️Tiffin</NavLink></h1>
         </div>
         <div className="mainBtn">
           <NavLink to="/menu">

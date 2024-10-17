@@ -41,7 +41,7 @@ const orderModel = new Schema({
         required: true,
       },
     },
-  ],
+  ], 
   totalPrice: {
     type: String,
     required: true,

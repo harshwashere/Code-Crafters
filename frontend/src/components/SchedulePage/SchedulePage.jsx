@@ -5,8 +5,7 @@ import Navbar from "../navbar/Navbar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { URL } from "../../pages/helper/helper";
-// import { ScheduleSummary } from "../ScheduleSummary/ScheduleSummary";
-// import axios from "axios";
+import useAuth from "../../store/useAuth";
 
 const SchedulePage = () => {
   const navigate = useNavigate(); // Initialize useNavigate
@@ -32,7 +31,7 @@ const SchedulePage = () => {
   const [startDate, setStartDate] = useState("");
   const [formError, setFormError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-
+  const { authorizationToken } = useAuth();
   const mealPlanPrices = {
     eco: 130,
     mini: 150,
@@ -228,13 +227,12 @@ const SchedulePage = () => {
     };
 
     try {
-      const token = localStorage.getItem("token");
       const response = await axios.post(
         `${URL}/scheduleapi/getSchedule`,
         formData,
         {
           headers: {
-            Authorization: token,
+            Authorization: authorizationToken,
           },
         }
       );
@@ -251,8 +249,6 @@ const SchedulePage = () => {
     }
   };
 
-  
-
   return (
     <>
       <Navbar />
@@ -260,13 +256,21 @@ const SchedulePage = () => {
         <div className="schedule-page">
           <div className="tiffin-header">
             <h1>Tiffin Service</h1>
-            <p>
-              Happy Grub delivers homely and healthy meals daily through our
-              tiffin services.
+            <p className="intro-text">
+              <span>आई❤️Tiffin</span> delivers homely and healthy meals daily
+              through our tiffin services.
             </p>
-            <p>For our users we also provide amazing deals.</p>
-            <p>1 week orders: 5% discount</p>
-            <p>1 month orders: 10% discount</p>
+            <p className="sub-text">
+              For our users, we also provide amazing deals.
+            </p>
+            <div className="discounts">
+              <p className="typed-text">
+                1 week orders: <span className="discount">5% discount</span>
+              </p>
+              <p className="typed-text">
+                1 month orders: <span className="discount">10% discount</span>
+              </p>
+            </div>
           </div>
 
           <form onSubmit={handleSubmit}>
@@ -281,7 +285,7 @@ const SchedulePage = () => {
                     selectedMealButton === "lunch" ? "selected" : ""
                   }`}
                 >
-                  <img src="https://www.happygrub.in/img/sun.png" alt="" />
+                  <img src="https://www.happygrub.in/img/sun.png" alt="Lunch" />
                   <span>Lunch</span>
                 </button>
                 <button
@@ -290,7 +294,10 @@ const SchedulePage = () => {
                     selectedMealButton === "dinner" ? "selected" : ""
                   }`}
                 >
-                  <img src="https://www.happygrub.in/img/moon.png" alt="" />
+                  <img
+                    src="https://www.happygrub.in/img/moon.png"
+                    alt="Dinner"
+                  />
                   <span>Dinner</span>
                 </button>
                 <button
@@ -299,7 +306,10 @@ const SchedulePage = () => {
                     selectedMealButton === "both" ? "selected" : ""
                   }`}
                 >
-                  <img src="https://www.happygrub.in/img/sun-moon.png" alt="" />
+                  <img
+                    src="https://www.happygrub.in/img/sun-moon.png"
+                    alt="Both"
+                  />
                   <span>Both</span>
                 </button>
               </div>
@@ -379,7 +389,7 @@ const SchedulePage = () => {
                         />
                         <span>Mini</span>
                       </button>
-                      <p>₹150 -/per day</p>
+                      <p>₹150</p>
 
                       <button
                         onClick={() => handleMealPlan("lunch", "executive")}

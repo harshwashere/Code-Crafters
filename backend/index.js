@@ -16,6 +16,8 @@ import scheduleRoute from "./routers/schedule-router.js";
 import contactRoute from "./routers/contact-router.js";
 import mealRoute from "./routers/meal-router.js";
 import orderRoute from "./routers/order-router.js";
+import userMealsRouter from "./routers/userMeals-router.js";
+import ScheduleOrder from "./models/schedule-order-model.js";
 
 dotenv.config();
 const app = express();
@@ -23,7 +25,12 @@ const PORT = process.env.PORT;
 connect();
 
 const corsOptions = {
-  origin: ["https://code-crafters-seven.vercel.app", "https://aai-loves-tiffin-admin.vercel.app", "http://localhost:5173", "http://localhost:5174"],
+  origin: [
+    "https://code-crafters-seven.vercel.app",
+    "https://aai-loves-tiffin-admin.vercel.app",
+    "http://localhost:5173",
+    "http://localhost:5174",
+  ],
   // https://code-crafters-seven.vercel.app            https://aai-loves-tiffin-admin.vercel.app
   method: "GET, POST, PUT, DELETE, PATCH, HEAD",
   credential: true,
@@ -34,17 +41,18 @@ app.set("view engine", "ejs");
 
 app.use(express.json());
 
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", route);
+app.use(express.raw());
 
 app.use("/contact", contactRoute);
 
 app.use("/homeapi", homeDishRoute);
 
-app.use('/order', orderRoute)
+app.use("/order", orderRoute);
 
 app.use("/menu", menuRoute);
 
@@ -55,6 +63,10 @@ app.use("/payment", paymentRoute);
 app.use("/scheduleapi", scheduleRoute);
 
 app.use("/api", mealRoute);
+
+app.use("/api/meals", userMealsRouter);
+
+app.use("/scheduleorder", scheduleRoute);
 
 app.get("/", (req, res) => {
   res.send(

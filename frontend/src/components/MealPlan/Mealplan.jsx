@@ -63,7 +63,7 @@ const Mealplan = () => {
         <div className="ourMealTitle">
           <div className="mealTitleHead">
             <h1>
-              Our <span>Meal</span> Plan
+              Our <span>Quick</span> Menu
             </h1>
             <p>
               Preparations to temperature controlled packaging and

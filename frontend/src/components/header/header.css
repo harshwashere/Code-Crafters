@@ -4,13 +4,6 @@
   --name-color: #276113;
   --order-button: #84bd99;
 }
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 .header {
   display: flex;
   align-items: center;
@@ -63,8 +56,10 @@
 
 .div1header .orderNowBtn {
   margin-right: 10px;
-  background-color: var(--order-button );
-  padding: 10px 20px;
+  background-color: var(--element-bg-color);
+  padding: 12px 30px;
+  border: none;
+  color: white;
 }
 
 .div1header button {
@@ -73,7 +68,7 @@
   padding: 10px 20px;
   border-radius: 50px;
   font-family: "Abhaya Libre", serif;
-  font-size: 600;
+  font-size: 16px;
   letter-spacing: 1px;
   border: 1.9px solid var(--border-color);
   background: transparent;

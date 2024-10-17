@@ -71,7 +71,7 @@ export const Signin = () => {
 
       if (verifyData.ok) {
         const otpVerify = await verifyData.json()
-
+        
         storeTokenInLS(otpVerify.token)
         setUser({ otps: otp })
 

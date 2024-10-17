@@ -1,6 +1,4 @@
 .order-modification-container {
-  width: 50%;
-  margin: 0 auto;
   font-family: Arial, sans-serif;
   text-align: center;
 }
@@ -16,25 +14,28 @@
 }
 
 .order-table {
-  width: 100%;
-  height: 100%;
+  width: max(8cm, 100%);
   border-collapse: collapse;
   margin-bottom: 20px;
 }
 
 .order-table th,
 .order-table td {
-  padding: 12px;
+  padding: 15px;
   border: 1px solid #ddd;
-  text-align: left;
+  text-align: center; /* Center-aligns content */
+  word-wrap: break-word; /* Handles long text wrapping */
+  overflow: scroll;
 }
 
 .order-table th {
   background-color: #f4f4f4;
+  font-weight: bold;
+  font-size: 16px;
 }
 
 .input-field {
-  width: 60px;
+  width: 100%;
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -43,12 +44,13 @@
 
 .modify-button,
 .payment-button {
-  padding: 8px 15px;
+  padding: 10px 20px;
   background-color: #28a745;
   border: none;
   color: white;
   cursor: pointer;
   border-radius: 4px;
+  transition: background-color 0.3s;
 }
 
 .modify-button:hover,

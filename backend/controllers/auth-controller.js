@@ -100,28 +100,30 @@ export const googleLogin = async (req, res) => {
     let userEmail = req.user.emails[0].value;
     let userphoto = req.user.photos[0].value;
 
-    let existingUser = await User.findOne({ email: userEmail });
+    let user = await User.findOne({ email: userEmail });
 
-    if (existingUser) {
+    if (!user) {
       // If the user exists, log them in and generate a token
       // return res.status(200).json({
       //   msg: "Login Successful with Google",
       //   token: await existingUser.generateToken(),
       //   userId: existingUser._id.toString(),
       // });
-      res.redirect("https://code-crafters-seven.vercel.app");
+
+       user = await User.create({
+        name: fullName,
+        email: userEmail,
+        photo: userphoto,
+        phone: null,
+        otp: undefined,
+        verified: req.user.emails[0].verified,
+      });
     }
+    const generatetoken = await user.generateToken();
 
-    const newUser = await User.create({
-      name: fullName,
-      email: userEmail,
-      photo: userphoto,
-      phone: null,
-      otp: undefined,
-      verified: req.user.emails[0].verified,
+    res.cookie("token", generatetoken, {
+      maxAge: 24 * 60 * 60 * 1000,
     });
-
-    res.cookie({ token: await newUser.generateToken() });
 
     // res.status(200).send({
     //   msg: "Login Successful with Google",
@@ -129,7 +131,7 @@ export const googleLogin = async (req, res) => {
     //   userId: newUser._id.toString(),
     // });
 
-    res.redirect("https://code-crafters-seven.vercel.app");
+    res.redirect("http://localhost:5173?token=" + generatetoken);
   } catch (error) {
     console.log(error);
   }

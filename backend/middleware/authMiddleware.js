@@ -20,7 +20,7 @@ const authMiddleware = async (req, res, next) => {
 
     // Verify user from the decoded email
     const userData = await User.findOne({ email: decoded.email }).select({
-      password: 0,
+      otp: 0,
     });
 
     if (!userData) {
