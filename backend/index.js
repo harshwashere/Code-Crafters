@@ -17,7 +17,6 @@ import contactRoute from "./routers/contact-router.js";
 import mealRoute from "./routers/meal-router.js";
 import orderRoute from "./routers/order-router.js";
 import userMealsRouter from "./routers/userMeals-router.js";
-import ScheduleOrder from "./models/schedule-order-model.js";
 
 dotenv.config();
 const app = express();
@@ -28,11 +27,9 @@ const corsOptions = {
   origin: [
     "https://code-crafters-seven.vercel.app",
     "https://aai-loves-tiffin-admin.vercel.app",
-    "http://localhost:5173",
-    "http://localhost:5174",
   ],
   // https://code-crafters-seven.vercel.app            https://aai-loves-tiffin-admin.vercel.app
-  method: "GET, POST, PUT, DELETE, PATCH, HEAD",
+  method: ["GET, POST, PUT, DELETE, PATCH, HEAD"],
   credential: true,
 };
 app.use(cors(corsOptions));
@@ -41,7 +38,7 @@ app.set("view engine", "ejs");
 
 app.use(express.json());
 
-// app.use(bodyParser.json());
+app.use(bodyParser.json());
 
 app.use(express.urlencoded({ extended: true }));
 
