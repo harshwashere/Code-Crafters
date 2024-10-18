@@ -4,7 +4,7 @@ import crypto from "crypto";
 import Payment from "../models/payment-model.js";
 import ScheduleOrder from "../models/schedule-order-model.js";
 
-const URL = "http://localhost:5173";
+const URL = "https://code-crafters-seven.vercel.app";
 // https://code-crafters-seven.vercel.app
 
 export const getKey = (req, res) => {
