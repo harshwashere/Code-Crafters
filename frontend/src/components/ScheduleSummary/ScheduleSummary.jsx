@@ -6,6 +6,7 @@ import DateSelector from "../DateSelector/DateSelector";
 import MealCard from "../MealCard/MealCard";
 import { UserDetailsPopup } from "../../pages/ScheduleCart/UserDetailsPopup";
 import useAuth from "../../store/useAuth";
+import { URL } from "../../pages/helper/helper";
 
 export const ScheduleSummary = () => {
   const [summaryDetails, setSummaryDetails] = useState([]);
@@ -30,7 +31,7 @@ export const ScheduleSummary = () => {
       const token = localStorage.getItem("token");
       if (token) {
         const response = await axios.get(
-          "http://localhost:7000/scheduleapi/getScheduleData",
+          `${URL}/scheduleapi/getScheduleData`,
           {
             headers: {
               Authorization: token,
@@ -58,7 +59,7 @@ export const ScheduleSummary = () => {
     try {
       if (authorizationToken) {
         const response = await axios.delete(
-          `http://localhost:7000/scheduleapi/deleteSchedule/${id}`,
+          `${URL}/scheduleapi/deleteSchedule/${id}`,
           {
             headers: {
               Authorization: authorizationToken,
@@ -118,7 +119,7 @@ export const ScheduleSummary = () => {
 
       // Send request for meal schedule
       const response = await axios.post(
-        "http://localhost:7000/api/schedule",
+        `${URL}/api/schedule`,
         payload
       );
 
@@ -141,7 +142,7 @@ export const ScheduleSummary = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        `http://localhost:7000/api/meals/save`,
+        `${URL}/api/meals/save`,
         mealData,
         {
           headers: { Authorization: token },
