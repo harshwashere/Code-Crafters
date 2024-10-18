@@ -29,7 +29,7 @@ const Team = () => {
     <div className="about-us-container">
       <h2 className="animate-heading">
         About Our Team
-        <span className="heading-underline"></span> {/* Light below the heading */}
+        <span className="heading-underline-team"></span> {/* Light below the heading */}
       </h2>
       <div className="about-us-content">
         <img

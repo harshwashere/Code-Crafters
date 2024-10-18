@@ -5,8 +5,8 @@
   justify-content: center;
   text-align: center;
   padding: 20px;
-  background-color: #d2e3d0; 
-  min-height: 100vh; 
+  background-color: var(--element-bg-color);
+  min-height: 100vh;
 }
 
 .about-us-content {
@@ -18,6 +18,7 @@
   width: 100%;
   max-width: 1200px;
   margin-top: 20px;
+  position: relative;
 }
 
 .about-us-image {
@@ -27,14 +28,14 @@
   margin-right: 40px;
   margin-top: 20px;
   opacity: 0;
-  border: 3px solid rgb(205, 86, 47);
+  border: 4px solid var(--border-color);
 }
 
 .team-description {
   max-width: 600px;
   font-family: Arial, sans-serif;
   opacity: 0;
-  margin-left: 5%;
+  color: var(--font-color);
 }
 
 @keyframes fadeIn {
@@ -56,20 +57,26 @@
   text-align: center;
   font-size: 30px;
   width: 100%;
+  color: var(--font-color);
   position: relative;
 }
 
-.heading-underline {
+.heading-underline-team {
   display: block;
   height: 5px;
-  width: 80%; 
+  width: 80%;
   margin: 0 auto;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgb(196, 77, 77) 60%, rgba(255, 255, 255, 0) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    var(--font-color) 60%,
+    rgba(255, 255, 255, 0) 100%
+  );
   border-radius: 10px;
   opacity: 0;
   position: absolute;
   bottom: -20px;
-  left: 10%; 
+  left: 10%;
   animation: glow 1s ease-out forwards;
   animation-delay: 1s;
 }
@@ -81,7 +88,7 @@
   }
   100% {
     opacity: 1;
-    width: 80%; 
+    width: 80%;
   }
 }
 
@@ -97,7 +104,7 @@
 
 .animate-paragraph {
   opacity: 1;
-  font-size: 1.1rem;
+  font-size: 1.4rem;
   line-height: 1.6;
 }
 
@@ -124,7 +131,7 @@
     font-size: 24px;
   }
 
-  .heading-underline {
+  .heading-underline-team {
     width: 60%;
   }
 }
@@ -147,7 +154,7 @@
     font-size: 22px;
   }
 
-  .heading-underline {
+  .heading-underline-team {
     width: 50%;
   }
 }
@@ -171,7 +178,7 @@
     font-size: 18px;
   }
 
-  .heading-underline {
+  .heading-underline-team {
     width: 40%;
   }
 }

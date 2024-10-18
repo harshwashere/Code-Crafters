@@ -6,7 +6,7 @@ export const Chef = () => {
       <div className="chefSection">
         <div className="chefTitle">
           <h1>OUR SPECIAL CHEF&apos;S
-            <span className="heading-underline"></span>
+            <span className="heading-underline-chef"></span>
           </h1>
           <p>
             Featured below are some of our special chefs who work
