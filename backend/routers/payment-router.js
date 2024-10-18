@@ -15,4 +15,4 @@ paymentRoute.route("/payment-success").post((req, res) => {
 
 paymentRoute.route('/scheduleCreateOrder').post(authMiddleware, createScheduleOrder)
 
-paymentRoute.route('/scheduleVerifyOrder').post(authMiddleware, scheduleVerifyOrder)
+paymentRoute.route('/scheduleVerifyOrder').post(scheduleVerifyOrder)

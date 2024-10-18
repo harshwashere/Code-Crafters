@@ -4,7 +4,7 @@ import crypto from "crypto";
 import Payment from "../models/payment-model.js";
 import ScheduleOrder from "../models/schedule-order-model.js";
 
-const URL = "https://code-crafters-seven.vercel.app";
+const URL = "http://localhost:5173";
 // https://code-crafters-seven.vercel.app
 
 export const getKey = (req, res) => {
@@ -14,7 +14,7 @@ export const getKey = (req, res) => {
 export const createOrder = async (req, res) => {
   try {
     const { amount } = req.body;
-
+    console.log(req);
     const userId = req.userID;
 
     const options = {
@@ -22,7 +22,7 @@ export const createOrder = async (req, res) => {
       currency: "INR",
     };
 
-    const userOrder = await Order.findOne({ userId });
+    let userOrder = await Order.findOne({ userId });
     const order = await razorpay.orders.create(options);
     userOrder._id;
     userOrder.order_id = order.id;
@@ -31,6 +31,9 @@ export const createOrder = async (req, res) => {
     userOrder.amount = order.amount;
     userOrder.amount_paid = order.amount_paid;
     userOrder.amount_due = order.amount_due;
+    userOrder._doc = removeDuplicateKeys(userOrder._doc); // _doc contains the actual document data in Mongoose
+
+    console.log(userOrder);
     await userOrder.save();
 
     return res.status(200).json({ order });
@@ -40,6 +43,21 @@ export const createOrder = async (req, res) => {
   }
 };
 
+// Function to remove duplicate keys
+function removeDuplicateKeys(obj) {
+  // Create a new object to store unique keys
+  const uniqueObj = {};
+
+  // Loop through the keys of the original object
+  Object.keys(obj).forEach((key) => {
+    // If the key does not exist yet in the unique object, add it
+    if (!uniqueObj.hasOwnProperty(key)) {
+      uniqueObj[key] = obj[key];
+    }
+  });
+
+  return uniqueObj;
+}
 export const verifyOrder = async (req, res) => {
   try {
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
@@ -132,15 +150,15 @@ export const scheduleVerifyOrder = async (req, res) => {
   try {
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
       req.body;
-
+    console.log(razorpay_order_id, razorpay_payment_id, razorpay_signature);
     const signature = razorpay_order_id + "|" + razorpay_payment_id;
     const isVerifiedSignature = crypto
       .createHmac("sha256", process.env.KEYSECRET)
       .update(signature.toString())
       .digest("hex");
-
+    console.log(isVerifiedSignature, "isVerifiedSignature");
     const isAuthentic = isVerifiedSignature === razorpay_signature;
-
+    console.log(isAuthentic, "isAuthentic");
     if (isAuthentic) {
       await Payment.create({
         razorpay_order_id,
