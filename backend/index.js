@@ -25,7 +25,7 @@ connect();
 
 const corsOptions = {
   origin: [
-    "https://code-crafters-seven.vercel.app",
+    "https://aai-loves-tiffin.vercel.app",
     "https://aai-loves-tiffin-admin.vercel.app",
   ],
   // https://code-crafters-seven.vercel.app            https://aai-loves-tiffin-admin.vercel.app
